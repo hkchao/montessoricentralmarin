@@ -46,7 +46,7 @@ export function SectionHeading({
   const center = align === "center";
   return (
     <div className={`${center ? "mx-auto text-center" : ""} max-w-2xl ${className}`}>
-      {kicker && <p className={`kicker ${tone === "dark" ? "text-sage" : "text-sun"}`}>{kicker}</p>}
+      {kicker && <p className={`kicker ${tone === "dark" ? "text-sun-deep" : "text-sun"}`}>{kicker}</p>}
       <Tag
         className={`font-display mt-3 text-3xl font-medium text-balance leading-[1.08] sm:text-4xl ${
           tone === "dark" ? "text-navy" : "text-white"

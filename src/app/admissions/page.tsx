@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
-import { CtaBand } from "@/components/CtaBand";
 import { ArrowIcon, ButtonLink } from "@/components/Button";
 import { admissionSteps, docs, primaryCta, site } from "@/lib/site";
 
@@ -14,8 +14,18 @@ export const metadata: Metadata = {
 function DocIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="size-5 shrink-0 text-sage">
-      <path d="M5.5 2.5h6l3 3v11a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M11.5 2.5v3h3M7.5 10h5M7.5 13h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M5.5 2.5h6l3 3v11a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M11.5 2.5v3h3M7.5 10h5M7.5 13h5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -32,7 +42,6 @@ export default function AdmissionsPage() {
         image={{
           src: "/images/hero-entry.png",
           alt: "A row of small wooden cubbies holding children's backpacks",
-          // Focal: the cubbies with backpacks, right of center.
           focal: "70% 45%",
         }}
       />
@@ -53,10 +62,23 @@ export default function AdmissionsPage() {
                 {site.phone}
               </ButtonLink>
             </div>
+            <div className="relative mt-10 aspect-[4/3] overflow-hidden rounded-2xl">
+              <Image
+                src="/images/gallery-guide-and-child.jpg"
+                alt="A teacher and child working together in the classroom"
+                fill
+                quality={90}
+                sizes="(min-width: 1024px) 35vw, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
           <ol className="lg:col-span-7">
             {admissionSteps.map((s, i) => (
-              <li key={s.title} className="grid grid-cols-[3rem_1fr] gap-4 border-b border-line py-6 first:pt-0">
+              <li
+                key={s.title}
+                className="grid grid-cols-[3rem_1fr] gap-4 border-b border-line py-6 first:pt-0"
+              >
                 <span className="font-display flex size-12 items-center justify-center rounded-full bg-navy-tint text-xl font-semibold text-navy">
                   {i + 1}
                 </span>
@@ -71,33 +93,43 @@ export default function AdmissionsPage() {
       </Section>
 
       <Section id="tuition">
-        <SectionHeading kicker="Tuition & fees" title="How tuition works" />
-        <div className="mt-10 grid gap-8 md:grid-cols-3">
+        <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-7">
+            <SectionHeading
+              kicker="Tuition"
+              title="Tuition and sibling discount"
+              lede="Nine monthly payments. Families with more than one child enrolled receive 10% off the oldest child&rsquo;s tuition."
+            />
+          </div>
+          <div className="lg:col-span-5 lg:justify-self-end">
+            <ButtonLink href={docs.tuition.href} variant="navy" size="lg">
+              Download 2026–27 tuition (PDF)
+            </ButtonLink>
+          </div>
+        </div>
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
           <div className="border-t-2 border-navy pt-5">
             <h3 className="font-display text-2xl font-medium text-navy">Payment schedule</h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              Nine monthly payments, September 1 through May 1. The $500 enrollment deposit
-              is due before the first day and is applied to the last payment.
+              September 1 through May 1. The $500 enrollment deposit is due before the first
+              day and is applied to the last payment.
             </p>
           </div>
           <div className="border-t-2 border-navy pt-5">
             <h3 className="font-display text-2xl font-medium text-navy">Sibling discount</h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              Families with more than one child enrolled receive{" "}
-              <strong className="text-navy">10% off</strong> the oldest child&rsquo;s tuition.
+              <strong className="text-navy">10% off</strong> the oldest child&rsquo;s tuition when
+              more than one child is enrolled.
             </p>
           </div>
           <div className="border-t-2 border-navy pt-5">
             <h3 className="font-display text-2xl font-medium text-navy">Summer school</h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              Summer tuition is separate (June, July, and August). See the tuition sheet
-              for rates.
+              Summer tuition is separate (June, July, and August). Rates are on the tuition
+              sheet.
             </p>
           </div>
         </div>
-        <ButtonLink href={docs.tuition.href} variant="navy" className="mt-10">
-          Download 2026–27 tuition (PDF)
-        </ButtonLink>
       </Section>
 
       <Section tone="white" id="downloads">
@@ -123,48 +155,15 @@ export default function AdmissionsPage() {
                 >
                   <DocIcon />
                   <span className="flex-1 font-semibold text-navy">{d.label}</span>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-muted">PDF</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+                    PDF
+                  </span>
                 </a>
               </li>
             ))}
           </ul>
         </div>
       </Section>
-
-      <Section tone="sand" id="fun-lunch">
-        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-6">
-            <SectionHeading kicker="Fridays" title="Fun Lunch" />
-            <div className="prose-school mt-5 max-w-xl text-[1.0625rem] text-ink/85">
-              <p>
-                During the school year, Friday lunch alternates pizza and pesto pasta, with
-                vegetables, fruit, and juice or milk. Children cook the meal in class.{" "}
-                <strong>$7</strong> per meal.
-              </p>
-            </div>
-          </div>
-          <div className="lg:col-span-6">
-            <dl className="grid grid-cols-2 gap-4">
-              <div className="rounded-2xl bg-white p-6">
-                <dt className="kicker text-sage">When</dt>
-                <dd className="font-display mt-2 text-2xl font-medium text-navy">Fridays</dd>
-              </div>
-              <div className="rounded-2xl bg-white p-6">
-                <dt className="kicker text-sage">Cost</dt>
-                <dd className="font-display mt-2 text-2xl font-medium text-navy">$7 / meal</dd>
-              </div>
-              <div className="col-span-2 rounded-2xl bg-white p-6">
-                <dt className="kicker text-sage">Menu</dt>
-                <dd className="mt-2 text-[1rem] text-ink/85">
-                  Pizza or pesto pasta (alternating) · fresh vegetables & fruit · juice or milk
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </Section>
-
-      <CtaBand title="Schedule a tour" lede="A tour is the first step." />
     </>
   );
 }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
-import { CtaBand } from "@/components/CtaBand";
 import { curriculum } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -43,12 +42,12 @@ export default function CurriculumPage() {
             </div>
           </div>
           <nav aria-label="Curriculum areas" className="lg:col-span-5">
-            <p className="kicker text-sage">Jump to</p>
+            <p className="kicker text-sun-deep">Jump to</p>
             <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2">
               {curriculum.map((c, i) => (
                 <li key={c.id}>
                   <a href={`#${c.id}`} className="inline-flex items-baseline gap-2 py-1 font-semibold text-navy underline-offset-4 hover:underline">
-                    <span className="kicker text-[0.65rem] text-sage">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="kicker text-[0.65rem] text-sun-deep">{String(i + 1).padStart(2, "0")}</span>
                     {c.name}
                   </a>
                 </li>
@@ -73,7 +72,7 @@ export default function CurriculumPage() {
                 />
               </div>
               <div className={`lg:col-span-7 ${flip ? "lg:order-1" : ""}`}>
-                <p className="kicker text-sage">{String(i + 1).padStart(2, "0")}</p>
+                <p className="kicker text-sun-deep">{String(i + 1).padStart(2, "0")}</p>
                 <h2 className="font-display mt-3 text-3xl font-medium leading-[1.1] text-navy sm:text-4xl">{c.name}</h2>
                 <div className="prose-school mt-5 max-w-2xl text-[1.0625rem] text-ink/85">
                   {c.body.map((p) => (
@@ -85,11 +84,6 @@ export default function CurriculumPage() {
           </Section>
         );
       })}
-
-      <CtaBand
-        title="See the classroom"
-        lede="Visit during the morning work period."
-      />
     </>
   );
 }

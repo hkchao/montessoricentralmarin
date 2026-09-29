@@ -16,9 +16,9 @@ npm run start
 | Path | What |
 | --- | --- |
 | `src/lib/site.ts` | **All site content in one place**: contact info, hours, nav, events, programs, curriculum, enrichment, gallery, admissions steps, PDF links. Edit copy here. |
-| `src/app/` | Routes: `/`, `/our-school`, `/programs`, `/curriculum`, `/admissions`, `/contact`, plus `sitemap.xml`, `robots.txt`, favicon (`icon.jpg`). |
+| `src/app/` | Routes: `/`, `/about`, `/programs`, `/events`, `/curriculum` (linked, not in main nav), `/admissions`, `/contact`, plus `sitemap.xml`, `robots.txt`, favicon (`icon.jpg`). `/our-school` redirects to `/about`. |
 | `src/components/PageHero.tsx` | Shared banner frame: content-hugging height, left-justified type with a matching gradient, focal-point `object-position`, media plane capped at 1600px with navy fill beyond. |
-| `src/components/` | Header (sticky, mobile menu), footer, sticky mobile call/map/tour bar, tour request form, event list, CTA band. |
+| `src/components/` | Header (sticky, mobile menu), footer, sticky mobile call/map/tour bar, tour request form, event list. |
 | `src/app/globals.css` | Brand tokens (navy, sun gold, sage, cream), fonts (Fraunces + Figtree), two motions (hero rise-in, scroll reveal). |
 | `public/brand/` | Original school logo, AMS logo, Pacific Sun Best of Marin 2026 badge. |
 | `public/images/` | Photos. `hero-children-original.jpg` is the original 775px hero; `hero-children-wide.png` is the AI-extended version used on the home page. `hero-*.png` interior banners are AI-generated Montessori environment images (no people). Classroom gallery JPGs are AI-restored from the school's original photos. |
