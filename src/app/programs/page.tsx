@@ -101,7 +101,7 @@ export default function ProgramsPage() {
         </div>
       </Section>
 
-      <Section>
+      <Section id="day">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHeading kicker="Schedule" title="A typical day" />

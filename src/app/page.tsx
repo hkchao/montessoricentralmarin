@@ -176,7 +176,7 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <ButtonLink href="/programs#curriculum" variant="ghost" className="mt-8">
+            <ButtonLink href="/programs#day" variant="ghost" className="mt-8">
               See how the day works <ArrowIcon />
             </ButtonLink>
           </div>
