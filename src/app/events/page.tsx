@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { EventList } from "@/components/EventList";
-import { ArrowIcon, ButtonLink } from "@/components/Button";
+import { ButtonLink } from "@/components/Button";
 import { docs } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -52,23 +52,6 @@ export default function EventsPage() {
               </p>
             </div>
           </aside>
-        </div>
-      </Section>
-
-      <Section>
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-xl">
-            <p className="kicker text-sun-deep">Programs</p>
-            <h2 className="font-display mt-2 text-2xl font-medium text-navy sm:text-3xl">
-              Looking for hours and days?
-            </h2>
-            <p className="mt-2 text-[1rem] leading-relaxed text-muted">
-              School Day, Day Care, partial week, summer, and enrichment live on Programs.
-            </p>
-          </div>
-          <ButtonLink href="/programs" variant="ghost" className="shrink-0">
-            View programs <ArrowIcon />
-          </ButtonLink>
         </div>
       </Section>
     </>

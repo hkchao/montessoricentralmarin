@@ -4,7 +4,7 @@ import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { TourForm } from "@/components/TourForm";
 import { ButtonLink } from "@/components/Button";
-import { docs, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -109,28 +109,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      <Section tone="white">
-        <div className="flex flex-col gap-6 rounded-3xl bg-navy-tint p-8 md:flex-row md:items-center md:justify-between md:p-10">
-          <div>
-            <p className="kicker text-sun-deep">Calendar</p>
-            <h2 className="font-display mt-2 text-2xl font-medium text-navy">
-              Upcoming dates and closures
-            </h2>
-            <p className="mt-2 max-w-xl text-[1rem] leading-relaxed text-muted">
-              Parent nights, holidays, and the full school year live on Events.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/events" variant="navy">
-              View events
-            </ButtonLink>
-            <ButtonLink href={docs.calendar.href} variant="ghost">
-              Calendar (PDF)
-            </ButtonLink>
-          </div>
-        </div>
-      </Section>
     </>
   );
 }
