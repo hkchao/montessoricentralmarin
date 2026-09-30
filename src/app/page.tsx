@@ -11,8 +11,14 @@ export default function HomePage() {
       <PageHero
         size="home"
         kicker="San Rafael, CA"
-        title="Montessori for ages 2–6"
-        lede="Bilingual English and Spanish. School day, full day, and summer. AMS affiliate since 1974."
+        title="Montessori School of Central Marin"
+        lede={
+          <>
+            Bilingual English and Spanish for ages 2–6.
+            <br />
+            School day, full day, and summer. AMS affiliate since 1974.
+          </>
+        }
         actions={
           <>
             <ButtonLink href={primaryCta.href} size="lg">

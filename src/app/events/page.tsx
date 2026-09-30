@@ -15,8 +15,7 @@ export default function EventsPage() {
   return (
     <>
       <PageHero
-        kicker="Events"
-        title="News and the school year"
+        title="Upcoming Events"
         lede="Parent nights, closures, and celebrations — plus the full calendar PDF."
         image={{
           src: "/images/gallery-garden-lemon-tree.jpg",

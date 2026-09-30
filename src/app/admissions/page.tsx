@@ -36,8 +36,7 @@ export default function AdmissionsPage() {
   return (
     <>
       <PageHero
-        kicker="Admissions"
-        title="How to apply"
+        title="Admissions"
         lede="Ages 2–6. Tour first. Places are first come, first served."
         image={{
           src: "/images/hero-entry.png",
@@ -51,7 +50,7 @@ export default function AdmissionsPage() {
           <div className="lg:col-span-5">
             <SectionHeading
               kicker="The process"
-              title="The steps"
+              title="Take the first step"
               lede="Five steps from tour to first day."
             />
             <div className="mt-8 flex flex-wrap gap-3">

@@ -14,8 +14,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        kicker="About"
-        title="Bilingual Montessori in San Rafael"
+        title="About Montessori of Central Marin"
         lede="English and Spanish. Ages 2–6. Serving Marin families since 1974."
         image={{
           src: "/images/hero-garden.png",
@@ -27,7 +26,7 @@ export default function AboutPage() {
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
-            <SectionHeading title="About Us" />
+            <SectionHeading title="What we&rsquo;re about" />
             <div className="prose-school mt-6 max-w-2xl text-[1.0625rem] text-ink/85">
               <p>
                 Montessori School of Central Marin is a bilingual learning community where
