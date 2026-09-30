@@ -100,11 +100,11 @@ export default function AboutPage() {
               aria-label="American Montessori Society (opens in new tab)"
             >
               <Image
-                src="/brand/ams-logo.jpg"
-                alt="American Montessori Society — education that transforms lives"
-                width={1517}
-                height={308}
-                className="h-14 w-auto"
+                src="/brand/ams-mark.png"
+                alt="American Montessori Society"
+                width={512}
+                height={512}
+                className="size-16"
               />
             </a>
           </div>

@@ -55,11 +55,11 @@ export default function HomePage() {
           </li>
           <li className="flex items-center gap-4 rounded-2xl border border-line bg-cream p-5">
             <Image
-              src="/brand/ams-logo.jpg"
+              src="/brand/ams-mark.png"
               alt=""
-              width={1517}
-              height={308}
-              className="h-8 w-auto shrink-0 lg:h-9"
+              width={512}
+              height={512}
+              className="size-14 shrink-0 sm:size-12 lg:size-14"
             />
             <div>
               <p className="font-semibold text-navy">AMS affiliate</p>
@@ -78,7 +78,7 @@ export default function HomePage() {
             </div>
           </li>
           <li className="flex items-center gap-4 rounded-2xl border border-line bg-cream p-5">
-            <p className="font-display shrink-0 text-4xl font-semibold leading-none text-navy">
+            <p className="font-display shrink-0 text-[3.5rem] font-semibold leading-none text-navy sm:text-[3.25rem] lg:text-[3.5rem]">
               {new Date().getFullYear() - site.founded}
               <span className="text-sun">+</span>
             </p>

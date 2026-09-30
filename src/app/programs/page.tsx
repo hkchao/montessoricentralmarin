@@ -67,9 +67,7 @@ export default function ProgramsPage() {
                 }`}
               >
                 <div className={`lg:col-span-7 ${flip ? "lg:order-2" : ""}`}>
-                  <p className="kicker text-sun-deep">
-                    {String(i + 1).padStart(2, "0")} · {p.hours}
-                  </p>
+                  <p className="kicker text-sun-deep">{p.hours}</p>
                   <h3 className="font-display mt-3 text-3xl font-medium leading-[1.1] text-navy">
                     {p.name}
                   </h3>
