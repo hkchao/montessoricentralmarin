@@ -1,0 +1,27 @@
+name: Sync fork from upstream
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge jedmelnik/montessoricentralmarin main into fork
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -s -o /tmp/merge.json -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/hkchao/montessoricentralmarin/merge-upstream \
+            -d '{"branch":"main"}')
+          echo "HTTP $code"
+          cat /tmp/merge.json
+          echo
+          [ "$code" = "200" ]
