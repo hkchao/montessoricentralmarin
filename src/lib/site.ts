@@ -172,7 +172,7 @@ export const curriculum: CurriculumArea[] = [
     body: [
       "Everyday work that builds concentration, order, coordination, and independence: care of self, care of the environment, and grace and courtesy.",
     ],
-    image: { src: "/images/photo-pink-pouring.jpeg", alt: "A child carefully pouring pink liquid in a tray activity" },
+    image: { src: "/images/practical-life-pouring.jpg", alt: "Pouring and transferring materials arranged in baskets on a shelf" },
   },
   {
     id: "sensorial",
@@ -190,7 +190,7 @@ export const curriculum: CurriculumArea[] = [
     body: [
       "Children count quantity first, then match it to the numeral. Units, tens, hundreds, and thousands follow the same way. Operations come when the child is ready.",
     ],
-    image: { src: "/images/photo-number-rods.jpeg", alt: "A child arranging Montessori number rods on a floor mat" },
+    image: { src: "/images/math-shelves.jpg", alt: "Number rods and math materials on low classroom shelves" },
   },
   {
     id: "language",
@@ -217,7 +217,7 @@ export const curriculum: CurriculumArea[] = [
     body: [
       "Zoology, botany, geography, history, music, and art — so children learn to care for their environment and stay curious about the world.",
     ],
-    image: { src: "/images/photo-animal-matching.jpeg", alt: "A child matching animal figurines to picture cards on a floor mat" },
+    image: { src: "/images/spanish-color-cards.jpg", alt: "Colorful Spanish color-word cards above a classroom shelf" },
   },
 ];
 

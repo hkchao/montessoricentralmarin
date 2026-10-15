@@ -106,8 +106,8 @@ export default function HomePage() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl lg:col-span-6">
             <Image
-              src="/images/photo-owl-visit.jpeg"
-              alt="A child looks closely at a small owl perched on a handler's glove"
+              src="/images/gallery-guide-and-child.jpg"
+              alt="A teacher guides a child through a tray activity"
               fill
               quality={90}
               sizes="(min-width: 1024px) 40vw, 100vw"
@@ -121,7 +121,7 @@ export default function HomePage() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             kicker="Programs"
-            title="Flexible programs"
+            title="Hours and days"
             lede="School day, full day, partial week, or summer. Same curriculum in every schedule."
           />
           <ButtonLink href="/programs" variant="ghost" className="shrink-0">
@@ -154,8 +154,8 @@ export default function HomePage() {
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl lg:col-span-6 lg:aspect-[5/4]">
             <Image
-              src="/images/photo-bead-chains.jpeg"
-              alt="A child counts along coloured Montessori bead chains during math work"
+              src="/images/gallery-child-writing.jpg"
+              alt="A child writes carefully with a red pencil"
               fill
               quality={90}
               sizes="(min-width: 1024px) 45vw, 100vw"

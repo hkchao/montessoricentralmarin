@@ -23,20 +23,20 @@ const rhythm = [
 
 const programPhotos: Record<string, { src: string; alt: string }> = {
   "school-day": {
-    src: "/images/photo-pouring-guide.jpeg",
-    alt: "A teacher guides a child pouring from a small pitcher during practical life work",
+    src: "/images/gallery-child-writing.jpg",
+    alt: "A child writes carefully during the work period",
   },
   "day-care": {
-    src: "/images/photo-sandbox.jpeg",
-    alt: "Two children play together in the sandbox with trucks and shovels",
+    src: "/images/gallery-guide-and-child.jpg",
+    alt: "A teacher guides a child through a tray activity",
   },
   "partial-week": {
-    src: "/images/photo-bead-chains.jpeg",
-    alt: "A child counts along coloured Montessori bead chains on a work mat",
+    src: "/images/gallery-knobbed-cylinders.jpg",
+    alt: "A child works with Montessori knobbed cylinders",
   },
   summer: {
-    src: "/images/photo-beach-shore.jpeg",
-    alt: "A child dips a pink tub at the shoreline on a summer field trip",
+    src: "/images/gallery-garden-lemon-tree.jpg",
+    alt: "Children explore the lemon tree during outdoor learning",
   },
 };
 
@@ -47,9 +47,9 @@ export default function ProgramsPage() {
         title="Our Programs"
         lede="Ages 2–6. Same curriculum in every schedule."
         image={{
-          src: "/images/photo-circle-time.jpeg",
-          alt: "Children and teachers gathered for circle time in the Montessori classroom",
-          focal: "50% 40%",
+          src: "/images/hero-classroom.png",
+          alt: "A bright Montessori classroom with low wooden shelves of materials",
+          focal: "66% 40%",
         }}
       />
 
@@ -105,8 +105,8 @@ export default function ProgramsPage() {
             <SectionHeading kicker="Schedule" title="A typical day" />
             <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
-                src="/images/photo-number-rods.jpeg"
-                alt="A child arranges Montessori number rods on a floor mat during the work period"
+                src="/images/gallery-knobbed-cylinders.jpg"
+                alt="A child works with knobbed cylinders at a classroom table"
                 fill
                 quality={90}
                 sizes="(min-width: 1024px) 40vw, 100vw"
@@ -157,12 +157,12 @@ export default function ProgramsPage() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl lg:col-span-6">
             <Image
-              src="/images/photo-stamp-game.jpeg"
-              alt="A child works with Montessori stamp-game tiles for math on a table"
+              src="/images/hero-spanish.png"
+              alt="A bilingual language shelf with Spanish vocabulary cards and objects"
               fill
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="object-cover"
-              style={{ objectPosition: "50% 50%" }}
+              style={{ objectPosition: "100% 50%" }}
             />
           </div>
         </div>
@@ -202,8 +202,8 @@ export default function ProgramsPage() {
           </div>
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl lg:col-span-5 lg:aspect-[3/4] lg:max-h-[32rem]">
             <Image
-              src="/images/photo-yoga.jpeg"
-              alt="Children practice yoga on colourful mats with a guide standing by"
+              src="/images/gallery-garden-lemon-tree.jpg"
+              alt="A teacher shows children the lemon tree in the school garden"
               fill
               quality={90}
               sizes="(min-width: 1024px) 35vw, 100vw"
@@ -217,8 +217,8 @@ export default function ProgramsPage() {
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:col-span-5">
             <Image
-              src="/images/photo-lunch.jpeg"
-              alt="A smiling child sits at the table with an open lunch box"
+              src="/images/gallery-child-painting.jpg"
+              alt="A child paints at an easel during the school day"
               fill
               quality={90}
               sizes="(min-width: 1024px) 35vw, 100vw"

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { TourForm } from "@/components/TourForm";
@@ -66,16 +65,6 @@ export default function ContactPage() {
                 <dd className="mt-1.5 text-lg text-ink/85">{site.hours}</dd>
               </div>
             </dl>
-            <div className="relative mt-10 aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image
-                src="/images/photo-entrance.jpeg"
-                alt="Main entrance to Montessori School of Central Marin with the school sign"
-                fill
-                quality={90}
-                sizes="(min-width: 1024px) 35vw, 100vw"
-                className="object-cover"
-              />
-            </div>
           </div>
 
           <div id="tour" className="scroll-mt-28 lg:col-span-7">

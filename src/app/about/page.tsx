@@ -17,9 +17,9 @@ export default function AboutPage() {
         title="About Montessori of Central Marin"
         lede="English and Spanish. Ages 2–6. Serving Marin families since 1974."
         image={{
-          src: "/images/photo-school-exterior.jpeg",
-          alt: "Montessori School of Central Marin exterior with pink bougainvillea under a blue sky",
-          focal: "50% 45%",
+          src: "/images/hero-garden.png",
+          alt: "A sunny preschool garden with a lemon tree and raised beds",
+          focal: "72% 45%",
         }}
       />
 
@@ -39,8 +39,8 @@ export default function AboutPage() {
           </div>
           <div className="relative aspect-[4/3] self-start overflow-hidden rounded-2xl lg:col-span-5">
             <Image
-              src="/images/photo-frog.jpeg"
-              alt="A child outdoors gently cupping a small frog in both hands"
+              src="/images/gallery-garden-friends.jpg"
+              alt="Children and a teacher gathered around a rabbit in the garden"
               fill
               quality={90}
               sizes="(min-width: 1024px) 35vw, 100vw"

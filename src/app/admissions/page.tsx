@@ -39,9 +39,9 @@ export default function AdmissionsPage() {
         title="Admissions"
         lede="Ages 2–6. Tour first. Places are first come, first served."
         image={{
-          src: "/images/photo-entrance.jpeg",
-          alt: "Main entrance to Montessori School of Central Marin with the school sign and landscaping",
-          focal: "50% 45%",
+          src: "/images/hero-entry.png",
+          alt: "A row of small wooden cubbies holding children's backpacks",
+          focal: "70% 45%",
         }}
       />
 
@@ -63,8 +63,8 @@ export default function AdmissionsPage() {
             </div>
             <div className="relative mt-10 aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
-                src="/images/photo-bougainvillea.jpeg"
-                alt="Magenta bougainvillea near the school entrance steps"
+                src="/images/gallery-guide-and-child.jpg"
+                alt="A teacher and child working together in the classroom"
                 fill
                 quality={90}
                 sizes="(min-width: 1024px) 35vw, 100vw"

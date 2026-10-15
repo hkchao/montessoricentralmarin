@@ -18,8 +18,8 @@ export default function EventsPage() {
         title="Upcoming Events"
         lede="Parent nights, closures, and celebrations — plus the full calendar PDF."
         image={{
-          src: "/images/photo-storytime.jpeg",
-          alt: "A guide reads outdoors to children seated on benches during storytime",
+          src: "/images/gallery-garden-lemon-tree.jpg",
+          alt: "Children gather around the lemon tree in the school garden",
           focal: "50% 40%",
         }}
       />
