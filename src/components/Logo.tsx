@@ -18,6 +18,7 @@ export function Logo({ tone = "dark", compact = false, className = "" }: Props) 
       <span className="relative size-11 shrink-0 overflow-hidden rounded-full ring-1 ring-navy/10 md:size-12">
         <EditableImage
           imageKey="brand.logo"
+          controlsClassName="inset-0 m-auto"
           fill
           sizes="48px"
           className="object-cover"
