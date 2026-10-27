@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
+import { EditableImage } from "@/components/admin/EditableImage";
+import { T } from "@/components/T";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,9 +15,10 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        title="About Montessori of Central Marin"
-        lede="English and Spanish. Ages 2–6. Serving Marin families since 1974."
+        title={<T k="about.hero.title" />}
+        lede={<T k="about.hero.lede" />}
         image={{
+          key: "about.hero",
           src: "/images/hero-garden.png",
           alt: "A sunny preschool garden with a lemon tree and raised beds",
           focal: "72% 45%",
@@ -26,28 +28,19 @@ export default function AboutPage() {
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
-            <SectionHeading title="What we&rsquo;re about" />
+            <SectionHeading title={<T k="about.what.title" />} />
             <div className="prose-school mt-6 max-w-2xl text-[1.0625rem] text-ink/85">
               <p>
-                Established in 1974, Montessori School of Central Marin has been serving the
-                children of central Marin for over 52 years, providing a rich and welcoming
-                environment where children can explore at their own pace. We combine hands-on
-                discovery with guided instruction, catering the learning experience to each
-                individual child&rsquo;s needs and interests.
+                <T k="about.what.body1" />
               </p>
               <p>
-                There are many opportunities to become more deeply involved in the school.
-                Shared cultural traditions and experiences in the wider community help
-                children connect with the world around them, and families are always welcome
-                and encouraged to share their stories in the classroom as it connects with
-                the curriculum.
+                <T k="about.what.body2" />
               </p>
             </div>
           </div>
           <div className="relative aspect-[4/3] self-start overflow-hidden rounded-2xl lg:col-span-5">
-            <Image
-              src="/images/gallery-garden-friends.jpg"
-              alt="Children and a teacher gathered around a rabbit in the garden"
+            <EditableImage
+              imageKey="about.what"
               fill
               quality={90}
               sizes="(min-width: 1024px) 35vw, 100vw"
@@ -61,23 +54,18 @@ export default function AboutPage() {
         <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <div>
             <h2 className="font-display text-3xl font-medium leading-[1.1] text-navy">
-              Our Mission
+              <T k="about.mission.title" />
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-muted">
-              Our mission is to nurture each child&rsquo;s natural curiosity and help them
-              grow into a confident, independent learner.
+              <T k="about.mission.body" />
             </p>
           </div>
           <div>
             <h2 className="font-display text-3xl font-medium leading-[1.1] text-navy">
-              Our Philosophy
+              <T k="about.philosophy.title" />
             </h2>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-muted">
-              Children have a natural desire to explore and understand their world. We
-              support that desire with a welcoming environment, meaningful activities, and
-              guidance that responds to each child&rsquo;s development. Teachers and
-              families work together to give children the care, encouragement, and room they
-              need to grow.
+              <T k="about.philosophy.body" />
             </p>
           </div>
         </div>
@@ -86,16 +74,14 @@ export default function AboutPage() {
       <Section tone="white">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <SectionHeading kicker="Recognition" title="Awards and affiliations" />
+            <SectionHeading kicker={<T k="about.recognition.kicker" />} title={<T k="about.recognition.title" />} />
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-muted">
-              Best of Marin 2026, voted by Pacific Sun readers. Affiliate of the American
-              Montessori Society.
+              <T k="about.recognition.body" />
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-8 lg:col-span-7 lg:justify-end">
-            <Image
-              src="/brand/best-of-marin-2026.png"
-              alt="Pacific Sun Best of Marin 2026"
+            <EditableImage
+              imageKey="brand.bestOfMarin"
               width={624}
               height={784}
               className="h-40 w-auto"
@@ -106,9 +92,8 @@ export default function AboutPage() {
               rel="noreferrer"
               aria-label="American Montessori Society (opens in new tab)"
             >
-              <Image
-                src="/brand/ams-mark.png"
-                alt="American Montessori Society"
+              <EditableImage
+                imageKey="brand.ams"
                 width={512}
                 height={512}
                 className="size-16"
