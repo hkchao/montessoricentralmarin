@@ -15,6 +15,9 @@ const pages = [
   ["Contact", "/contact"],
 ] as const;
 
+const fieldCls = "flex flex-col gap-1";
+const fieldLabelCls = "pl-3 text-[0.65rem] font-semibold uppercase leading-none tracking-wider text-muted/80";
+
 const selectCls =
   "cursor-pointer rounded-full border border-navy/20 bg-white py-1.5 pl-3 pr-8 font-semibold text-navy hover:bg-navy-tint focus:outline-none focus:ring-2 focus:ring-sun/60";
 
@@ -172,24 +175,24 @@ export function AdminBar() {
           <span className={status === "error" ? "font-semibold text-sun-deep" : ""}>{label}</span>
         </span>
       </div>
-      <div className="flex flex-wrap items-center gap-2">
-        <label className="sr-only" htmlFor="admin-page">
-          Page
+      <div className="flex flex-wrap items-end gap-2">
+        <label className={fieldCls}>
+          <span className={fieldLabelCls}>Page</span>
+          <select
+            id="admin-page"
+            value={pages.some(([, href]) => href === pathname) ? pathname : ""}
+            onChange={(event) => router.push(event.target.value)}
+            className={selectCls}
+          >
+            {!pages.some(([, href]) => href === pathname) && <option value="">Choose page</option>}
+            {pages.map(([label, href]) => (
+              <option key={href} value={href}>
+                {label}
+              </option>
+            ))}
+          </select>
         </label>
-        <select
-          id="admin-page"
-          value={pages.some(([, href]) => href === pathname) ? pathname : ""}
-          onChange={(event) => router.push(event.target.value)}
-          className={selectCls}
-        >
-          {!pages.some(([, href]) => href === pathname) && <option value="">Choose page</option>}
-          {pages.map(([label, href]) => (
-            <option key={href} value={href}>
-              {label}
-            </option>
-          ))}
-        </select>
-        <DevicePreview selectClassName={selectCls} />
+        <DevicePreview fieldClassName={fieldCls} labelClassName={fieldLabelCls} selectClassName={selectCls} />
         <button
           type="button"
           onClick={() => setDialog("revert")}
