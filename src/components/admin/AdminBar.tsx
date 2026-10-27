@@ -207,9 +207,10 @@ export function AdminBar() {
         </button>
         <button
           type="button"
-          disabled={!changeCount}
+          aria-disabled={!changeCount}
           onClick={() => {
-            if (window.confirm(`Publish ${changeCount} change${changeCount === 1 ? "" : "s"}?`)) {
+            if (!changeCount || pending) return;
+            if (window.confirm(`Publish ${changes}?`)) {
               startTransition(async () => {
                 await flush();
                 await publishAction();
@@ -217,9 +218,18 @@ export function AdminBar() {
               });
             }
           }}
-          className="rounded-full bg-sun px-3 py-1.5 font-semibold text-navy-deep disabled:cursor-not-allowed disabled:opacity-50"
+          aria-label="Publish changes"
+          title={changeCount ? `Publish ${changes} to the live site` : "Nothing to publish"}
+          className="flex size-9 items-center justify-center rounded-full bg-sun text-navy-deep hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:brightness-100"
         >
-          Publish
+          <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
+            <path d="M12 4H4v16h16v-8" />
+            <path d="m13 11 7-7" />
+            <path d="M15 4h5v5" />
+            <path d="M8 10h2" />
+            <path d="M8 13h6" />
+            <path d="M8 16h8" />
+          </svg>
         </button>
         <button
           type="button"
