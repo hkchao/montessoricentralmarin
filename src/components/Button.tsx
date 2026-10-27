@@ -40,10 +40,20 @@ export function ButtonLink({
   ...rest
 }: ButtonLinkProps) {
   const cls = `${base} ${variants[variant]} ${variant === "link" ? "" : sizes[size]} ${className}`;
-  const external = href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:");
+  // Next.js <Link> is for App Router pages — static files need a plain <a>.
+  const file = /\.(pdf|docx?|xlsx?|zip|png|jpe?g|webp|gif|svg)$/i.test(href);
+  const external =
+    file ||
+    href.startsWith("http") ||
+    href.startsWith("tel:") ||
+    href.startsWith("mailto:");
   if (external) {
     return (
-      <a href={href} className={cls} {...(href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}>
+      <a
+        href={href}
+        className={cls}
+        {...(href.startsWith("http") || file ? { target: "_blank", rel: "noreferrer" } : {})}
+      >
         {children}
       </a>
     );

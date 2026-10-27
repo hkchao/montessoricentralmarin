@@ -32,7 +32,6 @@ export const site = {
 
 export const nav = [
   { label: "Programs", href: "/programs" },
-  { label: "Events", href: "/events" },
   { label: "Admissions", href: "/admissions" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -54,61 +53,6 @@ export const docs = {
   tuition: { label: "2026–27 Tuition & Fees", href: "/docs/tuition_2026-27_monthly.pdf" },
 } as const;
 
-export type EventItem = {
-  date: string;
-  month: string;
-  day?: string;
-  title: string;
-  detail?: string;
-  closed?: boolean;
-};
-
-export const events: EventItem[] = [
-  {
-    date: "2026-09-16",
-    month: "Sep",
-    day: "16",
-    title: "Parent Education Night",
-    detail: "5:30 – 6:30 pm · Montessori in the Classroom",
-  },
-  {
-    date: "2026-10-12",
-    month: "Oct",
-    day: "12",
-    title: "School Closed",
-    detail: "Indigenous Peoples' Day",
-    closed: true,
-  },
-  {
-    date: "2026-10-21",
-    month: "Oct",
-    day: "21",
-    title: "Parent Education Night",
-    detail: "5:30 – 6:30 pm · Montessori in the Home",
-  },
-  {
-    date: "2026-10-30",
-    month: "Oct",
-    day: "30",
-    title: "Halloween Parade",
-    detail: "Costumes welcome!",
-  },
-  {
-    date: "2026-11-01",
-    month: "Nov",
-    title: "Parent Observation Month",
-    detail: "Sign up to observe your child's classroom",
-  },
-  {
-    date: "2026-11-11",
-    month: "Nov",
-    day: "11",
-    title: "School Closed",
-    detail: "Veterans Day",
-    closed: true,
-  },
-];
-
 export type Program = {
   id: string;
   name: string;
@@ -122,18 +66,18 @@ export const programs: Program[] = [
     id: "school-day",
     name: "School Day",
     hours: "9:00 am – 2:45 pm",
-    summary: "Morning work period, lunch, then nap or afternoon cultural studies.",
+    summary: "Morning work period, lunch, then nap or afternoon circle and work.",
     body: [
-      "9:00 am to 2:45 pm, with a 15-minute window for drop-off and pick-up. Lunch is at noon. Children who nap rest from 12:30 – 2:30 pm; others join the afternoon cultural program — zoology, botany, geography, history, music, and art.",
+      "9:00 am to 2:45 pm, with a 15-minute window for drop-off and pick-up. Lunch is at noon. Toddlers and preschoolers (who still nap) rest from 12:30 – 2:30 pm while their classmates engage in the afternoon circle time and work period.",
     ],
   },
   {
     id: "day-care",
     name: "Day Care",
     hours: "7:30 am – 5:30 pm",
-    summary: "Full-day care around the same Montessori program.",
+    summary: "Full-day care around the same Montessori school day.",
     body: [
-      "7:30 am to 5:30 pm. Before 8:45 am, children choose from art and games. From 9:00 am to noon they join the Montessori work period. After lunch, nap or extended day until 5:30 pm.",
+      "7:30 am to 5:30 pm. Before 8:45 am, children choose from art and games. From 9:00 am to 2:45 pm they join the regular school day. Extended care lasts until 5:30 pm with the children getting a period outside on a playground as well as in the Day Care room. Those children who attend on Fridays past 5 pm will have an opportunity to practice Grace & Courtesy during “Tea Time” from 5:10 pm – 5:20 pm.",
     ],
   },
   {
@@ -142,16 +86,101 @@ export const programs: Program[] = [
     hours: "3, 4, or 5 days per week",
     summary: "Any combination of days, kept the same each week.",
     body: [
-      "Choose 3, 4, or 5 days (Monday – Friday). For 3- and 4-day schedules, any combination of days is fine as long as they stay consistent. Follows the School Day or Day Care schedule.",
+      "Choose 3, 4, or 5 days (Monday – Friday). For 3- and 4-day schedules, days must remain consistent but any combination is welcome.",
     ],
   },
   {
     id: "summer",
     name: "Summer School",
     hours: "June – August",
-    summary: "Montessori continues with a new theme each summer.",
+    summary: "A relaxed single-subject theme on a three-year rotation.",
     body: [
-      "June, July, and August, with a theme that changes each year. Past themes include human anatomy, the solar system, and marine biology. Field trips close the summer. Starts the Tuesday after the school year ends; finishes the Thursday before the new year begins.",
+      "Summer school runs from June to August, with a more relaxed single subject curriculum that changes each year on a three year rotation. These themes include human anatomy, the solar system, and marine biology. Summer session starts the Tuesday after the school year ends; finishes the Thursday before the new school year begins. Current families have priority for Summer enrollment; new families may start their child early during the summer only if space allows.",
+    ],
+  },
+];
+
+export type DaySlot = { time: string; label: string };
+export type DaySection = { name: string; slots: DaySlot[] };
+export type DaySchedule = { id: string; title: string; sections: DaySection[] };
+
+export const daySchedules: DaySchedule[] = [
+  {
+    id: "toddlers",
+    title: "A typical day — Toddlers",
+    sections: [
+      {
+        name: "Morning Session",
+        slots: [
+          { time: "7:30 – 8:45 am", label: "Arrival & Morning Care" },
+          { time: "8:30 – 9:00 am", label: "Morning Care Outdoor Recess" },
+          { time: "9:30 – 9:45 am", label: "Circle Time" },
+          { time: "9:45 – 10:00 am", label: "Snack" },
+          { time: "10:00 – 11:00 am", label: "Recess: Outdoor time" },
+          { time: "11:00 – 11:30 am", label: "Work Period" },
+          { time: "11:30 – 11:45 am", label: "Spanish Circle Time" },
+          { time: "11:50 am – 12:25 pm", label: "Lunch" },
+        ],
+      },
+      {
+        name: "Afternoon Session",
+        slots: [
+          { time: "12:30 – 2:30 pm", label: "Nap Time" },
+          { time: "2:45 – 3:00 pm", label: "Snack" },
+        ],
+      },
+      {
+        name: "Afternoon Daycare",
+        slots: [
+          { time: "3:00 – 4:00 pm", label: "Recess: Outdoor Time" },
+          { time: "4:00 – 5:30 pm", label: "Free Play" },
+          { time: "5:30 pm", label: "End of Day" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "preschoolers",
+    title: "A typical day — Preschoolers",
+    sections: [
+      {
+        name: "Morning Session",
+        slots: [
+          { time: "7:30 – 8:45 am", label: "Arrival & Morning Care" },
+          { time: "8:30 – 9:00 am", label: "Morning Care Outdoor Recess" },
+          { time: "9:10 – 9:30 am", label: "Circle Time" },
+          { time: "9:30 – 10:45 am", label: "Work Period" },
+          { time: "10:45 – 11:00 am", label: "Spanish Circle Time" },
+          { time: "11:00 – 11:45 am", label: "Recess: Outdoor Time" },
+          { time: "11:30 – 11:45 am", label: "Spanish Circle Time" },
+          { time: "12:00 – 12:30 pm", label: "Lunch" },
+        ],
+      },
+      {
+        name: "Afternoon Session",
+        slots: [
+          { time: "12:30 – 2:30 pm", label: "Nap Time (for those children who still nap)" },
+          { time: "12:30 – 1:00 pm", label: "Rest Time (for non-napping children)" },
+          { time: "1:00 – 1:20 pm", label: "Circle Time" },
+          { time: "1:20 – 2:30 pm", label: "Work Period" },
+          { time: "2:30 – 2:45 pm", label: "Movement Circle Time (for non-napping children)" },
+          { time: "2:45 – 3:00 pm", label: "Snack" },
+        ],
+      },
+      {
+        name: "Afternoon Daycare",
+        slots: [
+          {
+            time: "3:00 – 4:00 pm",
+            label: "Recess: Outdoor Time (R1) & Daycare (R2) Free Play",
+          },
+          {
+            time: "4:00 – 5:00 pm",
+            label: "Recess: Outdoor Time (R2) & Daycare (R1) Free Play",
+          },
+          { time: "5:30 pm", label: "End of Day" },
+        ],
+      },
     ],
   },
 ];
@@ -168,11 +197,14 @@ export const curriculum: CurriculumArea[] = [
   {
     id: "practical-life",
     name: "Practical Life",
-    short: "Pouring, dressing, sweeping, and courtesy.",
+    short: "Pouring, dressing, sweeping, and Grace & Courtesy.",
     body: [
       "Everyday work that builds concentration, order, coordination, and independence: care of self, care of the environment, and grace and courtesy.",
     ],
-    image: { src: "/images/practical-life-pouring.jpg", alt: "Pouring and transferring materials arranged in baskets on a shelf" },
+    image: {
+      src: "/images/practical-life-pouring.jpg",
+      alt: "Pouring and transferring materials arranged in baskets on a shelf",
+    },
   },
   {
     id: "sensorial",
@@ -181,16 +213,22 @@ export const curriculum: CurriculumArea[] = [
     body: [
       "Materials isolate one quality at a time — size, shape, color, texture, weight, temperature, sound, smell, or taste — so the child can refine each sense.",
     ],
-    image: { src: "/images/sensorial-cylinders.jpg", alt: "A child working with knobless cylinders at a small table" },
+    image: {
+      src: "/images/sensorial-cylinders.jpg",
+      alt: "A child working with knobless cylinders at a small table",
+    },
   },
   {
     id: "mathematics",
     name: "Mathematics",
-    short: "Counting and the decimal system, hands-on first.",
+    short: "Counting, fractions, place value, and order.",
     body: [
       "Children count quantity first, then match it to the numeral. Units, tens, hundreds, and thousands follow the same way. Operations come when the child is ready.",
     ],
-    image: { src: "/images/math-shelves.jpg", alt: "Number rods and math materials on low classroom shelves" },
+    image: {
+      src: "/images/math-shelves.jpg",
+      alt: "Number rods and math materials on low classroom shelves",
+    },
   },
   {
     id: "language",
@@ -208,7 +246,10 @@ export const curriculum: CurriculumArea[] = [
     body: [
       "Spanish is part of every day. Native and fluent teachers from Spanish-speaking countries lead materials and group work so children hear authentic language.",
     ],
-    image: { src: "/images/spanish-alphabet.jpg", alt: "Spanish alphabet cards on a classroom wall" },
+    image: {
+      src: "/images/spanish-alphabet.jpg",
+      alt: "Spanish alphabet cards on a classroom wall",
+    },
   },
   {
     id: "cultural",
@@ -217,36 +258,55 @@ export const curriculum: CurriculumArea[] = [
     body: [
       "Zoology, botany, geography, history, music, and art — so children learn to care for their environment and stay curious about the world.",
     ],
-    image: { src: "/images/spanish-color-cards.jpg", alt: "Colorful Spanish color-word cards above a classroom shelf" },
+    image: {
+      src: "/images/spanish-color-cards.jpg",
+      alt: "Colorful Spanish color-word cards above a classroom shelf",
+    },
   },
 ];
 
-export const enrichment = [
-  { name: "Music", note: "Singing, rhythm, and movement in English and Spanish" },
-  { name: "Yoga", note: "Movement and rest" },
-  { name: "Cooking", note: "Children cook in class" },
-  { name: "Gardening", note: "Seasonal work in our garden" },
-  { name: "Dance", note: "Movement and expression" },
-  { name: "Art", note: "Open-ended materials" },
-] as const;
+export type EnrichmentItem = {
+  name: string;
+  note: string;
+  badge?: string;
+};
 
-export const afterSchool = [
-  { name: "Gymnastics", note: "After-school extra-curricular" },
-  { name: "Drama", note: "After-school extra-curricular" },
-] as const;
+export const enrichment: EnrichmentItem[] = [
+  { name: "Music", note: "Singing, rhythm, and movement" },
+  { name: "Yoga", note: "Movement and rest" },
+  { name: "Cooking", note: "Cleaning, cutting, measuring, and nutrition" },
+  { name: "Gardening", note: "Watering and husbandry of plants and the natural world" },
+  { name: "Art", note: "Fine motor skills and self expression" },
+  {
+    name: "Gymnastics",
+    note: "After-school extra-curricular",
+    badge: "After school · Sign up",
+  },
+  {
+    name: "Athletics",
+    note: "After-school extra-curricular",
+    badge: "After school · Sign up",
+  },
+  {
+    name: "Reading",
+    note: "Curated monthly reading",
+    badge: "Take home · Sign up",
+  },
+  { name: "Field trips", note: "One in the Fall, one in the Spring" },
+];
 
 export const admissionSteps = [
   {
-    title: "Schedule a tour",
+    title: "Schedule a virtual tour",
     body: `Call ${site.phone} or email ${site.email}.`,
   },
   {
-    title: "Visit",
+    title: "Visit in-person (optional)",
     body: "See the classroom and watch children at work.",
   },
   {
     title: "Get the forms",
-    body: "We'll email them, or download them below.",
+    body: "You can download them below or request us to email them to you.",
   },
   {
     title: "Apply",
@@ -254,6 +314,6 @@ export const admissionSteps = [
   },
   {
     title: "Enroll",
-    body: "Places are first come, first served. After acceptance, submit the full enrollment packet.",
+    body: "Acceptance is first come, first served. We will let you know when we have received your application and when to expect a response regarding acceptance. After acceptance, please submit the full enrollment packet which will be emailed to you or you can download below.",
   },
 ] as const;

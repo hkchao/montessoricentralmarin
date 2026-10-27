@@ -1,25 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
-import { ArrowIcon, ButtonLink } from "@/components/Button";
-import { afterSchool, curriculum, enrichment, programs } from "@/lib/site";
+import { curriculum, daySchedules, enrichment, programs } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Programs",
   description:
     "School Day, Day Care, partial week, Summer School, enrichment, and Fun Lunch. Ages 2–6.",
 };
-
-const rhythm = [
-  { time: "7:30 – 8:45", label: "Early arrival", note: "Art and games for Day Care arrivals." },
-  { time: "9:00 – 12:00", label: "Montessori work period", note: "Independent work with the materials, plus group time." },
-  { time: "12:00", label: "Lunch", note: "Friday Fun Lunch, cooked by the children." },
-  { time: "12:30 – 2:30", label: "Nap or cultural program", note: "Rest, or zoology, botany, geography, history, music, and art." },
-  { time: "2:45", label: "School Day pick-up", note: "15-minute window on either side." },
-  { time: "2:45 – 5:30", label: "Extended day", note: "Until 5:30 pm for Day Care children." },
-];
 
 const programPhotos: Record<string, { src: string; alt: string }> = {
   "school-day": {
@@ -100,34 +89,35 @@ export default function ProgramsPage() {
       </Section>
 
       <Section id="day">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5">
-            <SectionHeading kicker="Schedule" title="A typical day" />
-            <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image
-                src="/images/gallery-knobbed-cylinders.jpg"
-                alt="A child works with knobbed cylinders at a classroom table"
-                fill
-                quality={90}
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover"
-              />
+        <SectionHeading kicker="Schedule" title="A typical day" />
+        <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-14">
+          {daySchedules.map((schedule) => (
+            <div key={schedule.id} id={schedule.id} className="scroll-mt-28">
+              <h3 className="font-display text-2xl font-medium leading-[1.15] text-navy">
+                {schedule.title}
+              </h3>
+              <div className="mt-6 space-y-8">
+                {schedule.sections.map((section) => (
+                  <div key={section.name}>
+                    <p className="kicker text-sun-deep">{section.name}</p>
+                    <ol className="mt-3">
+                      {section.slots.map((slot) => (
+                        <li
+                          key={`${section.name}-${slot.time}-${slot.label}`}
+                          className="grid gap-1 border-b border-line py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-5"
+                        >
+                          <p className="text-sm font-semibold tabular-nums text-navy sm:text-[0.95rem]">
+                            {slot.time}
+                          </p>
+                          <p className="text-[0.95rem] leading-relaxed text-muted">{slot.label}</p>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <ol className="lg:col-span-7">
-            {rhythm.map((r) => (
-              <li
-                key={r.time}
-                className="grid gap-1 border-b border-line py-4 sm:grid-cols-[8.5rem_1fr] sm:gap-6"
-              >
-                <p className="font-semibold tabular-nums text-navy">{r.time}</p>
-                <div>
-                  <p className="font-semibold text-navy">{r.label}</p>
-                  <p className="mt-0.5 text-[0.95rem] text-muted">{r.note}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          ))}
         </div>
       </Section>
 
@@ -142,18 +132,11 @@ export default function ProgramsPage() {
             <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4">
               {curriculum.map((c) => (
                 <li key={c.id}>
-                  <Link href={`/curriculum#${c.id}`} className="group block">
-                    <p className="font-semibold text-navy underline-offset-4 group-hover:underline">
-                      {c.name}
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-muted">{c.short}</p>
-                  </Link>
+                  <p className="font-semibold text-navy">{c.name}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted">{c.short}</p>
                 </li>
               ))}
             </ul>
-            <ButtonLink href="/curriculum" variant="ghost" className="mt-8">
-              Full curriculum <ArrowIcon />
-            </ButtonLink>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl lg:col-span-6">
             <Image
@@ -174,30 +157,22 @@ export default function ProgramsPage() {
             <SectionHeading
               kicker="Enrichment"
               title="Music, yoga, cooking, and more"
-              lede="Weekly classes, plus optional after-school gymnastics and drama."
+              lede="In addition to the curriculum there are several enrichment activities, some available to all children during the school day, others only available by sign-up."
             />
             <ul className="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2">
               {enrichment.map((e) => (
                 <li key={e.name} className="border-t border-navy/15 pt-4">
-                  <p className="font-display text-xl font-medium text-navy">{e.name}</p>
-                  <p className="mt-1 text-[0.95rem] text-muted">{e.note}</p>
-                </li>
-              ))}
-              {afterSchool.map((e) => (
-                <li key={e.name} className="border-t border-navy/15 pt-4">
                   <p className="font-display text-xl font-medium text-navy">
-                    {e.name}{" "}
-                    <span className="kicker ml-1 align-middle text-[0.65rem] text-sun-deep">
-                      After school
-                    </span>
+                    {e.name}
+                    {e.badge ? (
+                      <span className="kicker ml-2 align-middle text-[0.65rem] text-sun-deep">
+                        {e.badge}
+                      </span>
+                    ) : null}
                   </p>
                   <p className="mt-1 text-[0.95rem] text-muted">{e.note}</p>
                 </li>
               ))}
-              <li className="border-t border-navy/15 pt-4">
-                <p className="font-display text-xl font-medium text-navy">Monthly field trips</p>
-                <p className="mt-1 text-[0.95rem] text-muted">Into the community</p>
-              </li>
             </ul>
           </div>
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl lg:col-span-5 lg:aspect-[3/4] lg:max-h-[32rem]">
@@ -229,9 +204,11 @@ export default function ProgramsPage() {
             <SectionHeading kicker="Fridays" title="Fun Lunch" />
             <div className="prose-school mt-5 max-w-xl text-[1.0625rem] text-ink/85">
               <p>
-                During the school year, Friday lunch alternates pizza and pesto pasta, with
-                vegetables, fruit, and juice or milk. Children cook the meal in class.{" "}
-                <strong>$7</strong> per meal.
+                During the school year, Friday “Fun Lunch” is a part of our cooking enrichment.
+                Children assist in the preparation of food. Lunch alternates between vegetarian
+                pizza and pesto pasta, with vegetables, fruit, and juice or milk for a complete
+                and wholesome meal. <strong>$7</strong> per meal. Weekly, monthly, or annual
+                sign-up available.
               </p>
             </div>
             <dl className="mt-8 grid grid-cols-2 gap-4 sm:max-w-md">

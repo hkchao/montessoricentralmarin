@@ -83,7 +83,27 @@ export default function AdmissionsPage() {
                 </span>
                 <div className="pt-2">
                   <h3 className="font-semibold text-navy">{s.title}</h3>
-                  <p className="mt-1.5 text-[1rem] leading-relaxed text-muted">{s.body}</p>
+                  {s.body.includes(site.phone) ? (
+                    <p className="mt-1.5 text-[1rem] leading-relaxed text-muted">
+                      Call{" "}
+                      <a
+                        href={site.phoneHref}
+                        className="font-semibold text-navy underline-offset-4 hover:underline"
+                      >
+                        {site.phone}
+                      </a>{" "}
+                      or email{" "}
+                      <a
+                        href={`mailto:${site.email}`}
+                        className="break-all font-semibold text-navy underline-offset-4 hover:underline"
+                      >
+                        {site.email}
+                      </a>
+                      .
+                    </p>
+                  ) : (
+                    <p className="mt-1.5 text-[1rem] leading-relaxed text-muted">{s.body}</p>
+                  )}
                 </div>
               </li>
             ))}
@@ -94,11 +114,7 @@ export default function AdmissionsPage() {
       <Section id="tuition">
         <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
-            <SectionHeading
-              kicker="Tuition"
-              title="Tuition and sibling discount"
-              lede="Nine monthly payments. Families with more than one child enrolled receive 10% off the oldest child&rsquo;s tuition."
-            />
+            <SectionHeading kicker="Tuition" title="Tuition and sibling discount" />
           </div>
           <div className="lg:col-span-5 lg:justify-self-end">
             <ButtonLink href={docs.tuition.href} variant="navy" size="lg">
@@ -110,22 +126,25 @@ export default function AdmissionsPage() {
           <div className="border-t-2 border-navy pt-5">
             <h3 className="font-display text-2xl font-medium text-navy">Payment schedule</h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              September 1 through May 1. The $500 enrollment deposit is due before the first
-              day and is applied to the last payment.
+              Nine monthly payments, September 1 through May 1. The $500 enrollment deposit is
+              applied to your child&rsquo;s final school-year month of enrollment before
+              graduation or withdrawal.
             </p>
           </div>
           <div className="border-t-2 border-navy pt-5">
             <h3 className="font-display text-2xl font-medium text-navy">Sibling discount</h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              <strong className="text-navy">10% off</strong> the oldest child&rsquo;s tuition when
-              more than one child is enrolled.
+              Families with more than one child enrolled at the same time receive a{" "}
+              <strong className="text-navy">10% discount off</strong> the eldest child&rsquo;s
+              tuition.
             </p>
           </div>
           <div className="border-t-2 border-navy pt-5">
             <h3 className="font-display text-2xl font-medium text-navy">Summer school</h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              Summer tuition is separate (June, July, and August). Rates are on the tuition
-              sheet.
+              Summer school (June, July, and August) tuition rates are the same as the
+              preceding school year but enrollment is more flexible, allowing for families to
+              plan time away. No sibling discount applied during summer months.
             </p>
           </div>
         </div>
