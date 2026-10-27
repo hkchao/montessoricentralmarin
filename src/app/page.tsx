@@ -33,8 +33,13 @@ export default function HomePage() {
         }
         image={{
           src: "/images/hero-children-wide.png",
+          // Tighter crop around the three kids for tall phone frames.
+          srcMobile: "/images/hero-children-portrait.png",
           alt: "Three smiling preschoolers leaning on a wooden railing outdoors",
-          focal: "66% 42%",
+          // Desktop: group in the open right half beside the type lockup.
+          focal: "72% 40%",
+          // Portrait mobile asset already frames the trio — keep centered, faces high.
+          focalMobile: "50% 28%",
         }}
       />
 

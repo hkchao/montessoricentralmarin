@@ -1,11 +1,15 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 export type HeroImage = {
   src: string;
   alt: string;
   /** CSS object-position — the subject's strongest landmark. Keep it in the open right half. */
   focal: string;
+  /** Optional mobile override when a wide group needs a different crop than desktop. */
+  focalMobile?: string;
+  /** Optional portrait-friendlier crop used below the md breakpoint. */
+  srcMobile?: string;
 };
 
 type Props = {
@@ -54,15 +58,39 @@ export function PageHero({
           }`}
         >
           {image ? (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              priority
-              sizes="(min-width: 1600px) 1600px, 100vw"
-              className="object-cover"
-              style={{ objectPosition: image.focal }}
-            />
+            <>
+              {image.srcMobile && (
+                <Image
+                  src={image.srcMobile}
+                  alt={image.alt}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover object-[var(--hero-focal-m)] md:hidden"
+                  style={
+                    {
+                      "--hero-focal-m": image.focalMobile ?? "50% 40%",
+                    } as CSSProperties
+                  }
+                />
+              )}
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                priority
+                sizes="(min-width: 1600px) 1600px, 100vw"
+                className={`object-cover object-[var(--hero-focal)] ${
+                  image.srcMobile ? "hidden md:block" : "object-[var(--hero-focal-m)] md:object-[var(--hero-focal)]"
+                }`}
+                style={
+                  {
+                    "--hero-focal": image.focal,
+                    "--hero-focal-m": image.focalMobile ?? image.focal,
+                  } as CSSProperties
+                }
+              />
+            </>
           ) : (
             // Pin centered in the open half between the type lockup and the right edge.
             <iframe
@@ -77,22 +105,22 @@ export function PageHero({
           {mapSrc ? (
             <>
               {/* Map: dissolve all edges into navy so the iframe never reads as a hard box. */}
-              <div className="absolute inset-0 bg-navy-deep/45" />
-              <div className="absolute inset-y-0 left-0 w-[55%] bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_92%,transparent)_42%,color-mix(in_srgb,var(--color-navy-deep)_45%,transparent)_72%,transparent_100%)]" />
-              <div className="absolute inset-y-0 right-0 w-[28%] bg-[linear-gradient(to_left,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_70%,transparent)_55%,transparent_100%)]" />
-              <div className="absolute inset-x-0 top-0 h-20 bg-[linear-gradient(to_bottom,var(--color-navy-deep),transparent)]" />
-              <div className="absolute inset-x-0 bottom-0 h-16 bg-[linear-gradient(to_top,var(--color-navy-deep),transparent)]" />
+              <div className="hero-scrim absolute inset-0 bg-navy-deep/45" />
+              <div className="hero-scrim absolute inset-y-0 left-0 w-[55%] bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_92%,transparent)_42%,color-mix(in_srgb,var(--color-navy-deep)_45%,transparent)_72%,transparent_100%)]" />
+              <div className="hero-scrim absolute inset-y-0 right-0 w-[28%] bg-[linear-gradient(to_left,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_70%,transparent)_55%,transparent_100%)]" />
+              <div className="hero-scrim absolute inset-x-0 top-0 h-20 bg-[linear-gradient(to_bottom,var(--color-navy-deep),transparent)]" />
+              <div className="hero-scrim absolute inset-x-0 bottom-0 h-16 bg-[linear-gradient(to_top,var(--color-navy-deep),transparent)]" />
             </>
           ) : (
             <>
               {/* Mobile: type sits low, scrub rises from the bottom and clears the subject above. */}
-              <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_38%,color-mix(in_srgb,var(--color-navy-deep)_55%,transparent)_52%,transparent_66%)] md:hidden" />
+              <div className="hero-scrim absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_38%,color-mix(in_srgb,var(--color-navy-deep)_55%,transparent)_52%,transparent_66%)] md:hidden" />
               {/* Desktop: strong under the left lockup column, fading out before the subject. */}
-              <div className="absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
+              <div className="hero-scrim absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
               {/* Ultrawide: dissolve the plane's right edge into the navy fill. */}
               <div className="absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
               {/* Gentle top scrim keeps the header transition clean. */}
-              <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.35),transparent)]" />
+              <div className="hero-scrim absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.35),transparent)]" />
             </>
           )}
         </div>
@@ -100,7 +128,7 @@ export function PageHero({
 
       <div
         className={`site-wrap relative ${
-          media ? (home ? "pt-[90vw] sm:pt-[46vw]" : "pt-[58vw] sm:pt-[34vw]") : home ? "pt-14" : "pt-12"
+          media ? (home ? "pt-[68vw] sm:pt-[46vw]" : "pt-[58vw] sm:pt-[34vw]") : home ? "pt-14" : "pt-12"
         } ${home ? "pb-12 md:py-24 lg:py-28" : "pb-10 md:py-16 lg:py-20"}`}
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}

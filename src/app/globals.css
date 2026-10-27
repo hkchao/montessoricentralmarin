@@ -122,3 +122,10 @@ body {
     transition: none;
   }
 }
+
+/* Banner navy scrims at half strength on phones + tablet portrait only. */
+@media (max-width: 767px), ((max-width: 1023px) and (orientation: portrait)) {
+  .hero-scrim {
+    opacity: 0.5;
+  }
+}
