@@ -173,7 +173,7 @@ export function AdminBar() {
             {[3, 8, 13].flatMap((cy) => [2.5, 7.5].map((cx) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={1.4} />))}
           </svg>
         </button>
-        <h2 className="font-display text-lg font-medium leading-none text-navy">Admin Controls</h2>
+        <h2 className="font-sans text-sm font-semibold leading-none text-navy">Admin Controls</h2>
         <span role="status" aria-live="polite" className="ml-1 flex items-center gap-1.5 text-xs text-muted">
           <span
             aria-hidden
