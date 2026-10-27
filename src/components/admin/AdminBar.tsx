@@ -22,7 +22,7 @@ const selectCls =
   "cursor-pointer rounded-full border border-navy/20 bg-white py-1.5 pl-3 pr-8 font-semibold text-navy hover:bg-navy-tint focus:outline-none focus:ring-2 focus:ring-sun/60";
 
 const iconBtnCls =
-  "flex size-9 items-center justify-center rounded-full border border-navy/20 text-navy hover:bg-navy-tint focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60";
+  "flex size-9 cursor-pointer items-center justify-center rounded-full border border-navy/20 text-navy hover:bg-navy-tint focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60";
 const iconCls = "size-4 fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]";
 
 const POS_KEY = "mscm-admin-bar-pos";
@@ -97,18 +97,26 @@ export function AdminBar() {
 
   if (!editing) return null;
 
-  const startDrag = (event: PointerEvent<HTMLButtonElement>) => {
-    if (!bar.current || event.button !== 0) return;
+  const startDrag = (event: PointerEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    // Portaled dialogs bubble React events through the bar, so only start drags from the bar's own surface.
+    if (!bar.current || event.button !== 0 || !bar.current.contains(target)) return;
+    if (target.closest("button, select, input, a, [role=button]") && !target.closest("[data-drag-handle]")) return;
     const rect = bar.current.getBoundingClientRect();
     drag.current = { dx: event.clientX - rect.left, dy: event.clientY - rect.top, pos: { x: rect.left, y: rect.top }, moved: false };
-    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
-  const moveDrag = (event: PointerEvent<HTMLButtonElement>) => {
+  const moveDrag = (event: PointerEvent<HTMLDivElement>) => {
     if (!drag.current || !bar.current) return;
+    if (!event.buttons) return endDrag();
     const next = clampPos({ x: event.clientX - drag.current.dx, y: event.clientY - drag.current.dy }, bar.current);
+    if (!drag.current.moved) {
+      if (Math.abs(next.x - drag.current.pos.x) + Math.abs(next.y - drag.current.pos.y) < 4) return;
+      // Capture only once the pointer really moves, so plain clicks and double-clicks reach their targets.
+      event.currentTarget.setPointerCapture(event.pointerId);
+      drag.current.moved = true;
+    }
     drag.current.pos = next;
-    drag.current.moved = true;
     setDragPos(next);
   };
 
@@ -141,22 +149,23 @@ export function AdminBar() {
     <div
       ref={bar}
       style={pos ? { left: pos.x, top: pos.y } : undefined}
-      className={`fixed z-[70] max-w-[calc(100vw-1rem)] rounded-3xl border border-line bg-white/95 p-3 text-sm shadow-lift backdrop-blur-md ${
+      onPointerDown={startDrag}
+      onPointerMove={moveDrag}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      className={`fixed z-[70] max-w-[calc(100vw-1rem)] touch-none select-none rounded-3xl border border-line bg-white/95 p-3 text-sm shadow-lift backdrop-blur-md ${
         pos ? "" : "right-4 top-4"
-      } ${dragPos ? "select-none shadow-2xl" : ""}`}
+      } ${dragPos ? "cursor-grabbing shadow-2xl" : "cursor-grab"}`}
     >
       <div className="mb-2.5 flex items-center gap-2 pr-1">
         <button
           type="button"
+          data-drag-handle
           aria-label="Move admin bar. Use arrow keys, or double-click to reset."
           title="Drag to move. Double-click to reset."
-          onPointerDown={startDrag}
-          onPointerMove={moveDrag}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
           onDoubleClick={() => writePos(null)}
           onKeyDown={nudge}
-          className={`-ml-1 flex touch-none items-center rounded-full px-1.5 py-1 text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60 ${
+          className={`-ml-1 flex items-center rounded-full px-1.5 py-1 text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60 ${
             dragPos ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
@@ -220,7 +229,7 @@ export function AdminBar() {
           }}
           aria-label="Publish changes"
           title={changeCount ? `Publish ${changes} to the live site` : "Nothing to publish"}
-          className="flex size-9 items-center justify-center rounded-full bg-sun text-navy-deep hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:brightness-100"
+          className="flex size-9 cursor-pointer items-center justify-center rounded-full bg-sun text-navy-deep hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:brightness-100"
         >
           <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
             <path d="M12 4H4v16h16v-8" />
