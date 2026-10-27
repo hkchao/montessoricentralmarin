@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { createPortal } from "react-dom";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, useTransition, type KeyboardEvent, type PointerEvent } from "react";
 import { logoutAction, publishAction, revertAction } from "@/app/admin/actions";
 import { DevicePreview } from "@/components/admin/DevicePreview";
@@ -64,7 +65,8 @@ export function AdminBar() {
   const { editing, status, changeCount, error, flush } = useContent();
   const pathname = usePathname();
   const router = useRouter();
-  const [, startTransition] = useTransition();
+  const [pending, startTransition] = useTransition();
+  const [revertOpen, setRevertOpen] = useState(false);
   const bar = useRef<HTMLDivElement>(null);
   const drag = useRef<{ dx: number; dy: number; pos: Pos; moved: boolean } | null>(null);
   const [dragPos, setDragPos] = useState<Pos | null>(null);
@@ -178,14 +180,7 @@ export function AdminBar() {
         <DevicePreview selectClassName={selectCls} />
         <button
           type="button"
-          onClick={() => {
-            if (!changeCount || window.confirm(`Revert ${changeCount} unpublished change${changeCount === 1 ? "" : "s"}?`)) {
-              startTransition(async () => {
-                await revertAction();
-                window.location.reload();
-              });
-            }
-          }}
+          onClick={() => setRevertOpen(true)}
           aria-label="Revert unpublished changes"
           title="Revert unpublished changes"
           className={iconBtnCls}
@@ -228,6 +223,68 @@ export function AdminBar() {
           </svg>
         </button>
       </div>
+      {revertOpen &&
+        createPortal(
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="revert-title"
+            aria-describedby="revert-body"
+            onKeyDown={(event) => {
+              if (event.key === "Escape" && !pending) setRevertOpen(false);
+            }}
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-navy-deep/65 p-4"
+          >
+            <div className="w-full max-w-md rounded-3xl bg-cream p-6 text-ink shadow-lift">
+              <div className="flex items-start gap-4">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-sun/25 text-sun-deep">
+                  <svg aria-hidden viewBox="0 0 24 24" className="size-5 fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+                    <path d="M12 9v4" />
+                    <path d="M12 17h.01" />
+                  </svg>
+                </span>
+                <div>
+                  <h2 id="revert-title" className="font-display text-2xl font-medium text-navy">
+                    {changeCount ? "Revert all unpublished changes?" : "Nothing to revert"}
+                  </h2>
+                  <p id="revert-body" className="mt-2 text-sm leading-relaxed text-muted">
+                    {changeCount
+                      ? `This permanently discards ${changeCount} unpublished change${changeCount === 1 ? "" : "s"} across all pages (text, PDFs, and images) and puts back what's live now. This can't be undone.`
+                      : "There are no unpublished changes. The site already matches what's live."}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-6 flex justify-end gap-3">
+                <button
+                  type="button"
+                  autoFocus
+                  disabled={pending}
+                  onClick={() => setRevertOpen(false)}
+                  className="rounded-full border border-navy/20 px-5 py-2.5 text-sm font-semibold text-navy hover:bg-navy-tint"
+                >
+                  {changeCount ? "Cancel" : "OK"}
+                </button>
+                {changeCount > 0 && (
+                  <button
+                    type="button"
+                    disabled={pending}
+                    onClick={() => {
+                      startTransition(async () => {
+                        await revertAction();
+                        window.location.reload();
+                      });
+                    }}
+                    className="rounded-full bg-sun-deep px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#a84f0f] disabled:opacity-60"
+                  >
+                    {pending ? "pending..." : `Discard ${changeCount} change${changeCount === 1 ? "" : "s"}`}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
