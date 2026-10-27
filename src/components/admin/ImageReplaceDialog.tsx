@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { upload } from "@vercel/blob/client";
 import { useContent } from "@/components/admin/ContentProvider";
 import type { ImageContent } from "@/content/defaults";
@@ -108,8 +109,9 @@ export function ImageReplaceDialog({ imageKey, onClose }: { imageKey: string; on
     }
   }
 
-  return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-navy-deep/65 p-4">
+  // Portaled so blurred/sticky ancestors (site header) can't trap it; stopPropagation keeps clicks from reaching ancestor Links.
+  return createPortal(
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-navy-deep/65 p-4" onClick={(event) => event.stopPropagation()}>
       <div className="w-full max-w-lg rounded-3xl bg-cream p-6 text-ink shadow-lift">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -185,6 +187,7 @@ export function ImageReplaceDialog({ imageKey, onClose }: { imageKey: string; on
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
   useTransition,
   type ReactNode,
 } from "react";
@@ -32,6 +33,8 @@ type ContentContextValue = {
 };
 
 const ContentContext = createContext<ContentContextValue | null>(null);
+
+const noopSubscribe = () => () => {};
 
 function diff(current: SiteContent, published: SiteContent): ContentPatch {
   const patch: ContentPatch = { text: {}, docs: {}, images: {} };
@@ -144,10 +147,17 @@ export function ContentProvider({
     [published, scheduleSave],
   );
 
+  // Device-preview iframes show the draft exactly as visitors would, without editing chrome.
+  const preview = useSyncExternalStore(
+    noopSubscribe,
+    () => new URLSearchParams(window.location.search).get("adminPreview") === "1",
+    () => false,
+  );
+
   const value: ContentContextValue = {
     content: state,
     published,
-    editing,
+    editing: editing && !preview,
     status,
     changeCount,
     error,

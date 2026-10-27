@@ -27,7 +27,11 @@ export function EditableImage({ imageKey, alt, className = "", ...props }: Props
       {editing && (
         <button
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setOpen(true);
+          }}
           className="absolute inset-2 z-10 flex items-center justify-center rounded-2xl border border-dashed border-white/80 bg-navy/35 text-sm font-semibold text-white opacity-0 shadow-soft transition-opacity hover:opacity-100 focus:opacity-100"
         >
           Replace image
