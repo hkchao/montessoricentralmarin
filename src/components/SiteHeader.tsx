@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { ButtonLink } from "@/components/Button";
+import { FullAddressText, PhoneLink } from "@/components/ContactBits";
+import { T } from "@/components/T";
 import { nav, primaryCta, site } from "@/lib/site";
 
 export function SiteHeader() {
@@ -55,7 +57,7 @@ export function SiteHeader() {
                       active ? "text-navy" : "text-ink/80"
                     }`}
                   >
-                    {item.label}
+                    <T k={`nav.${item.href.slice(1)}`} fallback={item.label} />
                     <span
                       aria-hidden="true"
                       className={`absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-sun transition-opacity ${
@@ -70,14 +72,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href={site.phoneHref}
-            className="hidden whitespace-nowrap text-[0.95rem] font-semibold text-navy tabular-nums underline-offset-4 hover:underline xl:inline"
-          >
-            {site.phone}
-          </a>
+          <PhoneLink className="hidden whitespace-nowrap text-[0.95rem] font-semibold text-navy tabular-nums underline-offset-4 hover:underline xl:inline" />
           <ButtonLink href={primaryCta.href} className="whitespace-nowrap">
-            {primaryCta.label}
+            <T k="cta.primary" fallback={primaryCta.label} />
           </ButtonLink>
         </div>
 
@@ -119,29 +116,30 @@ export function SiteHeader() {
           <ul className="divide-y divide-line">
             <li>
               <Link href="/" onClick={close} className="block py-4 font-display text-2xl text-navy">
-                Home
+                <T k="nav.home" fallback="Home" />
               </Link>
             </li>
             {nav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} onClick={close} className="block py-4 font-display text-2xl text-navy">
-                  {item.label}
+                  <T k={`nav.${item.href.slice(1)}`} fallback={item.label} />
                 </Link>
               </li>
             ))}
           </ul>
           <div className="mt-8 flex flex-col gap-3">
             <ButtonLink href={primaryCta.href} size="lg" onClick={close}>
-              {primaryCta.label}
+              <T k="cta.primary" fallback={primaryCta.label} />
             </ButtonLink>
-            <ButtonLink href={site.phoneHref} variant="ghost" size="lg">
-              Call {site.phone}
-            </ButtonLink>
+            <PhoneLink
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-navy/25 px-6 py-3.5 text-base font-semibold text-navy hover:border-navy hover:bg-navy-tint"
+              labelKey="contact.phone"
+            />
           </div>
           <p className="mt-auto pt-10 text-sm text-muted">
-            {site.address.full}
+            <FullAddressText />
             <br />
-            {site.hours}
+            <T k="contact.hours" fallback={site.hours} />
           </p>
         </nav>
       </div>

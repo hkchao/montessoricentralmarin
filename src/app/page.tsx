@@ -1,37 +1,37 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { ArrowIcon, ButtonLink } from "@/components/Button";
-import { curriculum, docs, primaryCta, programs, site } from "@/lib/site";
+import { DocButton } from "@/components/admin/DocButton";
+import { EditableImage } from "@/components/admin/EditableImage";
+import { T } from "@/components/T";
+import { curriculum, primaryCta, programs, site } from "@/lib/site";
 
 export default function HomePage() {
   return (
     <>
       <PageHero
         size="home"
-        kicker="San Rafael, CA"
-        title="Montessori School of Central Marin"
+        kicker={<T k="home.hero.kicker" />}
+        title={<T k="home.hero.title" />}
         lede={
-          <>
-            Bilingual English and Spanish for ages 2–6.
-            <br />
-            School day, full day, and summer. AMS affiliate since 1974.
-          </>
+          <T k="home.hero.lede" multiline />
         }
         actions={
           <>
             <ButtonLink href={primaryCta.href} size="lg">
-              {primaryCta.label} <ArrowIcon />
+              <T k="cta.primary" fallback={primaryCta.label} /> <ArrowIcon />
             </ButtonLink>
             <span className="hidden sm:contents">
               <ButtonLink href="/programs" variant="ghost-light" size="lg">
-                View programs
+                <T k="home.hero.programsCta" fallback="View programs" />
               </ButtonLink>
             </span>
           </>
         }
         image={{
+          key: "home.hero.desktop",
+          mobileKey: "home.hero.mobile",
           src: "/images/hero-children-wide.png",
           // Tighter crop around the three kids for tall phone frames.
           srcMobile: "/images/hero-children-mobile.png",
@@ -46,37 +46,35 @@ export default function HomePage() {
       <Section tone="white">
         <ul className="grid gap-4 sm:grid-cols-3">
           <li className="flex items-center gap-4 rounded-2xl border border-line bg-cream p-5">
-            <Image
-              src="/brand/best-of-marin-2026.png"
-              alt=""
+            <EditableImage
+              imageKey="brand.bestOfMarin"
               width={624}
               height={784}
               className="h-16 w-auto shrink-0 sm:h-14 lg:h-16"
             />
             <div>
-              <p className="font-semibold text-navy">Best of Marin 2026</p>
-              <p className="mt-1 text-sm text-muted">Voted by Pacific Sun readers.</p>
+              <p className="font-semibold text-navy"><T k="home.badge.best.title" /></p>
+              <p className="mt-1 text-sm text-muted"><T k="home.badge.best.body" /></p>
             </div>
           </li>
           <li className="flex items-center gap-4 rounded-2xl border border-line bg-cream p-5">
-            <Image
-              src="/brand/ams-mark.png"
-              alt=""
+            <EditableImage
+              imageKey="brand.ams"
               width={512}
               height={512}
               className="size-14 shrink-0 sm:size-12 lg:size-14"
             />
             <div>
-              <p className="font-semibold text-navy">AMS affiliate</p>
+              <p className="font-semibold text-navy"><T k="home.badge.ams.title" /></p>
               <p className="mt-1 text-sm text-muted">
-                Member of the{" "}
+                <T k="home.badge.ams.prefix" />{" "}
                 <a
                   href={site.social.ams}
                   target="_blank"
                   rel="noreferrer"
                   className="underline underline-offset-2 hover:text-navy"
                 >
-                  American Montessori Society
+                  <T k="home.badge.ams.link" />
                 </a>
                 .
               </p>
@@ -88,31 +86,27 @@ export default function HomePage() {
               <span className="text-sun">+</span>
             </p>
             <div>
-              <p className="font-semibold text-navy">Years in San Rafael</p>
-              <p className="mt-1 text-sm text-muted">Since {site.founded}.</p>
+              <p className="font-semibold text-navy"><T k="home.badge.years.title" /></p>
+              <p className="mt-1 text-sm text-muted"><T k="home.badge.years.bodyPrefix" /> {site.founded}.</p>
             </div>
           </li>
         </ul>
 
         <div className="mt-12 grid items-center gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-16">
           <div className="max-w-2xl lg:col-span-6">
-            <SectionHeading kicker="Welcome" title="Who we are" />
+            <SectionHeading kicker={<T k="home.welcome.kicker" />} title={<T k="home.welcome.title" />} />
             <div className="prose-school mt-6 text-[1.0625rem] text-ink/85">
               <p>
-                We are a year-round bilingual preschool, following the philosophy of Dr. Maria
-                Montessori and an affiliate of the American Montessori Society. Children learn
-                in both English and Spanish with a diverse Montessori curriculum that includes
-                sensorial, practical life, cultural studies, mathematics and language.
+                <T k="home.welcome.body" />
               </p>
             </div>
             <ButtonLink href="/about" variant="link" className="mt-6 font-semibold">
-              About our school <ArrowIcon />
+              <T k="home.welcome.cta" /> <ArrowIcon />
             </ButtonLink>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl lg:col-span-6">
-            <Image
-              src="/images/gallery-guide-and-child.jpg"
-              alt="A teacher guides a child through a tray activity"
+            <EditableImage
+              imageKey="home.welcome"
               fill
               quality={90}
               sizes="(min-width: 1024px) 40vw, 100vw"
@@ -125,12 +119,12 @@ export default function HomePage() {
       <Section id="programs">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
-            kicker="Programs"
-            title="Hours and days"
-            lede="School day, full day, partial week, or summer. Same curriculum in every schedule."
+            kicker={<T k="home.programs.kicker" />}
+            title={<T k="home.programs.title" />}
+            lede={<T k="home.programs.lede" />}
           />
           <ButtonLink href="/programs" variant="ghost" className="shrink-0">
-            All programs <ArrowIcon />
+            <T k="home.programs.cta" /> <ArrowIcon />
           </ButtonLink>
         </div>
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -140,13 +134,13 @@ export default function HomePage() {
                 href={`/programs#${p.id}`}
                 className="group flex h-full flex-col rounded-2xl border border-line bg-white p-6 shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift"
               >
-                <p className="kicker text-sun-deep">{p.hours}</p>
-                <h3 className="font-display mt-3 text-2xl font-medium text-navy">{p.name}</h3>
+                <p className="kicker text-sun-deep"><T k={`program.${p.id}.hours`} fallback={p.hours} /></p>
+                <h3 className="font-display mt-3 text-2xl font-medium text-navy"><T k={`program.${p.id}.name`} fallback={p.name} /></h3>
                 <p className="mt-3 hidden flex-1 text-[0.95rem] leading-relaxed text-muted sm:block">
-                  {p.summary}
+                  <T k={`program.${p.id}.summary`} fallback={p.summary} />
                 </p>
                 <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-navy sm:mt-5">
-                  Details{" "}
+                  <T k="home.programs.detail" fallback="Details" />{" "}
                   <ArrowIcon className="size-4 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </Link>
@@ -158,9 +152,8 @@ export default function HomePage() {
       <Section tone="white" id="curriculum">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl lg:col-span-6 lg:aspect-[5/4]">
-            <Image
-              src="/images/gallery-child-writing.jpg"
-              alt="A child writes carefully with a red pencil"
+            <EditableImage
+              imageKey="home.curriculum"
               fill
               quality={90}
               sizes="(min-width: 1024px) 45vw, 100vw"
@@ -169,22 +162,22 @@ export default function HomePage() {
           </div>
           <div className="lg:col-span-6">
             <SectionHeading
-              kicker="Curriculum"
-              title="What children learn"
-              lede="Six areas of work, in English and Spanish."
+              kicker={<T k="home.curriculum.kicker" />}
+              title={<T k="home.curriculum.title" />}
+              lede={<T k="home.curriculum.lede" />}
             />
             <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 sm:gap-y-5">
               {curriculum.map((c) => (
                 <li key={c.id}>
-                  <p className="font-semibold text-navy">{c.name}</p>
+                  <p className="font-semibold text-navy"><T k={`curriculum.${c.id}.name`} fallback={c.name} /></p>
                   <p className="mt-1 hidden text-sm leading-relaxed text-muted sm:block">
-                    {c.short}
+                    <T k={`curriculum.${c.id}.short`} fallback={c.short} />
                   </p>
                 </li>
               ))}
             </ul>
             <ButtonLink href="/programs#curriculum" variant="ghost" className="mt-8">
-              See programs <ArrowIcon />
+              <T k="home.curriculum.cta" /> <ArrowIcon />
             </ButtonLink>
           </div>
         </div>
@@ -193,13 +186,13 @@ export default function HomePage() {
       <Section className="!py-10 md:!py-12">
         <aside className="mx-auto flex max-w-lg flex-col items-center gap-3 text-center sm:flex-row sm:justify-center sm:gap-5 sm:text-left">
           <p className="text-[0.95rem] leading-relaxed text-muted">
-            <span className="font-semibold text-navy">2026–27 school calendar</span>
+            <span className="font-semibold text-navy"><T k="home.calendar.title" /></span>
             <span className="hidden sm:inline"> — </span>
-            <span className="block sm:inline">holidays, closures, and key dates.</span>
+            <span className="block sm:inline"><T k="home.calendar.body" /></span>
           </p>
-          <ButtonLink href={docs.calendar.href} variant="ghost" className="shrink-0">
-            Download PDF
-          </ButtonLink>
+          <DocButton docKey="calendar" variant="ghost" className="shrink-0">
+            <T k="home.calendar.cta" />
+          </DocButton>
         </aside>
       </Section>
     </>

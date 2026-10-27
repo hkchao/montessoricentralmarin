@@ -3,6 +3,9 @@
 import { useActionState } from "react";
 import { Button } from "@/components/Button";
 import { submitTourRequest, type TourFormState } from "@/app/contact/actions";
+import { FieldTextDialog } from "@/components/admin/FieldTextDialog";
+import { T } from "@/components/T";
+import { useContent } from "@/components/admin/ContentProvider";
 import { programs } from "@/lib/site";
 
 const initial: TourFormState = { status: "idle" };
@@ -27,7 +30,8 @@ function Field({
     <div>
       <label htmlFor={name} className="text-sm font-semibold text-navy">
         {label}
-        {optional && <span className="ml-1.5 font-normal text-muted">(optional)</span>}
+        {optional && <span className="ml-1.5 font-normal text-muted">(<T k="form.optional" fallback="optional" />)</span>}
+        <FieldTextDialog keys={[{ key: `form.${name}.label`, label: "Label" }, { key: `form.${name}.placeholder`, label: "Placeholder" }]} label={label} />
       </label>
       {children}
       {error && (
@@ -41,12 +45,13 @@ function Field({
 
 export function TourForm() {
   const [state, action, pending] = useActionState(submitTourRequest, initial);
+  const { content } = useContent();
   const e = state.errors ?? {};
 
   if (state.status === "success") {
     return (
       <div role="status" className="rounded-3xl bg-sage-tint p-8 text-navy">
-        <p className="font-display text-2xl font-medium">Request received</p>
+        <p className="font-display text-2xl font-medium"><T k="form.success.title" /></p>
         <p className="mt-3 leading-relaxed">{state.message}</p>
       </div>
     );
@@ -55,33 +60,33 @@ export function TourForm() {
   return (
     <form action={action} noValidate className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Parent / guardian name" name="parentName" error={e.parentName}>
+        <Field label={content.text["form.parentName.label"]} name="parentName" error={e.parentName}>
           <input id="parentName" name="parentName" type="text" autoComplete="name" required aria-invalid={!!e.parentName} aria-describedby={e.parentName ? "parentName-error" : undefined} className={inputCls} />
         </Field>
-        <Field label="Email" name="email" error={e.email}>
+        <Field label={content.text["form.email.label"]} name="email" error={e.email}>
           <input id="email" name="email" type="email" autoComplete="email" required aria-invalid={!!e.email} aria-describedby={e.email ? "email-error" : undefined} className={inputCls} />
         </Field>
-        <Field label="Phone" name="phone" optional>
+        <Field label={content.text["form.phone.label"]} name="phone" optional>
           <input id="phone" name="phone" type="tel" autoComplete="tel" className={inputCls} />
         </Field>
-        <Field label="Child's age" name="childAge" error={e.childAge}>
-          <input id="childAge" name="childAge" type="text" placeholder="e.g. 2 years 8 months" required aria-invalid={!!e.childAge} aria-describedby={e.childAge ? "childAge-error" : undefined} className={inputCls} />
+        <Field label={content.text["form.childAge.label"]} name="childAge" error={e.childAge}>
+          <input id="childAge" name="childAge" type="text" placeholder={content.text["form.childAge.placeholder"]} required aria-invalid={!!e.childAge} aria-describedby={e.childAge ? "childAge-error" : undefined} className={inputCls} />
         </Field>
-        <Field label="Program interest" name="program" optional>
+        <Field label={content.text["form.program.label"]} name="program" optional>
           <select id="program" name="program" defaultValue="" className={inputCls}>
-            <option value="">Not sure yet</option>
+            <option value="">{content.text["form.program.placeholder"]}</option>
             {programs.map((p) => (
-              <option key={p.id} value={p.name}>
-                {p.name}
+              <option key={p.id} value={content.text[`program.${p.id}.name`] ?? p.name}>
+                {content.text[`program.${p.id}.name`] ?? p.name}
               </option>
             ))}
           </select>
         </Field>
-        <Field label="Preferred tour days / times" name="preferredTimes" optional>
-          <input id="preferredTimes" name="preferredTimes" type="text" placeholder="e.g. weekday mornings" className={inputCls} />
+        <Field label={content.text["form.preferredTimes.label"]} name="preferredTimes" optional>
+          <input id="preferredTimes" name="preferredTimes" type="text" placeholder={content.text["form.preferredTimes.placeholder"]} className={inputCls} />
         </Field>
       </div>
-      <Field label="Anything you'd like us to know?" name="message" optional>
+      <Field label={content.text["form.message.label"]} name="message" optional>
         <textarea id="message" name="message" rows={4} className={inputCls} />
       </Field>
 
@@ -99,9 +104,9 @@ export function TourForm() {
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Button type="submit" size="lg" disabled={pending}>
-          {pending ? "Sending…" : "Request a tour"}
+          {pending ? <T k="form.sending" /> : <T k="form.submit" />}
         </Button>
-        <p className="text-sm text-muted">We only use your details to arrange your visit.</p>
+        <p className="text-sm text-muted"><T k="form.privacy" /></p>
       </div>
     </form>
   );

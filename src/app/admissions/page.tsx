@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { ArrowIcon, ButtonLink } from "@/components/Button";
+import { DocButton, DocDownloadLink } from "@/components/admin/DocButton";
+import { EditableImage } from "@/components/admin/EditableImage";
+import { PhoneLink, EmailLink } from "@/components/ContactBits";
+import { T } from "@/components/T";
 import { admissionSteps, docs, primaryCta, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -36,9 +39,10 @@ export default function AdmissionsPage() {
   return (
     <>
       <PageHero
-        title="Admissions"
-        lede="Ages 2–6. Tour first. Places are first come, first served."
+        title={<T k="admissions.hero.title" />}
+        lede={<T k="admissions.hero.lede" />}
         image={{
+          key: "admissions.hero",
           src: "/images/hero-entry.png",
           alt: "A row of small wooden cubbies holding children's backpacks",
           focal: "70% 45%",
@@ -49,22 +53,19 @@ export default function AdmissionsPage() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHeading
-              kicker="The process"
-              title="Take the first step"
-              lede="Five steps from tour to first day."
+              kicker={<T k="admissions.process.kicker" />}
+              title={<T k="admissions.process.title" />}
+              lede={<T k="admissions.process.lede" />}
             />
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href={primaryCta.href}>
-                {primaryCta.label} <ArrowIcon />
+                <T k="cta.primary" fallback={primaryCta.label} /> <ArrowIcon />
               </ButtonLink>
-              <ButtonLink href={site.phoneHref} variant="ghost">
-                {site.phone}
-              </ButtonLink>
+              <PhoneLink className="inline-flex items-center justify-center gap-2 rounded-full border border-navy/25 px-5 py-2.5 text-[0.9375rem] font-semibold text-navy hover:border-navy hover:bg-navy-tint" />
             </div>
             <div className="relative mt-10 aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image
-                src="/images/gallery-guide-and-child.jpg"
-                alt="A teacher and child working together in the classroom"
+              <EditableImage
+                imageKey="admissions.process"
                 fill
                 quality={90}
                 sizes="(min-width: 1024px) 35vw, 100vw"
@@ -82,27 +83,17 @@ export default function AdmissionsPage() {
                   {i + 1}
                 </span>
                 <div className="pt-2">
-                  <h3 className="font-semibold text-navy">{s.title}</h3>
+                  <h3 className="font-semibold text-navy"><T k={`admissions.step.${i}.title`} fallback={s.title} /></h3>
                   {s.body.includes(site.phone) ? (
                     <p className="mt-1.5 text-[1rem] leading-relaxed text-muted">
-                      Call{" "}
-                      <a
-                        href={site.phoneHref}
-                        className="font-semibold text-navy underline-offset-4 hover:underline"
-                      >
-                        {site.phone}
-                      </a>{" "}
-                      or email{" "}
-                      <a
-                        href={`mailto:${site.email}`}
-                        className="break-all font-semibold text-navy underline-offset-4 hover:underline"
-                      >
-                        {site.email}
-                      </a>
+                      <T k="admissions.step.0.prefix" />{" "}
+                      <PhoneLink className="font-semibold text-navy underline-offset-4 hover:underline" />{" "}
+                      <T k="admissions.step.0.middle" />{" "}
+                      <EmailLink className="break-all font-semibold text-navy underline-offset-4 hover:underline" />
                       .
                     </p>
                   ) : (
-                    <p className="mt-1.5 text-[1rem] leading-relaxed text-muted">{s.body}</p>
+                    <p className="mt-1.5 text-[1rem] leading-relaxed text-muted"><T k={`admissions.step.${i}.body`} fallback={s.body} /></p>
                   )}
                 </div>
               </li>
@@ -114,37 +105,31 @@ export default function AdmissionsPage() {
       <Section id="tuition">
         <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
-            <SectionHeading kicker="Tuition" title="Tuition and sibling discount" />
+            <SectionHeading kicker={<T k="admissions.tuition.kicker" />} title={<T k="admissions.tuition.title" />} />
           </div>
           <div className="lg:col-span-5 lg:justify-self-end">
-            <ButtonLink href={docs.tuition.href} variant="navy" size="lg">
-              Download 2026–27 tuition (PDF)
-            </ButtonLink>
+            <DocButton docKey="tuition" variant="navy" size="lg">
+              <T k="admissions.tuition.cta" />
+            </DocButton>
           </div>
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           <div className="border-t-2 border-navy pt-5">
-            <h3 className="font-display text-2xl font-medium text-navy">Payment schedule</h3>
+            <h3 className="font-display text-2xl font-medium text-navy"><T k="admissions.tuition.payment.title" /></h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              Nine monthly payments, September 1 through May 1. The $500 enrollment deposit is
-              applied to your child&rsquo;s final school-year month of enrollment before
-              graduation or withdrawal.
+              <T k="admissions.tuition.payment.body" />
             </p>
           </div>
           <div className="border-t-2 border-navy pt-5">
-            <h3 className="font-display text-2xl font-medium text-navy">Sibling discount</h3>
+            <h3 className="font-display text-2xl font-medium text-navy"><T k="admissions.tuition.sibling.title" /></h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              Families with more than one child enrolled at the same time receive a{" "}
-              <strong className="text-navy">10% discount off</strong> the eldest child&rsquo;s
-              tuition.
+              <T k="admissions.tuition.sibling.body" />
             </p>
           </div>
           <div className="border-t-2 border-navy pt-5">
-            <h3 className="font-display text-2xl font-medium text-navy">Summer school</h3>
+            <h3 className="font-display text-2xl font-medium text-navy"><T k="admissions.tuition.summer.title" /></h3>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              Summer school (June, July, and August) tuition rates are the same as the
-              preceding school year but enrollment is more flexible, allowing for families to
-              plan time away. No sibling discount applied during summer months.
+              <T k="admissions.tuition.summer.body" />
             </p>
           </div>
         </div>
@@ -154,29 +139,27 @@ export default function AdmissionsPage() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHeading
-              kicker="Downloads"
-              title="Application forms"
-              lede="Send the 2-page application with a $100 fee and $500 tuition deposit (check or money order)."
+              kicker={<T k="admissions.downloads.kicker" />}
+              title={<T k="admissions.downloads.title" />}
+              lede={<T k="admissions.downloads.lede" />}
             />
             <p className="mt-6 rounded-2xl bg-sun/15 p-5 text-[0.95rem] leading-relaxed text-navy">
-              New-family applications for 2027–28 open <strong>January 1, 2027</strong>.
+              <T k="admissions.downloads.note" />
             </p>
           </div>
           <ul className="grid gap-3 self-start lg:col-span-7">
             {downloads.map((d) => (
               <li key={d.href}>
-                <a
-                  href={d.href}
-                  target="_blank"
-                  rel="noreferrer"
+                <DocDownloadLink
+                  docKey={Object.entries(docs).find(([, doc]) => doc.href === d.href)?.[0] ?? "calendar"}
                   className="group flex items-center gap-4 rounded-2xl border border-line bg-cream px-5 py-4 transition-[transform,box-shadow,border-color] hover:-translate-y-0.5 hover:border-navy/30 hover:shadow-soft"
                 >
                   <DocIcon />
                   <span className="flex-1 font-semibold text-navy">{d.label}</span>
                   <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-                    PDF
+                    <T k="admissions.downloads.type" />
                   </span>
-                </a>
+                </DocDownloadLink>
               </li>
             ))}
           </ul>

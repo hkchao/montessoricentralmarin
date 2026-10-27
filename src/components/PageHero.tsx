@@ -1,7 +1,9 @@
-import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
+import { EditableImage } from "@/components/admin/EditableImage";
 
 export type HeroImage = {
+  key?: string;
+  mobileKey?: string;
   src: string;
   alt: string;
   /** CSS object-position — the subject's strongest landmark. Keep it in the open right half. */
@@ -13,7 +15,7 @@ export type HeroImage = {
 };
 
 type Props = {
-  kicker?: string;
+  kicker?: ReactNode;
   title: ReactNode;
   lede?: ReactNode;
   actions?: ReactNode;
@@ -59,9 +61,9 @@ export function PageHero({
         >
           {image ? (
             <>
-              {image.srcMobile && (
-                <Image
-                  src={image.srcMobile}
+              {(image.srcMobile || image.mobileKey) && (
+                <EditableImage
+                  imageKey={image.mobileKey ?? image.key ?? ""}
                   alt={image.alt}
                   fill
                   priority
@@ -74,14 +76,14 @@ export function PageHero({
                   }
                 />
               )}
-              <Image
-                src={image.src}
+              <EditableImage
+                imageKey={image.key ?? image.mobileKey ?? ""}
                 alt={image.alt}
                 fill
                 priority
                 sizes="(min-width: 1600px) 1600px, 100vw"
                 className={`object-cover object-[var(--hero-focal)] ${
-                  image.srcMobile ? "hidden md:block" : "object-[var(--hero-focal-m)] md:object-[var(--hero-focal)]"
+                  image.srcMobile || image.mobileKey ? "hidden md:block" : "object-[var(--hero-focal-m)] md:object-[var(--hero-focal)]"
                 }`}
                 style={
                   {

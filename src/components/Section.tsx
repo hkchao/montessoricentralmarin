@@ -25,7 +25,7 @@ export function Section({ id, tone = "cream", className = "", children, still = 
 }
 
 type HeadingProps = {
-  kicker?: string;
+  kicker?: ReactNode;
   title: ReactNode;
   lede?: ReactNode;
   align?: "left" | "center";

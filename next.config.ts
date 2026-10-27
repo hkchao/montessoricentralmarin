@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   images: {
     // Default allowlist is [75]; gallery uses quality={90}.
     qualities: [75, 90],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
+    ],
   },
   async redirects() {
     return [{ source: "/our-school", destination: "/about", permanent: true }];

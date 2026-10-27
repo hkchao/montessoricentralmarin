@@ -1,6 +1,6 @@
 "use server";
 
-import { site } from "@/lib/site";
+import { getPublishedContent, textOf } from "@/lib/content";
 
 export type TourFormState = {
   status: "idle" | "success" | "error";
@@ -17,9 +17,12 @@ function clean(v: FormDataEntryValue | null, max = 500) {
 }
 
 export async function submitTourRequest(_prev: TourFormState, formData: FormData): Promise<TourFormState> {
+  const content = await getPublishedContent();
+  const phone = textOf(content, "contact.phone");
+  const email = textOf(content, "contact.email");
   // Honeypot — bots fill every field; humans never see this one.
   if (clean(formData.get("website"))) {
-    return { status: "success", message: "Thank you! We'll be in touch shortly." };
+    return { status: "success", message: textOf(content, "form.success.message") };
   }
 
   const data = {
@@ -33,22 +36,22 @@ export async function submitTourRequest(_prev: TourFormState, formData: FormData
   };
 
   const errors: TourFormState["errors"] = {};
-  if (!data.parentName) errors.parentName = "Please tell us your name.";
-  if (!emailRe.test(data.email)) errors.email = "Please enter a valid email address.";
-  if (!data.childAge) errors.childAge = "Please share your child's age.";
+  if (!data.parentName) errors.parentName = textOf(content, "form.error.parentName");
+  if (!emailRe.test(data.email)) errors.email = textOf(content, "form.error.email");
+  if (!data.childAge) errors.childAge = textOf(content, "form.error.childAge");
   if (Object.keys(errors).length) {
-    return { status: "error", message: "Please check the highlighted fields.", errors };
+    return { status: "error", message: textOf(content, "form.error.generic"), errors };
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL ?? site.email;
+  const to = process.env.CONTACT_TO_EMAIL ?? email;
   const from = process.env.CONTACT_FROM_EMAIL ?? "MSCM Website <onboarding@resend.dev>";
 
   if (!apiKey) {
     console.warn("[contact] RESEND_API_KEY not set — tour request not delivered:", data);
     return {
       status: "error",
-      message: `Please call ${site.phone} or email ${site.email} to schedule a tour.`,
+      message: textOf(content, "form.error.noApiKey").replace("{phone}", phone).replace("{email}", email),
     };
   }
 
@@ -83,12 +86,12 @@ export async function submitTourRequest(_prev: TourFormState, formData: FormData
     console.error("[contact] failed to send tour request", err);
     return {
       status: "error",
-      message: `Something went wrong sending your request. Please call ${site.phone} or email ${site.email}.`,
+      message: textOf(content, "form.error.delivery").replace("{phone}", phone).replace("{email}", email),
     };
   }
 
   return {
     status: "success",
-    message: "We'll reply within a couple of school days to confirm a time.",
+    message: textOf(content, "form.success.message"),
   };
 }
