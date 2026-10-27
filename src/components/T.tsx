@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { useContent } from "@/components/admin/ContentProvider";
 
 type Props = {
@@ -10,20 +10,27 @@ type Props = {
   className?: string;
 };
 
+function escapeHtml(text: string) {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 export function T({ k, fallback = "", multiline = false, className = "" }: Props) {
   const { content, published, editing, setText, undo } = useContent();
   const value = content.text[k] ?? fallback;
   const live = published.text[k] ?? fallback;
   const changed = value !== live;
-  const [local, setLocal] = useState(value);
   const ref = useRef<HTMLSpanElement>(null);
+  // React must never re-render the editable span's children: rewriting the text node resets the caret
+  // to the start after every keystroke. It renders the initial text once; later updates go through the effect.
+  const [initialHtml] = useState(() => ({ __html: escapeHtml(value) }));
 
-  useEffect(() => {
-    if (document.activeElement !== ref.current) setLocal(value);
-  }, [value]);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (el && document.activeElement !== el && el.textContent !== value) el.textContent = value;
+  }, [value, editing]);
 
   if (!editing) {
-    return <>{multiline ? local.split("\n").map((line, i) => <span key={`${k}-${i}`}>{i > 0 && <br />}{line}</span>) : local}</>;
+    return <>{multiline ? value.split("\n").map((line, i) => <span key={`${k}-${i}`}>{i > 0 && <br />}{line}</span>) : value}</>;
   }
 
   return (
@@ -33,31 +40,27 @@ export function T({ k, fallback = "", multiline = false, className = "" }: Props
         contentEditable="plaintext-only"
         suppressContentEditableWarning
         spellCheck
+        dangerouslySetInnerHTML={initialHtml}
         onClick={(event) => {
           if (!event.metaKey && !event.ctrlKey) {
             event.preventDefault();
             event.stopPropagation();
-            ref.current?.focus();
           }
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" && !multiline) event.preventDefault();
         }}
         onInput={(event) => {
           const next = event.currentTarget.innerText.replace(/\u00a0/g, " ");
-          setLocal(next);
           if (next.trim()) setText(k, next);
         }}
-        onBlur={() => {
-          if (!local.trim()) {
-            setLocal(value || live);
-            requestAnimationFrame(() => {
-              if (ref.current) ref.current.innerText = value || live;
-            });
-          }
+        onBlur={(event) => {
+          const el = event.currentTarget;
+          if (!el.innerText.trim()) el.textContent = value || live;
         }}
-        className="rounded outline outline-1 outline-transparent transition-colors hover:bg-sun/15 hover:outline-sun focus:bg-white focus:outline-2 focus:outline-sun"
+        className="cursor-text rounded outline outline-1 outline-transparent transition-colors hover:bg-sun/15 hover:outline-sun focus:bg-sun/10 focus:outline-2 focus:outline-sun"
         style={{ whiteSpace: multiline ? "pre-line" : "normal" } as CSSProperties}
-      >
-        {local}
-      </span>
+      />
       {changed && (
         <button
           type="button"

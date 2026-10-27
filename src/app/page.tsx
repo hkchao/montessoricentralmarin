@@ -184,13 +184,13 @@ export default function HomePage() {
       </Section>
 
       <Section className="!py-10 md:!py-12">
-        <aside className="mx-auto flex max-w-lg flex-col items-center gap-3 text-center sm:flex-row sm:justify-center sm:gap-5 sm:text-left">
+        <aside className="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center sm:flex-row sm:justify-center sm:gap-5 sm:text-left">
           <p className="text-[0.95rem] leading-relaxed text-muted">
             <span className="font-semibold text-navy"><T k="home.calendar.title" /></span>
             <span className="hidden sm:inline"> — </span>
             <span className="block sm:inline"><T k="home.calendar.body" /></span>
           </p>
-          <DocButton docKey="calendar" variant="ghost" className="shrink-0">
+          <DocButton docKey="calendar" variant="ghost" className="shrink-0 whitespace-nowrap">
             <T k="home.calendar.cta" />
           </DocButton>
         </aside>

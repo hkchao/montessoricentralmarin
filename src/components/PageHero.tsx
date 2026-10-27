@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { EditableImage } from "@/components/admin/EditableImage";
+import { EditableImage, ImageReplaceButton } from "@/components/admin/EditableImage";
 
 export type HeroImage = {
   key?: string;
@@ -65,6 +65,7 @@ export function PageHero({
                 <EditableImage
                   imageKey={image.mobileKey ?? image.key ?? ""}
                   alt={image.alt}
+                  controls={false}
                   fill
                   priority
                   sizes="100vw"
@@ -79,6 +80,7 @@ export function PageHero({
               <EditableImage
                 imageKey={image.key ?? image.mobileKey ?? ""}
                 alt={image.alt}
+                controls={false}
                 fill
                 priority
                 sizes="(min-width: 1600px) 1600px, 100vw"
@@ -157,6 +159,25 @@ export function PageHero({
           {actions && <div className="mt-7 flex flex-wrap items-center gap-3">{actions}</div>}
         </div>
       </div>
+
+      {/* The media plane sits behind the text layer, so its replace buttons live up here, clear of the lockup. */}
+      {image &&
+        (image.mobileKey && image.key ? (
+          <>
+            <div className="absolute right-4 top-16 z-20 md:hidden">
+              <ImageReplaceButton imageKey={image.mobileKey} label="Replace mobile banner image" />
+            </div>
+            <div className="absolute bottom-4 right-4 z-20 hidden md:block">
+              <ImageReplaceButton imageKey={image.key} label="Replace desktop banner image" />
+            </div>
+          </>
+        ) : (
+          (image.key ?? image.mobileKey) && (
+            <div className="absolute right-4 top-16 z-20 md:bottom-4 md:top-auto">
+              <ImageReplaceButton imageKey={(image.key ?? image.mobileKey)!} label="Replace banner image" />
+            </div>
+          )
+        ))}
     </section>
   );
 }
