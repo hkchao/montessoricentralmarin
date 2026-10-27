@@ -74,7 +74,7 @@ export const defaultContent: SiteContent = {
     "home.curriculum.cta": "See programs",
     "home.calendar.title": "2026-27 school calendar",
     "home.calendar.body": "holidays, closures, and key dates.",
-    "home.calendar.cta": "Download PDF",
+    "home.calendar.cta": "Download 2026-27 calendar (PDF)",
 
     "programs.hero.title": "Our Programs",
     "programs.hero.lede": "Ages 2-6. Same curriculum in every schedule.",
