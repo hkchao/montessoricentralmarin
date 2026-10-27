@@ -142,7 +142,7 @@ export function AdminBar() {
         pos ? "" : "right-4 top-4"
       } ${dragPos ? "select-none shadow-2xl" : ""}`}
     >
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="mb-2.5 flex items-center gap-2 pr-1">
         <button
           type="button"
           aria-label="Move admin bar. Use arrow keys, or double-click to reset."
@@ -153,7 +153,7 @@ export function AdminBar() {
           onPointerCancel={endDrag}
           onDoubleClick={() => writePos(null)}
           onKeyDown={nudge}
-          className={`-ml-1 flex touch-none items-center rounded-full px-1.5 py-2 text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60 ${
+          className={`-ml-1 flex touch-none items-center rounded-full px-1.5 py-1 text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60 ${
             dragPos ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
@@ -161,7 +161,18 @@ export function AdminBar() {
             {[3, 8, 13].flatMap((cy) => [2.5, 7.5].map((cx) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={1.4} />))}
           </svg>
         </button>
-        <span className="rounded-full bg-sand px-3 py-1.5 font-semibold text-navy">{label}</span>
+        <h2 className="font-display text-lg font-medium leading-none text-navy">Admin Controls</h2>
+        <span role="status" aria-live="polite" className="ml-1 flex items-center gap-1.5 text-xs text-muted">
+          <span
+            aria-hidden
+            className={`size-1.5 rounded-full ${
+              status === "error" ? "bg-sun-deep" : status === "saving" ? "animate-pulse bg-sun" : changeCount ? "bg-sun" : "bg-sage"
+            }`}
+          />
+          <span className={status === "error" ? "font-semibold text-sun-deep" : ""}>{label}</span>
+        </span>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
         <label className="sr-only" htmlFor="admin-page">
           Page
         </label>
