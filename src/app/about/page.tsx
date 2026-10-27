@@ -29,11 +29,18 @@ export default function AboutPage() {
             <SectionHeading title="What we&rsquo;re about" />
             <div className="prose-school mt-6 max-w-2xl text-[1.0625rem] text-ink/85">
               <p>
-                Montessori School of Central Marin is a bilingual learning community where
-                children learn and explore in English and Spanish. Our Montessori curriculum
-                combines hands-on discovery with art, music, movement, and gardening. Shared
-                cultural traditions and experiences in the wider community help children
-                connect with the world around them.
+                Established in 1974, Montessori School of Central Marin has been serving the
+                children of central Marin for over 52 years, providing a rich and welcoming
+                environment where children can explore at their own pace. We combine hands-on
+                discovery with guided instruction, catering the learning experience to each
+                individual child&rsquo;s needs and interests.
+              </p>
+              <p>
+                There are many opportunities to become more deeply involved in the school.
+                Shared cultural traditions and experiences in the wider community help
+                children connect with the world around them, and families are always welcome
+                and encouraged to share their stories in the classroom as it connects with
+                the curriculum.
               </p>
             </div>
           </div>

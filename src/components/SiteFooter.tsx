@@ -16,7 +16,7 @@ export function SiteFooter() {
           <div className="lg:col-span-4">
             <p className="kicker text-sun">Tour</p>
             <h2 className="font-display mt-3 text-2xl font-medium leading-[1.1] text-balance sm:text-[1.75rem]">
-              Schedule a tour
+              Schedule a virtual tour
             </h2>
             <p className="mt-3 max-w-xs text-[0.95rem] leading-relaxed text-white/70">
               By appointment — send a request and we&rsquo;ll confirm a time.

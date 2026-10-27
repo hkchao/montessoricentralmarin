@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { ArrowIcon, ButtonLink } from "@/components/Button";
-import { curriculum, primaryCta, programs, site } from "@/lib/site";
+import { curriculum, docs, primaryCta, programs, site } from "@/lib/site";
 
 export default function HomePage() {
   return (
@@ -99,10 +99,10 @@ export default function HomePage() {
             <SectionHeading kicker="Welcome" title="Who we are" />
             <div className="prose-school mt-6 text-[1.0625rem] text-ink/85">
               <p>
-                We follow Dr. Maria Montessori and are an affiliate of the American
-                Montessori Society. Children learn in English and Spanish every day. The
-                full Montessori curriculum is paired with music, yoga, cooking, gardening,
-                dance, art, monthly field trips, and families from many cultures.
+                We are a year-round bilingual preschool, following the philosophy of Dr. Maria
+                Montessori and an affiliate of the American Montessori Society. Children learn
+                in both English and Spanish with a diverse Montessori curriculum that includes
+                sensorial, practical life, cultural studies, mathematics and language.
               </p>
             </div>
             <ButtonLink href="/about" variant="link" className="mt-6 font-semibold">
@@ -171,27 +171,36 @@ export default function HomePage() {
             <SectionHeading
               kicker="Curriculum"
               title="What children learn"
-              lede="Practical Life, Sensorial, Math, Language, Spanish, and Cultural Studies."
+              lede="Six areas of work, in English and Spanish."
             />
             <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 sm:gap-y-5">
               {curriculum.map((c) => (
                 <li key={c.id}>
-                  <Link href={`/curriculum#${c.id}`} className="group block">
-                    <p className="font-semibold text-navy underline-offset-4 group-hover:underline">
-                      {c.name}
-                    </p>
-                    <p className="mt-1 hidden text-sm leading-relaxed text-muted sm:block">
-                      {c.short}
-                    </p>
-                  </Link>
+                  <p className="font-semibold text-navy">{c.name}</p>
+                  <p className="mt-1 hidden text-sm leading-relaxed text-muted sm:block">
+                    {c.short}
+                  </p>
                 </li>
               ))}
             </ul>
-            <ButtonLink href="/programs#day" variant="ghost" className="mt-8">
-              See how the day works <ArrowIcon />
+            <ButtonLink href="/programs#curriculum" variant="ghost" className="mt-8">
+              See programs <ArrowIcon />
             </ButtonLink>
           </div>
         </div>
+      </Section>
+
+      <Section className="!py-10 md:!py-12">
+        <aside className="mx-auto flex max-w-lg flex-col items-center gap-3 text-center sm:flex-row sm:justify-center sm:gap-5 sm:text-left">
+          <p className="text-[0.95rem] leading-relaxed text-muted">
+            <span className="font-semibold text-navy">2026–27 school calendar</span>
+            <span className="hidden sm:inline"> — </span>
+            <span className="block sm:inline">holidays, closures, and key dates.</span>
+          </p>
+          <ButtonLink href={docs.calendar.href} variant="ghost" className="shrink-0">
+            Download PDF
+          </ButtonLink>
+        </aside>
       </Section>
     </>
   );
