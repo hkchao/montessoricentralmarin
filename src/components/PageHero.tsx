@@ -68,7 +68,7 @@ export function PageHero({
                   controls={false}
                   fill
                   priority
-                  sizes="100vw"
+                  sizes="(min-width: 768px) 1px, 100vw"
                   className="object-cover object-[var(--hero-focal-m)] md:hidden"
                   style={
                     {
