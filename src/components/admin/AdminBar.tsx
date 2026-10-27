@@ -157,7 +157,7 @@ export function AdminBar() {
         pos ? "" : "right-4 top-4"
       } ${dragPos ? "cursor-grabbing shadow-2xl" : "cursor-grab"}`}
     >
-      <div className="mb-2.5 flex items-center gap-2 pr-1">
+      <div className="mb-2.5 flex items-center gap-2">
         <button
           type="button"
           data-drag-handle
@@ -183,6 +183,27 @@ export function AdminBar() {
           />
           <span className={status === "error" ? "font-semibold text-sun-deep" : ""}>{label}</span>
         </span>
+        <button
+          type="button"
+          onClick={() => {
+            if (changeCount) {
+              setDialog("exit");
+              return;
+            }
+            startTransition(async () => {
+              await flush();
+              await logoutAction();
+            });
+          }}
+          aria-label="Exit admin"
+          title="Exit admin"
+          className="-my-1 -mr-1 ml-auto flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60"
+        >
+          <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
       </div>
       <div className="flex flex-wrap items-end gap-2">
         <label className={fieldCls}>
@@ -227,39 +248,10 @@ export function AdminBar() {
               });
             }
           }}
-          aria-label="Publish changes"
           title={changeCount ? `Publish ${changes} to the live site` : "Nothing to publish"}
-          className="flex size-9 cursor-pointer items-center justify-center rounded-full bg-sun text-navy-deep hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:brightness-100"
+          className="h-9 cursor-pointer rounded-full bg-sun px-4 font-semibold text-navy-deep hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:brightness-100"
         >
-          <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
-            <path d="M12 4H4v16h16v-8" />
-            <path d="m13 11 7-7" />
-            <path d="M15 4h5v5" />
-            <path d="M8 10h2" />
-            <path d="M8 13h6" />
-            <path d="M8 16h8" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            if (changeCount) {
-              setDialog("exit");
-              return;
-            }
-            startTransition(async () => {
-              await flush();
-              await logoutAction();
-            });
-          }}
-          aria-label="Exit admin"
-          title="Exit admin"
-          className={iconBtnCls}
-        >
-          <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
-            <path d="M18 6 6 18" />
-            <path d="m6 6 12 12" />
-          </svg>
+          Publish
         </button>
       </div>
       {dialog === "revert" && (
