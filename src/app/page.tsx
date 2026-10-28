@@ -36,12 +36,12 @@ export default function HomePage() {
             focalMobile: "68% 38%",
           },
           {
-            key: "home.hero.slide.sandbox.desktop",
-            mobileKey: "home.hero.slide.sandbox.mobile",
-            src: "/images/hero-carousel-sandbox-desktop.jpg",
-            srcMobile: "/images/hero-carousel-sandbox.jpg",
-            alt: "A toddler plays with toy trucks in an outdoor sandbox",
-            // Desktop focal: boy and trucks in the open right half; mobile keeps the original.
+            key: "home.hero.slide.sandbox.desktop.smile",
+            mobileKey: "home.hero.slide.sandbox.mobile.smile",
+            src: "/images/hero-carousel-sandbox-desktop-smile.jpg",
+            srcMobile: "/images/hero-carousel-sandbox-mobile-smile.jpg",
+            alt: "A smiling toddler plays with toy trucks in an outdoor sandbox",
+            // Desktop focal: boy and trucks in the open right half; mobile keeps the tighter crop.
             focal: "67% 48%",
             focalMobile: "50% 42%",
           },
