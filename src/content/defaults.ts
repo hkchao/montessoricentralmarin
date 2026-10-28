@@ -442,6 +442,26 @@ export const defaultContent: SiteContent = {
       focal: "52% 48%",
       focalMobile: "50% 42%",
     },
+    "home.hero.slide.sandbox.desktop": {
+      src: "/images/hero-carousel-sandbox-desktop.jpg",
+      alt: "A toddler plays with toy trucks in an outdoor sandbox",
+      width: 2400,
+      height: 1350,
+      type: "jpg",
+      bytes: 458477,
+      // Desktop focal: boy and trucks in the open right half.
+      focal: "67% 48%",
+      focalMobile: "50% 42%",
+    },
+    "home.hero.slide.sandbox.mobile": {
+      src: "/images/hero-carousel-sandbox.jpg",
+      alt: "A toddler plays with toy trucks in an outdoor sandbox",
+      width: 2400,
+      height: 1600,
+      type: "jpg",
+      bytes: 650072,
+      focal: "50% 42%",
+    },
     "home.hero.slide4": {
       src: "/images/hero-carousel-classroom-ext.jpg",
       alt: "A preschooler looks toward the camera while classmates work at wooden tables",

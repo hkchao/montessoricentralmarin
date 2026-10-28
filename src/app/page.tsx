@@ -36,11 +36,13 @@ export default function HomePage() {
             focalMobile: "68% 38%",
           },
           {
-            key: "home.hero.slide3",
-            src: "/images/hero-carousel-sandbox.jpg",
+            key: "home.hero.slide.sandbox.desktop",
+            mobileKey: "home.hero.slide.sandbox.mobile",
+            src: "/images/hero-carousel-sandbox-desktop.jpg",
+            srcMobile: "/images/hero-carousel-sandbox.jpg",
             alt: "A toddler plays with toy trucks in an outdoor sandbox",
-            // Focal: boy's face above the red fire truck.
-            focal: "52% 48%",
+            // Desktop focal: boy and trucks in the open right half; mobile keeps the original.
+            focal: "67% 48%",
             focalMobile: "50% 42%",
           },
           {
