@@ -81,7 +81,6 @@ export const defaultContent: SiteContent = {
     "programs.enrichment.title": "Music, yoga, cooking, and more",
     "programs.enrichment.lede":
       "In addition to the curriculum there are several enrichment activities, some available to all children during the school day, others only available by sign-up.",
-    "programs.funLunch.kicker": "Fridays",
     "programs.funLunch.title": "Fun Lunch",
     "programs.funLunch.body":
       "During the school year, Friday \"Fun Lunch\" is a part of our cooking enrichment. Children assist in the preparation of food. Lunch alternates between vegetarian pizza and pesto pasta, with vegetables, fruit, and juice or milk for a complete and wholesome meal. $7 per meal. Weekly, monthly, or annual sign-up available.",
