@@ -48,8 +48,6 @@ export default function AdmissionsPage() {
           // Focal: the school sign above the front windows.
           focal: "50% 45%",
           focalMobile: "85% 50%",
-          // Roofline to the front steps.
-          whole: { top: 0.14, bottom: 0.84 },
         }}
       />
 
