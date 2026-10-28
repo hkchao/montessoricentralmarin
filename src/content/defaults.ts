@@ -70,7 +70,7 @@ export const defaultContent: SiteContent = {
     "home.programs.detail": "Details",
     "home.curriculum.title": "Curriculum",
     "home.curriculum.lede":
-      "Our bilingual Montessori curriculum develops independence through Practical Life, Sensorial, Mathematics, Language Arts, Spanish, and Cultural Studies. Music, yoga, cooking, gardening, art, athletics, reading, and field trips expand learning through creative, physical, and real-world experiences.",
+      "Children practice pouring, dressing, counting, reading, and writing through practical life, sensorial, math, language, Spanish, and cultural studies. The program also offers music, yoga, cooking, gardening, art, athletics, take-home reading, and field trips. Some happen during the school day, while others are available by sign-up.",
     "home.curriculum.cta": "See programs",
     "home.calendar.title": "2026-27 school calendar",
     "home.calendar.body": "holidays, closures, and key dates.",
