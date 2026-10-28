@@ -92,13 +92,12 @@ export function SiteHeader() {
                 overHero ? "text-white" : "text-navy"
               }`}
             />
-            <ButtonLink
-              href={primaryCta.href}
-              variant={overHero ? "ghost-light" : "primary"}
-              className="whitespace-nowrap"
-            >
-              <T k="cta.primary" fallback={primaryCta.label} />
-            </ButtonLink>
+            {/* Keep the tour CTA out of the banner; show it once the header is solid. */}
+            {!overHero && (
+              <ButtonLink href={primaryCta.href} variant="primary" className="whitespace-nowrap">
+                <T k="cta.primary" fallback={primaryCta.label} />
+              </ButtonLink>
+            )}
           </div>
         )}
 

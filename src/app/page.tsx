@@ -16,44 +16,77 @@ export default function HomePage() {
         lede={
           <T k="home.hero.lede" multiline />
         }
-        image={{
-          key: "home.hero.desktop",
-          mobileKey: "home.hero.mobile",
-          src: "/images/hero-children-wide.png",
-          // Tighter crop around the three kids for tall phone frames.
-          srcMobile: "/images/hero-children-mobile.png",
-          alt: "Three smiling preschoolers leaning on a wooden railing outdoors",
-          // Desktop: group in the open right half beside the type lockup.
-          focal: "72% 40%",
-          // Portrait mobile asset already frames the trio — keep centered, faces high.
-          focalMobile: "50% 28%",
-        }}
+        images={[
+          {
+            key: "home.hero.slide1",
+            mobileKey: "home.hero.slide1.mobile",
+            src: "/images/hero-children-wide.png",
+            srcMobile: "/images/hero-children-mobile.png",
+            alt: "Three smiling preschoolers leaning on a wooden railing outdoors",
+            // Focal: trio of faces in the open right half.
+            focal: "72% 40%",
+            focalMobile: "50% 28%",
+          },
+          {
+            key: "home.hero.slide.paint",
+            src: "/images/hero-carousel-paint-ext.jpg",
+            alt: "A preschooler in a star shirt paints at an outdoor easel",
+            // Focal: painting girl's face; left side AI-extended so easel clears the lockup.
+            focal: "72% 42%",
+            focalMobile: "68% 38%",
+          },
+          {
+            key: "home.hero.slide3",
+            src: "/images/hero-carousel-sandbox.jpg",
+            alt: "A toddler plays with toy trucks in an outdoor sandbox",
+            // Focal: boy's face above the red fire truck.
+            focal: "52% 48%",
+            focalMobile: "50% 42%",
+          },
+          {
+            key: "home.hero.slide4",
+            src: "/images/hero-carousel-classroom.jpg",
+            alt: "A preschooler looks toward the camera while classmates work at wooden tables",
+            // Focal: curly-haired girl's eyes.
+            focal: "58% 40%",
+            focalMobile: "55% 36%",
+          },
+        ]}
         below={
-          <ul className="flex flex-col items-start gap-8 sm:flex-row sm:gap-[67px] lg:gap-[75px]">
-            <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
+          <ul className="flex flex-row items-start gap-[41px] sm:gap-[67px] lg:gap-[75px]">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <EditableImage
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
                 height={600}
                 className="h-16 w-auto sm:h-14 lg:h-16"
               />
-              <p className="text-sm font-medium text-balance text-white/65"><T k="home.badge.best.title" /></p>
+              <p className="text-sm font-medium text-balance text-white/65">
+                <span className="sm:hidden"><T k="home.badge.best.short" /></span>
+                <span className="hidden sm:inline"><T k="home.badge.best.title" /></span>
+              </p>
             </li>
-            <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <EditableImage
                 imageKey="brand.ams"
                 width={512}
                 height={512}
                 className="size-14 sm:size-12 lg:size-14"
               />
-              <p className="text-sm font-medium text-balance text-white/65"><T k="home.badge.ams.title" /></p>
+              <p className="text-sm font-medium text-balance text-white/65">
+                <span className="sm:hidden"><T k="home.badge.ams.short" /></span>
+                <span className="hidden sm:inline"><T k="home.badge.ams.title" /></span>
+              </p>
             </li>
-            <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <p className="font-display text-[3.5rem] font-semibold leading-none text-white sm:text-[3.25rem] lg:text-[3.5rem]">
                 {new Date().getFullYear() - site.founded}
                 <span className="text-sun">+</span>
               </p>
-              <p className="text-sm font-medium text-balance text-white/65"><T k="home.badge.years.title" /></p>
+              <p className="text-sm font-medium text-balance text-white/65">
+                <span className="sm:hidden"><T k="home.badge.years.short" /></span>
+                <span className="hidden sm:inline"><T k="home.badge.years.title" /></span>
+              </p>
             </li>
           </ul>
         }
