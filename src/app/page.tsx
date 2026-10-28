@@ -53,7 +53,7 @@ export default function HomePage() {
           },
         ]}
         below={
-          <ul className="flex flex-row items-start gap-[41px] sm:gap-[67px] lg:gap-[75px]">
+          <ul className="flex flex-row items-start gap-[41px] sm:gap-[57px] lg:gap-[75px]">
             <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <EditableImage
                 imageKey="brand.bestOfMarin.onDark"
