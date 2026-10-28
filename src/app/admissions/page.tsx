@@ -43,10 +43,13 @@ export default function AdmissionsPage() {
         lede={<T k="admissions.hero.lede" />}
         image={{
           key: "admissions.hero",
-          src: "/images/hero-school-front.jpg",
+          mobileKey: "admissions.hero.mobile",
+          src: "/images/hero-school-front-extended.jpg",
+          // Phones keep the original photo, which already shows the whole building.
+          srcMobile: "/images/hero-school-front.jpg",
           alt: "The front of the Montessori School of Central Marin building with its sign and blooming bougainvillea",
-          // Focal: the front steps, planting, and forecourt.
-          focal: "50% 78%",
+          // Focal: from the sign down to the front steps and forecourt.
+          focal: "50% 67%",
           focalMobile: "85% 50%",
         }}
       />
