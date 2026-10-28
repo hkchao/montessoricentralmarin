@@ -410,15 +410,26 @@ export const defaultContent: SiteContent = {
       focal: "50% 28%",
     },
     "home.hero.slide2": {
-      src: "/images/hero-carousel-paint.jpg",
+      src: "/images/hero-carousel-paint-ext.jpg",
       alt: "A preschooler in a star shirt paints at an outdoor easel",
       width: 2400,
-      height: 1600,
+      height: 1350,
       type: "jpg",
-      bytes: 458863,
-      // Focal: painting girl's face (left of frame; left scrim softens her into the lockup).
-      focal: "32% 38%",
-      focalMobile: "35% 32%",
+      bytes: 384679,
+      // Focal: painting girl's face; left side AI-extended so easel clears the lockup.
+      focal: "72% 42%",
+      focalMobile: "68% 38%",
+    },
+    "home.hero.slide.paint": {
+      src: "/images/hero-carousel-paint-ext.jpg",
+      alt: "A preschooler in a star shirt paints at an outdoor easel",
+      width: 2400,
+      height: 1350,
+      type: "jpg",
+      bytes: 384679,
+      // Focal: painting girl's face; left side AI-extended so easel clears the lockup.
+      focal: "72% 42%",
+      focalMobile: "68% 38%",
     },
     "home.hero.slide3": {
       src: "/images/hero-carousel-sandbox.jpg",

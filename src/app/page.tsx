@@ -28,12 +28,12 @@ export default function HomePage() {
             focalMobile: "50% 28%",
           },
           {
-            key: "home.hero.slide2",
-            src: "/images/hero-carousel-paint.jpg",
+            key: "home.hero.slide.paint",
+            src: "/images/hero-carousel-paint-ext.jpg",
             alt: "A preschooler in a star shirt paints at an outdoor easel",
-            // Focal: painting girl's face.
-            focal: "32% 38%",
-            focalMobile: "35% 32%",
+            // Focal: painting girl's face; left side AI-extended so easel clears the lockup.
+            focal: "72% 42%",
+            focalMobile: "68% 38%",
           },
           {
             key: "home.hero.slide3",
