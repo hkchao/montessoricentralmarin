@@ -29,8 +29,8 @@ export default function HomePage() {
           focalMobile: "50% 28%",
         }}
         below={
-          <ul className="flex flex-row items-start gap-6 sm:gap-[67px] lg:gap-[75px]">
-            <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
+          <ul className="flex flex-row items-start gap-[31px] sm:gap-[67px] lg:gap-[75px]">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <EditableImage
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
@@ -42,7 +42,7 @@ export default function HomePage() {
                 <span className="hidden sm:inline"><T k="home.badge.best.title" /></span>
               </p>
             </li>
-            <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <EditableImage
                 imageKey="brand.ams"
                 width={512}
@@ -54,7 +54,7 @@ export default function HomePage() {
                 <span className="hidden sm:inline"><T k="home.badge.ams.title" /></span>
               </p>
             </li>
-            <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <p className="font-display text-[3.5rem] font-semibold leading-none text-white sm:text-[3.25rem] lg:text-[3.5rem]">
                 {new Date().getFullYear() - site.founded}
                 <span className="text-sun">+</span>
