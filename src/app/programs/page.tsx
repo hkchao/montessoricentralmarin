@@ -19,9 +19,11 @@ export default function ProgramsPage() {
         lede={<T k="programs.hero.lede" />}
         image={{
           key: "programs.hero",
-          src: "/images/hero-classroom.png",
-          alt: "A bright Montessori classroom with low wooden shelves of materials",
-          focal: "66% 40%",
+          src: "/images/hero-circle-time.jpg",
+          alt: "Smiling preschoolers sit in a row on the classroom rug while a teacher plays guitar",
+          // Focal: the row of children's faces.
+          focal: "50% 50%",
+          focalMobile: "45% 50%",
         }}
       />
 

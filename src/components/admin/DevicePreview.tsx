@@ -12,28 +12,36 @@ const sizes = {
 
 type Mode = keyof typeof sizes;
 
-export function DevicePreview({ selectClassName }: { selectClassName: string }) {
+export function DevicePreview({
+  fieldClassName,
+  labelClassName,
+  selectClassName,
+}: {
+  fieldClassName: string;
+  labelClassName: string;
+  selectClassName: string;
+}) {
   const pathname = usePathname();
   const [mode, setMode] = useState<Mode | null>(null);
 
   return (
     <>
-      <label className="sr-only" htmlFor="admin-device">
-        Device preview
+      <label className={fieldClassName}>
+        <span className={labelClassName}>Device</span>
+        <select
+          id="admin-device"
+          value={mode ?? ""}
+          onChange={(event) => setMode((event.target.value || null) as Mode | null)}
+          className={selectClassName}
+        >
+          <option value="">Full window</option>
+          {(Object.keys(sizes) as Mode[]).map((label) => (
+            <option key={label} value={label}>
+              {label} ({sizes[label]}px)
+            </option>
+          ))}
+        </select>
       </label>
-      <select
-        id="admin-device"
-        value={mode ?? ""}
-        onChange={(event) => setMode((event.target.value || null) as Mode | null)}
-        className={selectClassName}
-      >
-        <option value="">Full window</option>
-        {(Object.keys(sizes) as Mode[]).map((label) => (
-          <option key={label} value={label}>
-            {label} ({sizes[label]}px)
-          </option>
-        ))}
-      </select>
       {mode &&
         // Portaled out of the admin bar (its backdrop-filter traps fixed children) and kept below it (z-70) so the dropdown still works.
         createPortal(

@@ -62,13 +62,25 @@ export function T({ k, fallback = "", multiline = false, className = "" }: Props
         style={{ whiteSpace: multiline ? "pre-line" : "normal" } as CSSProperties}
       />
       {changed && (
-        <button
-          type="button"
-          onClick={() => undo("text", k)}
-          className="ml-1 hidden rounded-full bg-navy px-2 py-0.5 align-middle text-[0.65rem] font-semibold text-white shadow-soft group-hover/edit:inline-block focus:inline-block"
+        // Not a <button>: editable labels often sit inside buttons and links, where a nested button is invalid HTML.
+        <span
+          role="button"
+          tabIndex={0}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            undo("text", k);
+          }}
+          onKeyDown={(event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            event.stopPropagation();
+            undo("text", k);
+          }}
+          className="ml-1 hidden cursor-pointer rounded-full bg-navy px-2 py-0.5 align-middle text-[0.65rem] font-semibold text-white shadow-soft group-hover/edit:inline-block focus:inline-block"
         >
           undo
-        </button>
+        </span>
       )}
     </span>
   );
