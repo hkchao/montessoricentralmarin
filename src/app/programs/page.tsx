@@ -19,7 +19,10 @@ export default function ProgramsPage() {
         lede={<T k="programs.hero.lede" />}
         image={{
           key: "programs.hero",
-          src: "/images/hero-circle-time.jpg",
+          mobileKey: "programs.hero.mobile",
+          src: "/images/hero-circle-time-wide.jpg",
+          // Phones keep the unextended photo so the children stay large.
+          srcMobile: "/images/hero-circle-time-hd.jpg",
           alt: "Smiling preschoolers sit in a row on the classroom rug while a teacher plays guitar",
           // Focal: the row of children's faces.
           focal: "50% 50%",
@@ -68,7 +71,7 @@ export default function ProgramsPage() {
       </Section>
 
       <Section id="day">
-        <SectionHeading kicker={<T k="programs.day.kicker" />} title={<T k="programs.day.title" />} />
+        <SectionHeading title={<T k="programs.day.title" />} />
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-14">
           {daySchedules.map((schedule) => (
             <div key={schedule.id} id={schedule.id} className="scroll-mt-28">
@@ -104,7 +107,6 @@ export default function ProgramsPage() {
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
             <SectionHeading
-              kicker={<T k="programs.curriculum.kicker" />}
               title={<T k="programs.curriculum.title" />}
               lede={<T k="programs.curriculum.lede" />}
             />

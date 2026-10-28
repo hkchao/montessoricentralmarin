@@ -154,8 +154,18 @@ export function ContentProvider({
     () => false,
   );
 
+  // State is seeded once and outlives client navigations, so keys added since then come from the server props.
+  const merged = useMemo<SiteContent>(
+    () => ({
+      text: { ...content.text, ...state.text },
+      docs: { ...content.docs, ...state.docs },
+      images: { ...content.images, ...state.images },
+    }),
+    [content, state],
+  );
+
   const value: ContentContextValue = {
-    content: state,
+    content: merged,
     published,
     editing: editing && !preview,
     status,
