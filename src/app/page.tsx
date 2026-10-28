@@ -61,7 +61,7 @@ export default function HomePage() {
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
                 height={600}
-                className="h-16 w-auto [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:h-14 lg:h-16"
+                className="h-14 w-auto [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:h-12 lg:h-14"
               />
               <p className="text-sm font-medium text-balance text-white/65">
                 <span className="sm:hidden"><T k="home.badge.best.short" /></span>
@@ -178,10 +178,21 @@ export default function HomePage() {
         <aside className="mx-auto grid max-w-4xl items-center justify-items-center gap-5 text-center sm:grid-cols-[auto_1fr_auto] sm:justify-items-start sm:gap-6 sm:text-left">
           <div
             aria-hidden="true"
-            className="flex size-20 shrink-0 flex-col overflow-hidden rounded-2xl bg-white text-navy shadow-soft ring-1 ring-navy/10"
+            className="flex size-20 shrink-0 items-center justify-center text-navy"
           >
-            <div className="h-5 bg-sun" />
-            <div className="flex flex-1 items-center justify-center font-display text-3xl font-semibold leading-none">27</div>
+            <svg viewBox="0 0 64 64" className="size-20" fill="none">
+              <path d="M10 13h44a6 6 0 0 1 6 6v11H4V19a6 6 0 0 1 6-6Z" fill="var(--color-sun)" />
+              <rect x="4" y="13" width="56" height="47" rx="7" stroke="currentColor" strokeWidth="3.5" />
+              <path d="M4 30h56M17 8v11M32 8v11M47 8v11" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
+              <g stroke="currentColor" strokeWidth="3">
+                <rect x="12" y="37" width="8" height="7" rx="1" />
+                <rect x="28" y="37" width="8" height="7" rx="1" />
+                <rect x="44" y="37" width="8" height="7" rx="1" />
+                <rect x="12" y="49" width="8" height="7" rx="1" />
+                <rect x="28" y="49" width="8" height="7" rx="1" />
+                <rect x="44" y="49" width="8" height="7" rx="1" />
+              </g>
+            </svg>
           </div>
           <p className="text-[0.95rem] leading-relaxed text-muted">
             <span className="block font-display text-xl font-medium text-navy"><T k="home.calendar.title" /></span>

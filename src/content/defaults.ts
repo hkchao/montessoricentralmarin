@@ -70,7 +70,7 @@ export const defaultContent: SiteContent = {
     "home.programs.detail": "Details",
     "home.curriculum.title": "Curriculum",
     "home.curriculum.lede":
-      "Children practice math, reading, writing, and practical life skills. The program also offers music, yoga, cooking, gardening, art, athletics, take-home reading, and field trips. Some happen during the school day, while others are available by sign-up.",
+      "Children practice math, reading, and writing through practical life skills. The program also offers music, yoga, cooking, gardening, art, athletics, take-home reading, and field trips. Some happen during the school day, while others are available by sign-up.",
     "home.curriculum.cta": "All curriculum",
     "home.calendar.title": "2026-27 school calendar",
     "home.calendar.body": "holidays, closures, and key dates.",
@@ -372,12 +372,12 @@ export const defaultContent: SiteContent = {
       bytes: 21865,
     },
     "brand.ams.bright": {
-      src: "/brand/ams-mark-bright.png",
+      src: "/brand/ams-mark-alpha.png",
       alt: "American Montessori Society",
-      width: 512,
-      height: 512,
+      width: 447,
+      height: 447,
       type: "png",
-      bytes: 21865,
+      bytes: 35947,
     },
     "home.hero.desktop": {
       src: "/images/hero-children-wide.png",
