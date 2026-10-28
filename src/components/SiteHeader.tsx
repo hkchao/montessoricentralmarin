@@ -13,6 +13,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isHome = pathname === "/";
   // Public pages: white nav floats over the dark hero until the user scrolls. Admin stays solid.
   const overHero = !pathname.startsWith("/admin") && !scrolled && !open;
 
@@ -43,8 +44,13 @@ export function SiteHeader() {
             : "border-line bg-cream/90 shadow-[0_1px_0_rgb(20_36_94/0.04)] backdrop-blur-md"
       }`}
     >
-      <div className="site-wrap flex h-[4.5rem] items-center justify-between gap-6 md:h-20">
-        <Logo tone={overHero ? "light" : "dark"} />
+      <div
+        className={`site-wrap flex h-[4.5rem] items-center gap-6 md:h-20 ${
+          isHome ? "justify-end lg:justify-center" : "justify-between"
+        }`}
+      >
+        {/* Home keeps a centered tab row only — logo and tour CTA live in the hero instead. */}
+        {!isHome && <Logo tone={overHero ? "light" : "dark"} />}
 
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-1">
@@ -79,20 +85,22 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <PhoneLink
-            className={`hidden whitespace-nowrap text-[0.95rem] font-semibold tabular-nums underline-offset-4 hover:underline xl:inline ${
-              overHero ? "text-white" : "text-navy"
-            }`}
-          />
-          <ButtonLink
-            href={primaryCta.href}
-            variant={overHero ? "ghost-light" : "primary"}
-            className="whitespace-nowrap"
-          >
-            <T k="cta.primary" fallback={primaryCta.label} />
-          </ButtonLink>
-        </div>
+        {!isHome && (
+          <div className="hidden items-center gap-3 lg:flex">
+            <PhoneLink
+              className={`hidden whitespace-nowrap text-[0.95rem] font-semibold tabular-nums underline-offset-4 hover:underline xl:inline ${
+                overHero ? "text-white" : "text-navy"
+              }`}
+            />
+            <ButtonLink
+              href={primaryCta.href}
+              variant={overHero ? "ghost-light" : "primary"}
+              className="whitespace-nowrap"
+            >
+              <T k="cta.primary" fallback={primaryCta.label} />
+            </ButtonLink>
+          </div>
+        )}
 
         <button
           type="button"
