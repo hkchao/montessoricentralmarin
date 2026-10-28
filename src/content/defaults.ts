@@ -443,15 +443,25 @@ export const defaultContent: SiteContent = {
       focalMobile: "50% 42%",
     },
     "home.hero.slide4": {
-      src: "/images/hero-carousel-classroom.jpg",
+      src: "/images/hero-carousel-classroom-ext.jpg",
       alt: "A preschooler looks toward the camera while classmates work at wooden tables",
       width: 2400,
-      height: 1600,
+      height: 1350,
       type: "jpg",
-      bytes: 341555,
-      // Focal: curly-haired girl's eyes, right of center in the open half.
-      focal: "58% 40%",
-      focalMobile: "55% 36%",
+      bytes: 229945,
+      // Focal: curly-haired girl's eyes; left side AI-extended so she clears the lockup.
+      focal: "72% 42%",
+      focalMobile: "68% 38%",
+    },
+    "home.hero.slide.classroom": {
+      src: "/images/hero-carousel-classroom-ext.jpg",
+      alt: "A preschooler looks toward the camera while classmates work at wooden tables",
+      width: 2400,
+      height: 1350,
+      type: "jpg",
+      bytes: 229945,
+      focal: "72% 42%",
+      focalMobile: "68% 38%",
     },
     "programs.hero": {
       src: "/images/hero-circle-time-wide.jpg",
