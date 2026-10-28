@@ -119,7 +119,6 @@ export default function HomePage() {
       <Section id="programs">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
-            kicker={<T k="home.programs.kicker" />}
             title={<T k="home.programs.title" />}
             lede={<T k="home.programs.lede" />}
           />

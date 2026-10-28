@@ -61,8 +61,7 @@ export const defaultContent: SiteContent = {
     "home.welcome.body":
       "We are a year-round bilingual preschool, following the philosophy of Dr. Maria Montessori and an affiliate of the American Montessori Society. Children learn in both English and Spanish with a diverse Montessori curriculum that includes sensorial, practical life, cultural studies, mathematics and language.",
     "home.welcome.cta": "About our school",
-    "home.programs.kicker": "Programs",
-    "home.programs.title": "Hours and days",
+    "home.programs.title": "Programs",
     "home.programs.lede":
       "School day, full day, partial week, or summer. Same curriculum in every schedule.",
     "home.programs.cta": "All programs",
