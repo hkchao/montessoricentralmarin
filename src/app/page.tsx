@@ -30,43 +30,23 @@ export default function HomePage() {
         }}
         below={
           <ul className="flex flex-col items-start gap-8 sm:flex-row sm:gap-[67px] lg:gap-[75px]">
-            <li>
-              <a
-                href={site.social.bestOfMarin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Pacific Sun Best of Marin (opens in new tab)"
-                className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70"
-              >
-                <EditableImage
-                  imageKey="brand.bestOfMarin.onDark"
-                  width={574}
-                  height={600}
-                  className="h-16 w-auto sm:h-14 lg:h-16"
-                />
-                <span className="text-sm font-medium text-balance text-white/65">
-                  <T k="home.badge.best.title" />
-                </span>
-              </a>
+            <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
+              <EditableImage
+                imageKey="brand.bestOfMarin.onDark"
+                width={574}
+                height={600}
+                className="h-16 w-auto sm:h-14 lg:h-16"
+              />
+              <p className="text-sm font-medium text-balance text-white/65"><T k="home.badge.best.title" /></p>
             </li>
-            <li>
-              <a
-                href={site.social.ams}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="American Montessori Society (opens in new tab)"
-                className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70"
-              >
-                <EditableImage
-                  imageKey="brand.ams"
-                  width={512}
-                  height={512}
-                  className="size-14 sm:size-12 lg:size-14"
-                />
-                <span className="text-sm font-medium text-balance text-white/65">
-                  <T k="home.badge.ams.title" />
-                </span>
-              </a>
+            <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
+              <EditableImage
+                imageKey="brand.ams"
+                width={512}
+                height={512}
+                className="size-14 sm:size-12 lg:size-14"
+              />
+              <p className="text-sm font-medium text-balance text-white/65"><T k="home.badge.ams.title" /></p>
             </li>
             <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
               <p className="font-display text-[3.5rem] font-semibold leading-none text-white sm:text-[3.25rem] lg:text-[3.5rem]">

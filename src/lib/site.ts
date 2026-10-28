@@ -27,7 +27,6 @@ export const site = {
     facebook: "https://www.facebook.com/profile.php?id=61580809984939",
     yelp: "https://www.yelp.com/biz/montessori-bilingual-school-of-central-marin-san-rafael",
     ams: "https://amshq.org/",
-    bestOfMarin: "https://pacificsun.com/best-of/",
   },
 } as const;
 
