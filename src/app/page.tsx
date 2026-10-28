@@ -29,7 +29,7 @@ export default function HomePage() {
           focalMobile: "50% 28%",
         }}
         below={
-          <ul className="flex flex-col items-start gap-8 sm:flex-row sm:gap-[82px] lg:gap-[90px]">
+          <ul className="flex flex-col items-start gap-8 sm:flex-row sm:gap-[77px] lg:gap-[85px]">
             <li className="flex max-w-[7.5rem] flex-col items-start gap-2.5 text-left">
               <EditableImage
                 imageKey="brand.bestOfMarin.onDark"
