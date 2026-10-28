@@ -144,7 +144,7 @@ export function PageHero({
           // Extra top padding clears the fixed floating header that overlays the banner.
           home
             ? below
-              ? "pb-12 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
+              ? "pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
               : "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
             : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
         }`}
