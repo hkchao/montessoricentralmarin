@@ -178,18 +178,19 @@ export default function HomePage() {
         <aside className="mx-auto grid max-w-4xl items-center justify-items-center gap-5 text-center sm:grid-cols-[auto_1fr_auto] sm:justify-items-start sm:gap-6 sm:text-left">
           <div
             aria-hidden="true"
-            className="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-sun text-navy shadow-soft"
+            className="flex size-20 shrink-0 items-center justify-center text-navy"
           >
-            <svg viewBox="0 0 48 48" className="size-12" fill="none">
-              <rect x="6" y="9" width="36" height="33" rx="5" fill="white" />
-              <path d="M6 19h36M15 6v8M33 6v8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-              <g fill="currentColor">
-                <rect x="12" y="25" width="5" height="5" rx="1" />
-                <rect x="21.5" y="25" width="5" height="5" rx="1" />
-                <rect x="31" y="25" width="5" height="5" rx="1" />
-                <rect x="12" y="33" width="5" height="5" rx="1" />
-                <rect x="21.5" y="33" width="5" height="5" rx="1" />
-                <rect x="31" y="33" width="5" height="5" rx="1" />
+            <svg viewBox="0 0 64 64" className="size-20" fill="none">
+              <path d="M10 13h44a6 6 0 0 1 6 6v11H4V19a6 6 0 0 1 6-6Z" fill="var(--color-sun)" />
+              <rect x="4" y="13" width="56" height="47" rx="7" stroke="currentColor" strokeWidth="3.5" />
+              <path d="M4 30h56M17 8v11M32 8v11M47 8v11" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
+              <g stroke="currentColor" strokeWidth="3">
+                <rect x="12" y="37" width="8" height="7" rx="1" />
+                <rect x="28" y="37" width="8" height="7" rx="1" />
+                <rect x="44" y="37" width="8" height="7" rx="1" />
+                <rect x="12" y="49" width="8" height="7" rx="1" />
+                <rect x="28" y="49" width="8" height="7" rx="1" />
+                <rect x="44" y="49" width="8" height="7" rx="1" />
               </g>
             </svg>
           </div>
