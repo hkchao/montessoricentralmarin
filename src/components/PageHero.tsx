@@ -146,7 +146,7 @@ export function PageHero({
             ? below
               ? "pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
               : "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
-            : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
+            : "pb-14 md:pt-28 md:pb-18 lg:pt-32 lg:pb-20"
         }`}
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
