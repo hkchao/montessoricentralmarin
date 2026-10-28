@@ -144,7 +144,7 @@ export function PageHero({
           // Extra top padding clears the fixed floating header that overlays the banner.
           home
             ? below
-              ? "pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12"
+              ? "pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
               : "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
             : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
         }`}
@@ -174,7 +174,7 @@ export function PageHero({
         </div>
       </div>
 
-      {below && <div className="site-wrap relative pb-12 md:pb-14 lg:pb-16">{below}</div>}
+      {below && <div className="site-wrap relative pb-12 pt-2 md:pb-14 md:pt-4 lg:pb-16 lg:pt-6">{below}</div>}
 
       {/* The media plane sits behind the text layer, so its replace buttons live up here, clear of the lockup. */}
       {image &&
