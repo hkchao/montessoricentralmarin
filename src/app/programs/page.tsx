@@ -18,12 +18,12 @@ export default function ProgramsPage() {
         title={<T k="programs.hero.title" />}
         lede={<T k="programs.hero.lede" />}
         image={{
-          key: "programs.hero",
-          mobileKey: "programs.hero.mobile",
-          src: "/images/hero-circle-time-wide.jpg",
+          key: "programs.hero.smiles",
+          mobileKey: "programs.hero.mobile.smiles",
+          src: "/images/hero-circle-time-wide-smiles.jpg",
           // Phones keep the unextended photo so the children stay large.
-          srcMobile: "/images/hero-circle-time-hd.jpg",
-          alt: "Smiling preschoolers sit in a row on the classroom rug while a teacher plays guitar",
+          srcMobile: "/images/hero-circle-time-mobile-smiles.jpg",
+          alt: "Preschoolers smile gently during classroom circle time while a teacher plays guitar",
           // Focal: the row of children's faces.
           focal: "50% 50%",
           focalMobile: "45% 50%",
