@@ -71,7 +71,7 @@ export default function ProgramsPage() {
       </Section>
 
       <Section id="day">
-        <SectionHeading kicker={<T k="programs.day.kicker" />} title={<T k="programs.day.title" />} />
+        <SectionHeading title={<T k="programs.day.title" />} />
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-14">
           {daySchedules.map((schedule) => (
             <div key={schedule.id} id={schedule.id} className="scroll-mt-28">

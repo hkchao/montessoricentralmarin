@@ -76,8 +76,7 @@ export const defaultContent: SiteContent = {
 
     "programs.hero.title": "Our Programs",
     "programs.hero.lede": "Ages 2-6. Same curriculum in every schedule.",
-    "programs.day.kicker": "Schedule",
-    "programs.day.title": "A typical day",
+    "programs.day.title": "Schedule",
     "programs.curriculum.title": "Curriculum",
     "programs.curriculum.lede": "Six areas of work, in English and Spanish.",
     "programs.enrichment.kicker": "Enrichment",
