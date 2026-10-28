@@ -29,29 +29,29 @@ export default function HomePage() {
           focalMobile: "50% 28%",
         }}
         below={
-          <ul className="grid gap-6 sm:grid-cols-3 sm:gap-4">
-            <li className="flex items-center gap-4">
+          <ul className="grid gap-8 sm:grid-cols-3 sm:gap-6 lg:gap-10">
+            <li className="flex max-w-[14rem] flex-col items-start gap-3 sm:max-w-none">
               <EditableImage
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
                 height={600}
-                className="h-16 w-auto shrink-0 sm:h-14 lg:h-16"
+                className="h-16 w-auto sm:h-14 lg:h-16"
               />
               <div>
                 <p className="font-semibold text-white"><T k="home.badge.best.title" /></p>
-                <p className="mt-1 text-sm text-white/70"><T k="home.badge.best.body" /></p>
+                <p className="mt-1 text-sm text-pretty text-white/70"><T k="home.badge.best.body" /></p>
               </div>
             </li>
-            <li className="flex items-center gap-4">
+            <li className="flex max-w-[14rem] flex-col items-start gap-3 sm:max-w-none">
               <EditableImage
                 imageKey="brand.ams"
                 width={512}
                 height={512}
-                className="size-14 shrink-0 sm:size-12 lg:size-14"
+                className="size-14 sm:size-12 lg:size-14"
               />
               <div>
                 <p className="font-semibold text-white"><T k="home.badge.ams.title" /></p>
-                <p className="mt-1 text-sm text-white/70">
+                <p className="mt-1 text-sm text-pretty text-white/70">
                   <T k="home.badge.ams.prefix" />{" "}
                   <a
                     href={site.social.ams}
@@ -65,14 +65,14 @@ export default function HomePage() {
                 </p>
               </div>
             </li>
-            <li className="flex items-center gap-4">
-              <p className="font-display shrink-0 text-[3.5rem] font-semibold leading-none text-white sm:text-[3.25rem] lg:text-[3.5rem]">
+            <li className="flex max-w-[14rem] flex-col items-start gap-3 sm:max-w-none">
+              <p className="font-display text-[3.5rem] font-semibold leading-none text-white sm:text-[3.25rem] lg:text-[3.5rem]">
                 {new Date().getFullYear() - site.founded}
                 <span className="text-sun">+</span>
               </p>
               <div>
                 <p className="font-semibold text-white"><T k="home.badge.years.title" /></p>
-                <p className="mt-1 text-sm text-white/70"><T k="home.badge.years.bodyPrefix" /> {site.founded}.</p>
+                <p className="mt-1 text-sm text-pretty text-white/70"><T k="home.badge.years.bodyPrefix" /> {site.founded}.</p>
               </div>
             </li>
           </ul>
