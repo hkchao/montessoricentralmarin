@@ -86,19 +86,11 @@ export function SiteHeader() {
 
         <div className="flex items-center justify-self-end gap-3">
           {!isHome && (
-            <div className="hidden items-center gap-3 lg:flex">
-              <PhoneLink
-                className={`hidden whitespace-nowrap text-[0.95rem] font-semibold tabular-nums underline-offset-4 hover:underline xl:inline ${
-                  overHero ? "text-white" : "text-navy"
-                }`}
-              />
-              {/* Keep the tour CTA out of the banner; show it once the header is solid. */}
-              {!overHero && (
-                <ButtonLink href={primaryCta.href} variant="primary" className="whitespace-nowrap">
-                  <T k="cta.primary" fallback={primaryCta.label} />
-                </ButtonLink>
-              )}
-            </div>
+            <PhoneLink
+              className={`hidden whitespace-nowrap text-[0.95rem] font-semibold tabular-nums underline-offset-4 hover:underline xl:inline ${
+                overHero ? "text-white" : "text-navy"
+              }`}
+            />
           )}
 
           <button

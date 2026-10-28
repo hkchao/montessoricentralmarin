@@ -5,7 +5,7 @@ import { ArrowIcon, ButtonLink } from "@/components/Button";
 import { DocButton } from "@/components/admin/DocButton";
 import { EditableImage } from "@/components/admin/EditableImage";
 import { T } from "@/components/T";
-import { curriculum, programs, site } from "@/lib/site";
+import { programs, site } from "@/lib/site";
 
 export default function HomePage() {
   return (
@@ -95,9 +95,9 @@ export default function HomePage() {
       />
 
       <Section tone="white">
-        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="max-w-2xl lg:col-span-6">
-            <SectionHeading title={<T k="home.welcome.title" />} />
+            <SectionHeading title={<T k="home.welcome.title" />} className="[&>h2]:mt-0" />
             <div className="prose-school mt-6 text-[1.0625rem] text-ink/85">
               <p>
                 <T k="home.welcome.body" />
@@ -167,16 +167,6 @@ export default function HomePage() {
               title={<T k="home.curriculum.title" />}
               lede={<T k="home.curriculum.lede" />}
             />
-            <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 sm:gap-y-5">
-              {curriculum.map((c) => (
-                <li key={c.id}>
-                  <p className="font-semibold text-navy"><T k={`curriculum.${c.id}.name`} fallback={c.name} /></p>
-                  <p className="mt-1 hidden text-sm leading-relaxed text-muted sm:block">
-                    <T k={`curriculum.${c.id}.short`} fallback={c.short} />
-                  </p>
-                </li>
-              ))}
-            </ul>
             <ButtonLink href="/programs#curriculum" variant="ghost" className="mt-8">
               <T k="home.curriculum.cta" /> <ArrowIcon />
             </ButtonLink>
@@ -185,13 +175,19 @@ export default function HomePage() {
       </Section>
 
       <Section className="!py-10 md:!py-12">
-        <aside className="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center sm:flex-row sm:justify-center sm:gap-5 sm:text-left">
+        <aside className="mx-auto grid max-w-4xl items-center justify-items-center gap-5 text-center sm:grid-cols-[auto_1fr_auto] sm:justify-items-start sm:gap-6 sm:text-left">
+          <div
+            aria-hidden="true"
+            className="flex size-20 shrink-0 flex-col overflow-hidden rounded-2xl bg-white text-navy shadow-soft ring-1 ring-navy/10"
+          >
+            <div className="h-5 bg-sun" />
+            <div className="flex flex-1 items-center justify-center font-display text-3xl font-semibold leading-none">27</div>
+          </div>
           <p className="text-[0.95rem] leading-relaxed text-muted">
-            <span className="font-semibold text-navy"><T k="home.calendar.title" /></span>
-            <span className="hidden sm:inline"> — </span>
-            <span className="block sm:inline"><T k="home.calendar.body" /></span>
+            <span className="block font-display text-xl font-medium text-navy"><T k="home.calendar.title" /></span>
+            <span className="mt-1 block"><T k="home.calendar.body" /></span>
           </p>
-          <DocButton docKey="calendar" variant="ghost" className="shrink-0 whitespace-nowrap">
+          <DocButton docKey="calendar" variant="primary" size="lg" className="shrink-0 whitespace-nowrap">
             <T k="home.calendar.cta" />
           </DocButton>
         </aside>

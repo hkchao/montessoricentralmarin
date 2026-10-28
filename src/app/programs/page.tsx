@@ -18,12 +18,12 @@ export default function ProgramsPage() {
         title={<T k="programs.hero.title" />}
         lede={<T k="programs.hero.lede" />}
         image={{
-          key: "programs.hero",
-          mobileKey: "programs.hero.mobile",
-          src: "/images/hero-circle-time-wide.jpg",
+          key: "programs.hero.smiles",
+          mobileKey: "programs.hero.mobile.smiles",
+          src: "/images/hero-circle-time-wide-smiles.jpg",
           // Phones keep the unextended photo so the children stay large.
-          srcMobile: "/images/hero-circle-time-hd.jpg",
-          alt: "Smiling preschoolers sit in a row on the classroom rug while a teacher plays guitar",
+          srcMobile: "/images/hero-circle-time-mobile-smiles.jpg",
+          alt: "Preschoolers smile gently during classroom circle time while a teacher plays guitar",
           // Focal: the row of children's faces.
           focal: "50% 50%",
           focalMobile: "45% 50%",
@@ -70,40 +70,7 @@ export default function ProgramsPage() {
         </div>
       </Section>
 
-      <Section id="day">
-        <SectionHeading title={<T k="programs.day.title" />} />
-        <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-14">
-          {daySchedules.map((schedule) => (
-            <div key={schedule.id} id={schedule.id} className="scroll-mt-28">
-              <h3 className="font-display text-2xl font-medium leading-[1.15] text-navy">
-                <T k={`schedule.${schedule.id}.title`} fallback={schedule.title} />
-              </h3>
-              <div className="mt-6 space-y-8">
-                {schedule.sections.map((section) => (
-                  <div key={section.name}>
-                    <p className="kicker text-sun-deep"><T k={section.name === "Morning Session" ? "schedule.morning" : section.name === "Afternoon Session" ? "schedule.afternoon" : "schedule.daycare"} fallback={section.name} /></p>
-                    <ol className="mt-3">
-                      {section.slots.map((slot, slotIndex) => (
-                        <li
-                          key={`${section.name}-${slot.time}-${slot.label}`}
-                          className="grid gap-1 border-b border-line py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-5"
-                        >
-                          <p className="text-sm font-semibold tabular-nums text-navy sm:text-[0.95rem]">
-                            <T k={`schedule.${schedule.id}.${schedule.sections.indexOf(section)}.${slotIndex}.time`} fallback={slot.time} />
-                          </p>
-                          <p className="text-[0.95rem] leading-relaxed text-muted"><T k={`schedule.${schedule.id}.${schedule.sections.indexOf(section)}.${slotIndex}.label`} fallback={slot.label} /></p>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      <Section tone="white" id="curriculum">
+      <Section id="curriculum">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
             <SectionHeading
@@ -131,7 +98,7 @@ export default function ProgramsPage() {
         </div>
       </Section>
 
-      <Section id="enrichment">
+      <Section tone="white" id="enrichment">
         <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7">
             <SectionHeading
@@ -195,6 +162,39 @@ export default function ProgramsPage() {
               </div>
             </dl>
           </div>
+        </div>
+      </Section>
+
+      <Section tone="white" id="day">
+        <SectionHeading title={<T k="programs.day.title" />} />
+        <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-14">
+          {daySchedules.map((schedule) => (
+            <div key={schedule.id} id={schedule.id} className="scroll-mt-28">
+              <h3 className="font-display text-2xl font-medium leading-[1.15] text-navy">
+                <T k={`schedule.${schedule.id}.title`} fallback={schedule.title} />
+              </h3>
+              <div className="mt-6 space-y-8">
+                {schedule.sections.map((section) => (
+                  <div key={section.name}>
+                    <p className="kicker text-sun-deep"><T k={section.name === "Morning Session" ? "schedule.morning" : section.name === "Afternoon Session" ? "schedule.afternoon" : "schedule.daycare"} fallback={section.name} /></p>
+                    <ol className="mt-3">
+                      {section.slots.map((slot, slotIndex) => (
+                        <li
+                          key={`${section.name}-${slot.time}-${slot.label}`}
+                          className="grid gap-1 border-b border-line py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-5"
+                        >
+                          <p className="text-sm font-semibold tabular-nums text-navy sm:text-[0.95rem]">
+                            <T k={`schedule.${schedule.id}.${schedule.sections.indexOf(section)}.${slotIndex}.time`} fallback={slot.time} />
+                          </p>
+                          <p className="text-[0.95rem] leading-relaxed text-muted"><T k={`schedule.${schedule.id}.${schedule.sections.indexOf(section)}.${slotIndex}.label`} fallback={slot.label} /></p>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </Section>
     </>
