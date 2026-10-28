@@ -144,7 +144,7 @@ export function PageHero({
           // Extra top padding clears the fixed floating header that overlays the banner.
           home
             ? below
-              ? "pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12"
+              ? "pb-12 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
               : "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
             : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
         }`}
@@ -171,10 +171,9 @@ export function PageHero({
             </p>
           )}
           {actions && <div className="mt-7 flex flex-wrap items-center gap-3">{actions}</div>}
+          {below && <div className="mt-16 md:mt-20 lg:mt-24">{below}</div>}
         </div>
       </div>
-
-      {below && <div className="site-wrap relative pb-12 md:pb-14 lg:pb-16">{below}</div>}
 
       {/* The media plane sits behind the text layer, so its replace buttons live up here, clear of the lockup. */}
       {image &&
