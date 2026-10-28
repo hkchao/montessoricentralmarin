@@ -2,8 +2,16 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore, useTransition, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
-import { logoutAction, publishAction, revertAction } from "@/app/admin/actions";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, useTransition, type FormEvent, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
+import {
+  getTourMailStatusAction,
+  logoutAction,
+  publishAction,
+  revertAction,
+  saveTourMailSettingsAction,
+  sendTourMailTestAction,
+  type TourMailActionResult,
+} from "@/app/admin/actions";
 import { DevicePreview } from "@/components/admin/DevicePreview";
 import { useContent } from "@/components/admin/ContentProvider";
 
@@ -69,7 +77,7 @@ export function AdminBar() {
   const pathname = usePathname();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
-  const [dialog, setDialog] = useState<"revert" | "exit" | "help" | null>(null);
+  const [dialog, setDialog] = useState<"revert" | "exit" | "help" | "settings" | null>(null);
   const bar = useRef<HTMLDivElement>(null);
   const drag = useRef<{ dx: number; dy: number; pos: Pos; moved: boolean } | null>(null);
   const [dragPos, setDragPos] = useState<Pos | null>(null);
@@ -185,10 +193,22 @@ export function AdminBar() {
         </span>
         <button
           type="button"
+          onClick={() => setDialog("settings")}
+          aria-label="Tour request settings"
+          title="Tour request settings"
+          className="-my-1 ml-auto flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60"
+        >
+          <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
+            <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.25.61.84 1 1.51 1H21a2 2 0 1 1 0 4h-.09c-.67 0-1.26.39-1.51 1Z" />
+          </svg>
+        </button>
+        <button
+          type="button"
           onClick={() => setDialog("help")}
           aria-label="How to use admin mode"
           title="How to use admin mode"
-          className="-my-1 ml-auto flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60"
+          className="-my-1 flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60"
         >
           <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
             <circle cx="12" cy="12" r="9" />
@@ -334,6 +354,7 @@ export function AdminBar() {
         </ConfirmDialog>
       )}
       {dialog === "help" && <HelpDialog onClose={() => setDialog(null)} />}
+      {dialog === "settings" && <SettingsDialog onClose={() => setDialog(null)} />}
     </div>
   );
 }
@@ -405,6 +426,166 @@ function HelpDialog({ onClose }: { onClose: () => void }) {
             Got it
           </button>
         </div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+function SettingsDialog({ onClose }: { onClose: () => void }) {
+  const [pending, startTransition] = useTransition();
+  const [status, setStatus] = useState<TourMailActionResult["status"]>();
+  const [message, setMessage] = useState<{ ok: boolean; text: string }>();
+  const [errors, setErrors] = useState<TourMailActionResult["errors"]>();
+
+  useEffect(() => {
+    let cancelled = false;
+    startTransition(async () => {
+      try {
+        const next = await getTourMailStatusAction();
+        if (!cancelled) setStatus(next);
+      } catch {
+        if (!cancelled) setMessage({ ok: false, text: "Unable to load tour request settings." });
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [startTransition]);
+
+  const save = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    startTransition(async () => {
+      const result = await saveTourMailSettingsAction(formData);
+      setMessage({ ok: result.ok, text: result.message });
+      setErrors(result.errors);
+      if (result.status) setStatus(result.status);
+    });
+  };
+
+  const sendTest = () => {
+    startTransition(async () => {
+      const result = await sendTourMailTestAction();
+      setMessage({ ok: result.ok, text: result.message });
+      setErrors(result.errors);
+      if (result.status) setStatus(result.status);
+    });
+  };
+
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="admin-settings-title"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && !pending) onClose();
+      }}
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-navy-deep/65 p-4"
+    >
+      <div className="max-h-[calc(100vh-2rem)] w-full max-w-xl overflow-y-auto rounded-3xl bg-cream p-6 text-ink shadow-lift">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="kicker text-sun-deep">Settings</p>
+            <h2 id="admin-settings-title" className="font-display mt-2 text-2xl font-medium text-navy">
+              Request a Tour email
+            </h2>
+          </div>
+          <button
+            type="button"
+            autoFocus
+            disabled={pending}
+            onClick={onClose}
+            className="rounded-full px-3 py-1 text-sm font-semibold text-navy hover:bg-navy-tint disabled:opacity-60"
+          >
+            Close
+          </button>
+        </div>
+
+        <p className="mt-4 text-sm leading-relaxed text-muted">
+          These settings control where tour requests are sent. The Resend API key is encrypted on the server and is never shown here after saving.
+        </p>
+
+        <form key={`${status?.toEmail ?? ""}:${status?.fromEmail ?? ""}:${status?.apiKeyHint ?? ""}`} onSubmit={save} className="mt-5 space-y-4">
+          <label className="block">
+            <span className="text-sm font-semibold text-navy">Destination email</span>
+            <input
+              name="toEmail"
+              type="email"
+              defaultValue={status?.toEmail ?? ""}
+              placeholder="MSCMOfficeAssistant@gmail.com"
+              className="mt-1.5 w-full rounded-xl border border-line bg-white px-4 py-3 text-[1rem] text-ink focus:border-navy focus:outline-none focus:ring-2 focus:ring-sun/60"
+            />
+            {errors?.toEmail && <span className="mt-1 block text-sm text-red-700">{errors.toEmail}</span>}
+          </label>
+
+          <label className="block">
+            <span className="text-sm font-semibold text-navy">From address</span>
+            <input
+              name="fromEmail"
+              type="text"
+              defaultValue={status?.fromEmail ?? ""}
+              placeholder="MSCM Website <onboarding@resend.dev>"
+              className="mt-1.5 w-full rounded-xl border border-line bg-white px-4 py-3 text-[1rem] text-ink focus:border-navy focus:outline-none focus:ring-2 focus:ring-sun/60"
+            />
+            {errors?.fromEmail && <span className="mt-1 block text-sm text-red-700">{errors.fromEmail}</span>}
+          </label>
+
+          <label className="block">
+            <span className="text-sm font-semibold text-navy">Resend API key</span>
+            <input
+              name="apiKey"
+              type="password"
+              autoComplete="off"
+              placeholder={status?.hasApiKey ? "Leave blank to keep saved key" : "re_..."}
+              className="mt-1.5 w-full rounded-xl border border-line bg-white px-4 py-3 text-[1rem] text-ink focus:border-navy focus:outline-none focus:ring-2 focus:ring-sun/60"
+            />
+            {errors?.apiKey && <span className="mt-1 block text-sm text-red-700">{errors.apiKey}</span>}
+          </label>
+
+          <label className="flex items-start gap-2 text-sm text-muted">
+            <input name="clearApiKey" type="checkbox" className="mt-1 size-4 rounded border-line text-navy focus:ring-sun" />
+            <span>Clear the saved API key when saving.</span>
+          </label>
+
+          <div className="rounded-2xl bg-white/70 p-4 text-sm leading-relaxed text-muted">
+            <p className="font-semibold text-navy">
+              Status: {pending && !status ? "Loading..." : status?.hasApiKey ? `API key configured${status.apiKeyHint ? ` (${status.apiKeyHint})` : ""}` : "Missing API key"}
+            </p>
+            <p className="mt-2">
+              Create keys at{" "}
+              <a href="https://resend.com/api-keys" target="_blank" rel="noreferrer" className="font-semibold text-navy underline underline-offset-4">
+                resend.com/api-keys
+              </a>
+              . Resend&apos;s test sender can only deliver to the account owner; verify a domain to use a school sender address.
+            </p>
+            {status?.updatedAt && <p className="mt-2">Last saved: {new Date(status.updatedAt).toLocaleString()}</p>}
+          </div>
+
+          {message && (
+            <p role="status" className={`rounded-xl px-4 py-3 text-sm ${message.ok ? "bg-sage-tint text-navy" : "bg-red-50 text-red-800"}`}>
+              {message.text}
+            </p>
+          )}
+
+          <div className="flex flex-wrap justify-end gap-3">
+            <button
+              type="button"
+              disabled={pending}
+              onClick={sendTest}
+              className="rounded-full border border-navy/20 px-5 py-2.5 text-sm font-semibold text-navy hover:bg-navy-tint disabled:opacity-60"
+            >
+              {pending ? "Working..." : "Send test email"}
+            </button>
+            <button
+              type="submit"
+              disabled={pending}
+              className="rounded-full bg-sun px-5 py-2.5 text-sm font-semibold text-navy-deep hover:brightness-95 disabled:opacity-60"
+            >
+              {pending ? "Saving..." : "Save settings"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>,
     document.body,

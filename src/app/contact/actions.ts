@@ -1,6 +1,7 @@
 "use server";
 
 import { getPublishedContent, textOf } from "@/lib/content";
+import { defaultTourFromEmail, getTourMailSettings } from "@/lib/tour-mail";
 
 export type TourFormState = {
   status: "idle" | "success" | "error";
@@ -43,9 +44,10 @@ export async function submitTourRequest(_prev: TourFormState, formData: FormData
     return { status: "error", message: textOf(content, "form.error.generic"), errors };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL ?? email;
-  const from = process.env.CONTACT_FROM_EMAIL ?? "MSCM Website <onboarding@resend.dev>";
+  const tourMail = await getTourMailSettings();
+  const apiKey = tourMail.apiKey || process.env.RESEND_API_KEY;
+  const to = tourMail.toEmail || process.env.CONTACT_TO_EMAIL || email;
+  const from = tourMail.fromEmail || process.env.CONTACT_FROM_EMAIL || defaultTourFromEmail();
 
   if (!apiKey) {
     console.warn("[contact] RESEND_API_KEY not set — tour request not delivered:", data);
@@ -81,7 +83,7 @@ export async function submitTourRequest(_prev: TourFormState, formData: FormData
         text,
       }),
     });
-    if (!res.ok) throw new Error(`Resend responded ${res.status}`);
+    if (!res.ok) throw new Error(`Resend responded ${res.status}: ${await res.text()}`);
   } catch (err) {
     console.error("[contact] failed to send tour request", err);
     return {

@@ -6,12 +6,12 @@ import { cookies } from "next/headers";
 const COOKIE = "mscm_admin";
 const MAX_AGE = 60 * 60 * 24 * 7;
 
-function secret() {
+export function adminSecret() {
   return process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD || "dev-secret-change-me";
 }
 
 function sign(value: string) {
-  return createHmac("sha256", secret()).update(value).digest("base64url");
+  return createHmac("sha256", adminSecret()).update(value).digest("base64url");
 }
 
 function safeEqual(a: string, b: string) {
