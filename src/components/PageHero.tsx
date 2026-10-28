@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { EditableImage, ImageReplaceButton } from "@/components/admin/EditableImage";
+import { HeroWholeSubject } from "@/components/HeroWholeSubject";
 
 export type HeroImage = {
   key?: string;
@@ -12,6 +13,11 @@ export type HeroImage = {
   focalMobile?: string;
   /** Optional portrait-friendlier crop used below the md breakpoint. */
   srcMobile?: string;
+  /**
+   * lg+: show a subject too wide for the banner crop in full, over a blurred copy of the photo.
+   * `top`/`bottom` are the subject's edges as fractions of the photo height.
+   */
+  whole?: { top: number; bottom: number };
 };
 
 type Props = {
@@ -86,7 +92,7 @@ export function PageHero({
                 sizes="(min-width: 1600px) 1600px, 100vw"
                 className={`object-cover object-[var(--hero-focal)] ${
                   image.srcMobile || image.mobileKey ? "hidden md:block" : "object-[var(--hero-focal-m)] md:object-[var(--hero-focal)]"
-                }`}
+                } ${image.whole ? "lg:scale-110 lg:blur-2xl" : ""}`}
                 style={
                   {
                     "--hero-focal": image.focal,
@@ -125,6 +131,9 @@ export function PageHero({
               <div className="absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
               {/* Gentle top scrim keeps the header transition clean. */}
               <div className="hero-scrim absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.35),transparent)]" />
+              {image?.whole && (
+                <HeroWholeSubject imageKey={image.key ?? image.mobileKey ?? ""} alt={image.alt} {...image.whole} />
+              )}
             </>
           )}
         </div>
