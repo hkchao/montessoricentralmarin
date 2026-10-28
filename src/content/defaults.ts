@@ -368,7 +368,7 @@ export const defaultContent: SiteContent = {
       width: 512,
       height: 512,
       type: "png",
-      bytes: 20863,
+      bytes: 21731,
     },
     "home.hero.desktop": {
       src: "/images/hero-children-wide.png",
