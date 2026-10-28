@@ -45,7 +45,6 @@ export const defaultContent: SiteContent = {
     "nav.contact": "Contact",
     "cta.primary": "Schedule a Tour",
 
-    "home.hero.kicker": "San Rafael, CA",
     "home.hero.title": "Montessori School of Central Marin",
     "home.hero.lede":
       "Bilingual English and Spanish for ages 2-6.\nSchool day, full day, and summer. AMS affiliate since 1974.",

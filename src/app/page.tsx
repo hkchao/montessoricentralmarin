@@ -12,7 +12,6 @@ export default function HomePage() {
     <>
       <PageHero
         size="home"
-        kicker={<T k="home.hero.kicker" />}
         title={<T k="home.hero.title" />}
         lede={
           <T k="home.hero.lede" multiline />
