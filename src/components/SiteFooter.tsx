@@ -12,7 +12,7 @@ export function SiteFooter() {
       <div className="site-wrap py-12 md:py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-12">
           <div className="sm:col-span-2 lg:col-span-4">
-            <Logo tone="light" compact />
+            <Logo tone="light" />
           </div>
 
           <div className="lg:col-span-4">
