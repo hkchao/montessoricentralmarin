@@ -46,12 +46,12 @@ export function SiteHeader() {
     >
       {/* Equal side columns keep the tab row centered on every page so links don't jump. */}
       <div className="site-wrap grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center md:h-20">
-        <div className="justify-self-start">
+        <div className="col-start-1 justify-self-start">
           {/* Home keeps tabs only — logo lives out of the floating bar. */}
           {!isHome && <Logo tone={overHero ? "light" : "dark"} />}
         </div>
 
-        <nav aria-label="Primary" className="hidden justify-self-center lg:block">
+        <nav aria-label="Primary" className="col-start-2 hidden justify-self-center lg:block">
           <ul className="flex items-center gap-1">
             {nav.map((item) => {
               const active = pathname === item.href || pathname.startsWith(item.href + "/");
@@ -84,7 +84,7 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="flex items-center justify-self-end gap-3">
+        <div className="col-start-3 flex items-center justify-self-end gap-3">
           {!isHome && (
             <PhoneLink
               className={`hidden whitespace-nowrap text-[0.95rem] font-semibold tabular-nums underline-offset-4 hover:underline xl:inline ${

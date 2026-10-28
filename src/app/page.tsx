@@ -61,7 +61,7 @@ export default function HomePage() {
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
                 height={600}
-                className="h-14 w-auto [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:h-12 lg:h-14"
+                className="h-14 w-auto [filter:drop-shadow(0_2px_8px_rgb(2_10_38/0.55))] sm:h-12 lg:h-14"
               />
               <p className="text-sm font-medium text-balance text-white/65">
                 <span className="sm:hidden"><T k="home.badge.best.short" /></span>
@@ -73,7 +73,7 @@ export default function HomePage() {
                 imageKey="brand.ams.bright"
                 width={512}
                 height={512}
-                className="size-14 [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:size-12 lg:size-14"
+                className="size-14 [filter:drop-shadow(0_2px_8px_rgb(2_10_38/0.55))] sm:size-12 lg:size-14"
               />
               <p className="text-sm font-medium text-balance text-white/65">
                 <span className="sm:hidden"><T k="home.badge.ams.short" /></span>
@@ -81,7 +81,7 @@ export default function HomePage() {
               </p>
             </li>
             <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
-              <p className="font-display text-[3.5rem] font-semibold leading-none text-white [text-shadow:0_2px_7px_rgb(2_10_38/0.3)] sm:text-[3.25rem] lg:text-[3.5rem]">
+              <p className="font-display text-[3.5rem] font-semibold leading-none text-white [text-shadow:0_2px_10px_rgb(2_10_38/0.55)] sm:text-[3.25rem] lg:text-[3.5rem]">
                 {new Date().getFullYear() - site.founded}
                 <span className="text-sun">+</span>
               </p>
