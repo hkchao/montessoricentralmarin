@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { EditableImage, ImageReplaceButton } from "@/components/admin/EditableImage";
+import { HeroCarousel } from "@/components/HeroCarousel";
 
 export type HeroImage = {
   key?: string;
@@ -20,6 +21,8 @@ type Props = {
   lede?: ReactNode;
   actions?: ReactNode;
   image?: HeroImage;
+  /** Multiple slides → crossfade carousel (home). Mutually exclusive with `image` / `mapSrc`. */
+  images?: HeroImage[];
   /**
    * Decorative map iframe (e.g. Google Maps embed). Mutually exclusive with `image`.
    * Not interactive — keep a real map lower on the page for directions.
@@ -46,29 +49,34 @@ export function PageHero({
   lede,
   actions,
   image,
+  images,
   mapSrc,
   size = "page",
   ledeOnMobile = false,
   below,
 }: Props) {
   const home = size === "home";
-  const media = Boolean(image || mapSrc);
+  const slides = images && images.length > 0 ? images : image ? [image] : [];
+  const media = Boolean(slides.length || mapSrc);
+  const primary = slides[0];
 
   return (
     <section className="relative isolate overflow-hidden bg-navy-deep text-white">
       {media && (
         <div
-          aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 overflow-hidden ${
-            mapSrc ? "max-w-none" : "max-w-[1600px]"
+          aria-hidden={slides.length <= 1 ? true : undefined}
+          className={`absolute inset-y-0 left-1/2 w-full -translate-x-1/2 overflow-hidden ${
+            mapSrc ? "pointer-events-none max-w-none" : slides.length > 1 ? "max-w-[1600px]" : "pointer-events-none max-w-[1600px]"
           }`}
         >
-          {image ? (
+          {slides.length > 1 ? (
+            <HeroCarousel slides={slides} />
+          ) : slides.length === 1 ? (
             <>
-              {(image.srcMobile || image.mobileKey) && (
+              {(primary!.srcMobile || primary!.mobileKey) && (
                 <EditableImage
-                  imageKey={image.mobileKey ?? image.key ?? ""}
-                  alt={image.alt}
+                  imageKey={primary!.mobileKey ?? primary!.key ?? ""}
+                  alt={primary!.alt}
                   controls={false}
                   fill
                   priority
@@ -76,25 +84,25 @@ export function PageHero({
                   className="object-cover object-[var(--hero-focal-m)] md:hidden"
                   style={
                     {
-                      "--hero-focal-m": image.focalMobile ?? "50% 40%",
+                      "--hero-focal-m": primary!.focalMobile ?? "50% 40%",
                     } as CSSProperties
                   }
                 />
               )}
               <EditableImage
-                imageKey={image.key ?? image.mobileKey ?? ""}
-                alt={image.alt}
+                imageKey={primary!.key ?? primary!.mobileKey ?? ""}
+                alt={primary!.alt}
                 controls={false}
                 fill
                 priority
                 sizes="(min-width: 1600px) 1600px, 100vw"
                 className={`object-cover object-[var(--hero-focal)] ${
-                  image.srcMobile || image.mobileKey ? "hidden md:block" : "object-[var(--hero-focal-m)] md:object-[var(--hero-focal)]"
+                  primary!.srcMobile || primary!.mobileKey ? "hidden md:block" : "object-[var(--hero-focal-m)] md:object-[var(--hero-focal)]"
                 }`}
                 style={
                   {
-                    "--hero-focal": image.focal,
-                    "--hero-focal-m": image.focalMobile ?? image.focal,
+                    "--hero-focal": primary!.focal,
+                    "--hero-focal-m": primary!.focalMobile ?? primary!.focal,
                   } as CSSProperties
                 }
               />
@@ -122,15 +130,15 @@ export function PageHero({
           ) : (
             <>
               {/* Mobile: type sits low, scrub rises from the bottom and clears the subject above. */}
-              <div className="hero-scrim absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_38%,color-mix(in_srgb,var(--color-navy-deep)_55%,transparent)_52%,transparent_66%)] md:hidden" />
+              <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_38%,color-mix(in_srgb,var(--color-navy-deep)_55%,transparent)_52%,transparent_66%)] md:hidden" />
               {/* Desktop: strong under the left lockup column, fading out before the subject. */}
-              <div className="hero-scrim absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
+              <div className="hero-scrim pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
               {/* Ultrawide: dissolve the plane's right edge into the navy fill. */}
-              <div className="absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
               {/* Top scrim so the floating white nav stays readable. */}
-              <div className="hero-scrim absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36" />
+              <div className="hero-scrim pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36" />
               {below && (
-                <div className="hero-scrim absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(to_top,rgb(12_23_65/0.7),transparent)] md:h-48" />
+                <div className="hero-scrim pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(to_top,rgb(12_23_65/0.7),transparent)] md:h-48" />
               )}
             </>
           )}
@@ -176,23 +184,37 @@ export function PageHero({
       </div>
 
       {/* The media plane sits behind the text layer, so its replace buttons live up here, clear of the lockup. */}
-      {image &&
-        (image.mobileKey && image.key ? (
+      {slides.length > 1 ? (
+        <div className="absolute bottom-4 right-4 z-20 flex flex-col items-end gap-2">
+          {slides.map((slide, i) =>
+            slide.key ? (
+              <ImageReplaceButton
+                key={slide.key}
+                imageKey={slide.key}
+                label={`Replace banner photo ${i + 1}`}
+              />
+            ) : null,
+          )}
+        </div>
+      ) : (
+        primary &&
+        (primary.mobileKey && primary.key ? (
           <>
             <div className="absolute right-4 top-16 z-20 md:hidden">
-              <ImageReplaceButton imageKey={image.mobileKey} label="Replace mobile banner image" />
+              <ImageReplaceButton imageKey={primary.mobileKey} label="Replace mobile banner image" />
             </div>
             <div className="absolute bottom-4 right-4 z-20 hidden md:block">
-              <ImageReplaceButton imageKey={image.key} label="Replace desktop banner image" />
+              <ImageReplaceButton imageKey={primary.key} label="Replace desktop banner image" />
             </div>
           </>
         ) : (
-          (image.key ?? image.mobileKey) && (
+          (primary.key ?? primary.mobileKey) && (
             <div className="absolute right-4 top-16 z-20 md:bottom-4 md:top-auto">
-              <ImageReplaceButton imageKey={(image.key ?? image.mobileKey)!} label="Replace banner image" />
+              <ImageReplaceButton imageKey={(primary.key ?? primary.mobileKey)!} label="Replace banner image" />
             </div>
           )
-        ))}
+        ))
+      )}
     </section>
   );
 }

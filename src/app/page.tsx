@@ -16,18 +16,32 @@ export default function HomePage() {
         lede={
           <T k="home.hero.lede" multiline />
         }
-        image={{
-          key: "home.hero.desktop",
-          mobileKey: "home.hero.mobile",
-          src: "/images/hero-children-wide.png",
-          // Tighter crop around the three kids for tall phone frames.
-          srcMobile: "/images/hero-children-mobile.png",
-          alt: "Three smiling preschoolers leaning on a wooden railing outdoors",
-          // Desktop: group in the open right half beside the type lockup.
-          focal: "72% 40%",
-          // Portrait mobile asset already frames the trio — keep centered, faces high.
-          focalMobile: "50% 28%",
-        }}
+        images={[
+          {
+            key: "home.hero.slide1",
+            src: "/images/hero-carousel-paint.jpg",
+            alt: "A preschooler in a star shirt paints at an outdoor easel",
+            // Focal: painting girl's face.
+            focal: "32% 38%",
+            focalMobile: "35% 32%",
+          },
+          {
+            key: "home.hero.slide2",
+            src: "/images/hero-carousel-sandbox.jpg",
+            alt: "A toddler plays with toy trucks in an outdoor sandbox",
+            // Focal: boy's face above the red fire truck.
+            focal: "52% 48%",
+            focalMobile: "50% 42%",
+          },
+          {
+            key: "home.hero.slide3",
+            src: "/images/hero-carousel-classroom.jpg",
+            alt: "A preschooler looks toward the camera while classmates work at wooden tables",
+            // Focal: curly-haired girl's eyes.
+            focal: "58% 40%",
+            focalMobile: "55% 36%",
+          },
+        ]}
         below={
           <ul className="flex flex-row items-start gap-[41px] sm:gap-[67px] lg:gap-[75px]">
             <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
