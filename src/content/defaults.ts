@@ -454,12 +454,12 @@ export const defaultContent: SiteContent = {
       bytes: 131979,
     },
     "programs.summer": {
-      src: "/images/gallery-garden-lemon-tree.jpg",
-      alt: "Children explore the lemon tree during outdoor learning",
-      width: 1152,
-      height: 864,
+      src: "/images/summer-painting-outdoors.jpg",
+      alt: "A child in a tiara paints at an easel on the sunny deck while a friend works at a table",
+      width: 1024,
+      height: 682,
       type: "jpg",
-      bytes: 217972,
+      bytes: 183247,
     },
     "programs.curriculum": {
       src: "/images/hero-spanish.png",
