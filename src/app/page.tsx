@@ -94,7 +94,7 @@ export default function HomePage() {
 
         <div className="mt-12 grid items-center gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-16">
           <div className="max-w-2xl lg:col-span-6">
-            <SectionHeading kicker={<T k="home.welcome.kicker" />} title={<T k="home.welcome.title" />} />
+            <SectionHeading title={<T k="home.welcome.title" />} />
             <div className="prose-school mt-6 text-[1.0625rem] text-ink/85">
               <p>
                 <T k="home.welcome.body" />

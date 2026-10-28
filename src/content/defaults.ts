@@ -57,8 +57,7 @@ export const defaultContent: SiteContent = {
     "home.badge.ams.link": "American Montessori Society",
     "home.badge.years.title": "Years in San Rafael",
     "home.badge.years.bodyPrefix": "Since",
-    "home.welcome.kicker": "Welcome",
-    "home.welcome.title": "Who we are",
+    "home.welcome.title": "Welcome",
     "home.welcome.body":
       "We are a year-round bilingual preschool, following the philosophy of Dr. Maria Montessori and an affiliate of the American Montessori Society. Children learn in both English and Spanish with a diverse Montessori curriculum that includes sensorial, practical life, cultural studies, mathematics and language.",
     "home.welcome.cta": "About our school",
