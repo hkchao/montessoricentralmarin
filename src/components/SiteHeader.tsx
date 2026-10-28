@@ -44,15 +44,14 @@ export function SiteHeader() {
             : "border-line bg-cream/90 shadow-[0_1px_0_rgb(20_36_94/0.04)] backdrop-blur-md"
       }`}
     >
-      <div
-        className={`site-wrap flex h-[4.5rem] items-center gap-6 md:h-20 ${
-          isHome ? "justify-end lg:justify-center" : "justify-between"
-        }`}
-      >
-        {/* Home keeps a centered tab row only — logo and tour CTA live in the hero instead. */}
-        {!isHome && <Logo tone={overHero ? "light" : "dark"} />}
+      {/* Equal side columns keep the tab row centered on every page so links don't jump. */}
+      <div className="site-wrap grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center md:h-20">
+        <div className="justify-self-start">
+          {/* Home keeps tabs only — logo lives out of the floating bar. */}
+          {!isHome && <Logo tone={overHero ? "light" : "dark"} />}
+        </div>
 
-        <nav aria-label="Primary" className="hidden lg:block">
+        <nav aria-label="Primary" className="hidden justify-self-center lg:block">
           <ul className="flex items-center gap-1">
             {nav.map((item) => {
               const active = pathname === item.href || pathname.startsWith(item.href + "/");
@@ -61,7 +60,7 @@ export function SiteHeader() {
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`relative whitespace-nowrap rounded-full px-3 py-2 text-[0.95rem] font-medium transition-colors xl:px-3.5 ${
+                    className={`relative whitespace-nowrap rounded-full px-3.5 py-2 text-[0.95rem] font-medium transition-colors ${
                       overHero
                         ? active
                           ? "text-white"
@@ -85,50 +84,52 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        {!isHome && (
-          <div className="hidden items-center gap-3 lg:flex">
-            <PhoneLink
-              className={`hidden whitespace-nowrap text-[0.95rem] font-semibold tabular-nums underline-offset-4 hover:underline xl:inline ${
-                overHero ? "text-white" : "text-navy"
-              }`}
-            />
-            {/* Keep the tour CTA out of the banner; show it once the header is solid. */}
-            {!overHero && (
-              <ButtonLink href={primaryCta.href} variant="primary" className="whitespace-nowrap">
-                <T k="cta.primary" fallback={primaryCta.label} />
-              </ButtonLink>
-            )}
-          </div>
-        )}
+        <div className="flex items-center justify-self-end gap-3">
+          {!isHome && (
+            <div className="hidden items-center gap-3 lg:flex">
+              <PhoneLink
+                className={`hidden whitespace-nowrap text-[0.95rem] font-semibold tabular-nums underline-offset-4 hover:underline xl:inline ${
+                  overHero ? "text-white" : "text-navy"
+                }`}
+              />
+              {/* Keep the tour CTA out of the banner; show it once the header is solid. */}
+              {!overHero && (
+                <ButtonLink href={primaryCta.href} variant="primary" className="whitespace-nowrap">
+                  <T k="cta.primary" fallback={primaryCta.label} />
+                </ButtonLink>
+              )}
+            </div>
+          )}
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
-          className={`inline-flex size-11 items-center justify-center rounded-full lg:hidden ${
-            overHero ? "text-white hover:bg-white/10" : "text-navy hover:bg-navy-tint"
-          }`}
-        >
-          <span className="relative block h-3.5 w-5" aria-hidden="true">
-            <span
-              className={`absolute left-0 top-0 h-0.5 w-5 rounded-full bg-current transition-transform duration-300 ${
-                open ? "translate-y-1.5 rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-1.5 h-0.5 w-5 rounded-full bg-current transition-opacity duration-200 ${
-                open ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-3 h-0.5 w-5 rounded-full bg-current transition-transform duration-300 ${
-                open ? "-translate-y-1.5 -rotate-45" : ""
-              }`}
-            />
-          </span>
-        </button>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className={`inline-flex size-11 items-center justify-center rounded-full lg:hidden ${
+              overHero ? "text-white hover:bg-white/10" : "text-navy hover:bg-navy-tint"
+            }`}
+          >
+            <span className="relative block h-3.5 w-5" aria-hidden="true">
+              <span
+                className={`absolute left-0 top-0 h-0.5 w-5 rounded-full bg-current transition-transform duration-300 ${
+                  open ? "translate-y-1.5 rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-1.5 h-0.5 w-5 rounded-full bg-current transition-opacity duration-200 ${
+                  open ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-3 h-0.5 w-5 rounded-full bg-current transition-transform duration-300 ${
+                  open ? "-translate-y-1.5 -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+        </div>
       </div>
     </header>
 

@@ -18,10 +18,10 @@ export default function HomePage() {
         }
         images={[
           {
-            key: "home.hero.slide1",
-            mobileKey: "home.hero.slide1.mobile",
-            src: "/images/hero-children-wide.png",
-            srcMobile: "/images/hero-children-mobile.png",
+            key: "home.hero.slide1.vivid",
+            mobileKey: "home.hero.slide1.mobile.vivid",
+            src: "/images/hero-children-wide-vivid.jpg",
+            srcMobile: "/images/hero-children-mobile-vivid.jpg",
             alt: "Three smiling preschoolers leaning on a wooden railing outdoors",
             // Focal: trio of faces in the open right half.
             focal: "72% 40%",
@@ -36,30 +36,32 @@ export default function HomePage() {
             focalMobile: "68% 38%",
           },
           {
-            key: "home.hero.slide3",
-            src: "/images/hero-carousel-sandbox.jpg",
-            alt: "A toddler plays with toy trucks in an outdoor sandbox",
-            // Focal: boy's face above the red fire truck.
-            focal: "52% 48%",
+            key: "home.hero.slide.sandbox.desktop.smile",
+            mobileKey: "home.hero.slide.sandbox.mobile.smile",
+            src: "/images/hero-carousel-sandbox-desktop-smile.jpg",
+            srcMobile: "/images/hero-carousel-sandbox-mobile-smile.jpg",
+            alt: "A smiling toddler plays with toy trucks in an outdoor sandbox",
+            // Desktop focal: boy and trucks in the open right half; mobile keeps the tighter crop.
+            focal: "67% 48%",
             focalMobile: "50% 42%",
           },
           {
-            key: "home.hero.slide4",
-            src: "/images/hero-carousel-classroom.jpg",
+            key: "home.hero.slide.classroom.seamless",
+            src: "/images/hero-carousel-classroom-seamless.jpg",
             alt: "A preschooler looks toward the camera while classmates work at wooden tables",
-            // Focal: curly-haired girl's eyes.
-            focal: "58% 40%",
-            focalMobile: "55% 36%",
+            // Focal: curly-haired girl's eyes; seamless quiet classroom space fills the left.
+            focal: "74% 42%",
+            focalMobile: "72% 38%",
           },
         ]}
         below={
-          <ul className="flex flex-row items-start gap-[41px] sm:gap-[67px] lg:gap-[75px]">
+          <ul className="flex flex-row items-start gap-[41px] sm:gap-[57px] lg:gap-[75px]">
             <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <EditableImage
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
                 height={600}
-                className="h-16 w-auto sm:h-14 lg:h-16"
+                className="h-16 w-auto [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:h-14 lg:h-16"
               />
               <p className="text-sm font-medium text-balance text-white/65">
                 <span className="sm:hidden"><T k="home.badge.best.short" /></span>
@@ -68,10 +70,10 @@ export default function HomePage() {
             </li>
             <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <EditableImage
-                imageKey="brand.ams"
+                imageKey="brand.ams.bright"
                 width={512}
                 height={512}
-                className="size-14 sm:size-12 lg:size-14"
+                className="size-14 [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:size-12 lg:size-14"
               />
               <p className="text-sm font-medium text-balance text-white/65">
                 <span className="sm:hidden"><T k="home.badge.ams.short" /></span>
@@ -79,7 +81,7 @@ export default function HomePage() {
               </p>
             </li>
             <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
-              <p className="font-display text-[3.5rem] font-semibold leading-none text-white sm:text-[3.25rem] lg:text-[3.5rem]">
+              <p className="font-display text-[3.5rem] font-semibold leading-none text-white [text-shadow:0_2px_7px_rgb(2_10_38/0.3)] sm:text-[3.25rem] lg:text-[3.5rem]">
                 {new Date().getFullYear() - site.founded}
                 <span className="text-sun">+</span>
               </p>

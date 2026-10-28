@@ -159,9 +159,9 @@ export function PageHero({
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
         <div className={`animate-rise ${home ? "max-w-xl xl:max-w-2xl" : "max-w-lg lg:max-w-xl xl:max-w-2xl"}`}>
-          {kicker && <p className="kicker text-sun">{kicker}</p>}
+          {kicker && <p className="kicker text-sun [text-shadow:0_2px_7px_rgb(2_10_38/0.3)]">{kicker}</p>}
           <h1
-            className={`font-display mt-3 font-medium text-balance ${
+            className={`font-display mt-3 font-medium text-balance [text-shadow:0_2px_8px_rgb(2_10_38/0.32)] ${
               home
                 ? "text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-[3.75rem]"
                 : "text-[2.125rem] leading-[1.05] sm:text-4xl lg:text-5xl"
@@ -171,7 +171,7 @@ export function PageHero({
           </h1>
           {lede && (
             <p
-              className={`mt-5 max-w-md text-pretty text-white/80 lg:max-w-xl ${home ? "text-lg leading-relaxed" : "text-[1.0625rem] leading-relaxed"} ${
+              className={`mt-5 max-w-md text-pretty text-white/80 [text-shadow:0_2px_7px_rgb(2_10_38/0.28)] lg:max-w-xl ${home ? "text-lg leading-relaxed" : "text-[1.0625rem] leading-relaxed"} ${
                 ledeOnMobile ? "block" : "hidden md:block"
               }`}
             >
