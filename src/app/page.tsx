@@ -5,7 +5,7 @@ import { ArrowIcon, ButtonLink } from "@/components/Button";
 import { DocButton } from "@/components/admin/DocButton";
 import { EditableImage } from "@/components/admin/EditableImage";
 import { T } from "@/components/T";
-import { curriculum, programs, site } from "@/lib/site";
+import { programs, site } from "@/lib/site";
 
 export default function HomePage() {
   return (
@@ -167,16 +167,6 @@ export default function HomePage() {
               title={<T k="home.curriculum.title" />}
               lede={<T k="home.curriculum.lede" />}
             />
-            <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 sm:gap-y-5">
-              {curriculum.map((c) => (
-                <li key={c.id}>
-                  <p className="font-semibold text-navy"><T k={`curriculum.${c.id}.name`} fallback={c.name} /></p>
-                  <p className="mt-1 hidden text-sm leading-relaxed text-muted sm:block">
-                    <T k={`curriculum.${c.id}.short`} fallback={c.short} />
-                  </p>
-                </li>
-              ))}
-            </ul>
             <ButtonLink href="/programs#curriculum" variant="ghost" className="mt-8">
               <T k="home.curriculum.cta" /> <ArrowIcon />
             </ButtonLink>
