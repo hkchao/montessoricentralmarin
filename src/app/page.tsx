@@ -5,7 +5,7 @@ import { ArrowIcon, ButtonLink } from "@/components/Button";
 import { DocButton } from "@/components/admin/DocButton";
 import { EditableImage } from "@/components/admin/EditableImage";
 import { T } from "@/components/T";
-import { curriculum, primaryCta, programs, site } from "@/lib/site";
+import { curriculum, programs, site } from "@/lib/site";
 
 export default function HomePage() {
   return (
@@ -15,18 +15,6 @@ export default function HomePage() {
         title={<T k="home.hero.title" />}
         lede={
           <T k="home.hero.lede" multiline />
-        }
-        actions={
-          <>
-            <ButtonLink href={primaryCta.href} size="lg">
-              <T k="cta.primary" fallback={primaryCta.label} /> <ArrowIcon />
-            </ButtonLink>
-            <span className="hidden sm:contents">
-              <ButtonLink href="/programs" variant="ghost-light" size="lg">
-                <T k="home.hero.programsCta" fallback="View programs" />
-              </ButtonLink>
-            </span>
-          </>
         }
         image={{
           key: "home.hero.desktop",
