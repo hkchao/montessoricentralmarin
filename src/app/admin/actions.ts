@@ -18,13 +18,27 @@ import {
   hasAdminSession,
   setAdminSession,
 } from "@/lib/admin-session";
+import {
+  defaultTourFromEmail,
+  getTourMailSettings,
+  getTourMailStatus,
+  saveTourMailSettings,
+  type TourMailStatus,
+} from "@/lib/tour-mail";
 
 export type LoginState = { error?: string };
+export type TourMailActionResult = {
+  ok: boolean;
+  message: string;
+  status?: TourMailStatus;
+  errors?: Partial<Record<"toEmail" | "fromEmail" | "apiKey", string>>;
+};
 
 const RATE_LIMIT_PREFIX = "admin-login/";
 const MAX_ATTEMPTS = 5;
 const WINDOW_MS = 15 * 60 * 1000;
 const localAttempts = new Map<string, { count: number; until: number }>();
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 async function clientKey() {
   const h = await headers();
@@ -72,6 +86,14 @@ async function clearAttempts(key: string) {
 
 async function requireAdmin() {
   if (!(await hasAdminSession())) throw new Error("Not authorized.");
+}
+
+function clean(value: FormDataEntryValue | null, max = 500) {
+  return (typeof value === "string" ? value : "").trim().slice(0, max);
+}
+
+function emailAddress(value: string) {
+  return value.match(/<([^<>@\s]+@[^<>@\s]+\.[^<>@\s]+)>/)?.[1] ?? value;
 }
 
 export async function loginAction(_prev: LoginState, formData: FormData): Promise<LoginState> {
@@ -135,4 +157,90 @@ export async function getPublishCountAction() {
 export async function getPublishedEmailAction() {
   const content = await getPublishedContent();
   return content.text["contact.email"];
+}
+
+export async function getTourMailStatusAction() {
+  await requireAdmin();
+  const content = await getPublishedContent();
+  return getTourMailStatus(content.text["contact.email"]);
+}
+
+export async function saveTourMailSettingsAction(formData: FormData): Promise<TourMailActionResult> {
+  await requireAdmin();
+  const content = await getPublishedContent();
+  const fallbackToEmail = content.text["contact.email"];
+  const toEmail = clean(formData.get("toEmail"), 200) || fallbackToEmail;
+  const fromEmail = clean(formData.get("fromEmail"), 200) || defaultTourFromEmail();
+  const apiKey = clean(formData.get("apiKey"), 500);
+  const clearApiKey = clean(formData.get("clearApiKey")) === "on";
+  const errors: TourMailActionResult["errors"] = {};
+
+  if (!emailRe.test(toEmail)) errors.toEmail = "Enter a valid destination email.";
+  if (!emailRe.test(emailAddress(fromEmail))) errors.fromEmail = "Enter a valid sender email or Name <email>.";
+  if (apiKey && !apiKey.startsWith("re_")) errors.apiKey = "Resend API keys usually start with re_.";
+
+  if (Object.keys(errors).length) {
+    return {
+      ok: false,
+      message: "Please check the highlighted settings.",
+      errors,
+      status: await getTourMailStatus(fallbackToEmail),
+    };
+  }
+
+  await saveTourMailSettings({ toEmail, fromEmail, apiKey, clearApiKey });
+  return {
+    ok: true,
+    message: "Tour request settings saved.",
+    status: await getTourMailStatus(fallbackToEmail),
+  };
+}
+
+export async function sendTourMailTestAction(): Promise<TourMailActionResult> {
+  await requireAdmin();
+  const content = await getPublishedContent();
+  const fallbackToEmail = content.text["contact.email"];
+  const settings = await getTourMailSettings();
+  const status = await getTourMailStatus(fallbackToEmail);
+  const apiKey = settings.apiKey || process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    return {
+      ok: false,
+      message: "Add a Resend API key before sending a test.",
+      status,
+      errors: { apiKey: "Missing API key." },
+    };
+  }
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: status.fromEmail,
+        to: [status.toEmail],
+        subject: "Test tour request email",
+        text: [
+          "This is a test from the Montessori School of Central Marin website admin settings.",
+          "",
+          "If you received this, Request a Tour email delivery is connected.",
+        ].join("\n"),
+      }),
+    });
+    if (!res.ok) throw new Error(`Resend responded ${res.status}: ${await res.text()}`);
+  } catch (err) {
+    console.error("[admin] failed to send tour mail test", err);
+    return {
+      ok: false,
+      message: "The test email could not be sent. Check the API key and verified sender.",
+      status,
+    };
+  }
+
+  return {
+    ok: true,
+    message: `Test email sent to ${status.toEmail}.`,
+    status,
+  };
 }

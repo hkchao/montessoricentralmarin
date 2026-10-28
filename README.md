@@ -26,13 +26,13 @@ npm run start
 
 ## Tour request form
 
-`src/app/contact/actions.ts` is a server action that emails tour requests via [Resend](https://resend.com) (no SDK — plain `fetch`). Set these environment variables (see `.env.example`):
+`src/app/contact/actions.ts` is a server action that emails tour requests via [Resend](https://resend.com) (no SDK — plain `fetch`). In admin mode, open the gear icon in **Admin Controls** and use **Request a Tour email** settings to set:
 
-- `RESEND_API_KEY` — required for delivery.
-- `CONTACT_TO_EMAIL` — defaults to the school office address.
-- `CONTACT_FROM_EMAIL` — a verified sender on your Resend domain.
+- Destination email — defaults to the site contact email.
+- From address — use a verified Resend sender for production.
+- Resend API key — encrypted server-side and never shown again after saving.
 
-Without `RESEND_API_KEY` the form shows a friendly "please call or email" message instead of pretending to send.
+The settings panel includes a test-email button. Environment variables still work as a fallback/bootstrap path (see `.env.example`): `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL`. Without a saved/admin or environment API key, the form shows a friendly "please call or email" message instead of pretending to send.
 
 ## Updating content
 
