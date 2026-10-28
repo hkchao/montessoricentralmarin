@@ -71,7 +71,7 @@ export const defaultContent: SiteContent = {
     "home.curriculum.title": "Curriculum",
     "home.curriculum.lede":
       "Children practice math, reading, writing, and practical life skills. The program also offers music, yoga, cooking, gardening, art, athletics, take-home reading, and field trips. Some happen during the school day, while others are available by sign-up.",
-    "home.curriculum.cta": "See programs",
+    "home.curriculum.cta": "All curriculum",
     "home.calendar.title": "2026-27 school calendar",
     "home.calendar.body": "holidays, closures, and key dates.",
     "home.calendar.cta": "Download 2026-27 calendar (PDF)",
