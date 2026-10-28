@@ -29,6 +29,8 @@ type Props = {
   size?: "home" | "page";
   /** Render lede on small screens (default: hidden to keep mobile lean). */
   ledeOnMobile?: boolean;
+  /** Optional content band under the lockup, still inside the banner (e.g. home awards). */
+  below?: ReactNode;
 };
 
 /**
@@ -47,6 +49,7 @@ export function PageHero({
   mapSrc,
   size = "page",
   ledeOnMobile = false,
+  below,
 }: Props) {
   const home = size === "home";
   const media = Boolean(image || mapSrc);
@@ -126,6 +129,9 @@ export function PageHero({
               <div className="absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
               {/* Top scrim so the floating white nav stays readable. */}
               <div className="hero-scrim absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36" />
+              {below && (
+                <div className="hero-scrim absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(to_top,rgb(12_23_65/0.7),transparent)] md:h-48" />
+              )}
             </>
           )}
         </div>
@@ -136,7 +142,11 @@ export function PageHero({
           media ? (home ? "pt-[68vw] sm:pt-[46vw]" : "pt-[58vw] sm:pt-[34vw]") : home ? "pt-14" : "pt-12"
         } ${
           // Extra top padding clears the fixed floating header that overlays the banner.
-          home ? "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24" : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
+          home
+            ? below
+              ? "pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12"
+              : "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
+            : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
         }`}
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
@@ -163,6 +173,8 @@ export function PageHero({
           {actions && <div className="mt-7 flex flex-wrap items-center gap-3">{actions}</div>}
         </div>
       </div>
+
+      {below && <div className="site-wrap relative pb-12 md:pb-14 lg:pb-16">{below}</div>}
 
       {/* The media plane sits behind the text layer, so its replace buttons live up here, clear of the lockup. */}
       {image &&
