@@ -175,13 +175,19 @@ export default function HomePage() {
       </Section>
 
       <Section className="!py-10 md:!py-12">
-        <aside className="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center sm:flex-row sm:justify-center sm:gap-5 sm:text-left">
+        <aside className="mx-auto grid max-w-4xl items-center justify-items-center gap-5 text-center sm:grid-cols-[auto_1fr_auto] sm:justify-items-start sm:gap-6 sm:text-left">
+          <div
+            aria-hidden="true"
+            className="flex size-20 shrink-0 flex-col overflow-hidden rounded-2xl bg-white text-navy shadow-soft ring-1 ring-navy/10"
+          >
+            <div className="h-5 bg-sun" />
+            <div className="flex flex-1 items-center justify-center font-display text-3xl font-semibold leading-none">27</div>
+          </div>
           <p className="text-[0.95rem] leading-relaxed text-muted">
-            <span className="font-semibold text-navy"><T k="home.calendar.title" /></span>
-            <span className="hidden sm:inline"> — </span>
-            <span className="block sm:inline"><T k="home.calendar.body" /></span>
+            <span className="block font-display text-xl font-medium text-navy"><T k="home.calendar.title" /></span>
+            <span className="mt-1 block"><T k="home.calendar.body" /></span>
           </p>
-          <DocButton docKey="calendar" variant="ghost" className="shrink-0 whitespace-nowrap">
+          <DocButton docKey="calendar" variant="primary" size="lg" className="shrink-0 whitespace-nowrap">
             <T k="home.calendar.cta" />
           </DocButton>
         </aside>
