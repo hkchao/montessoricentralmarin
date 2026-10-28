@@ -180,17 +180,26 @@ export default function HomePage() {
             aria-hidden="true"
             className="flex size-20 shrink-0 items-center justify-center text-navy"
           >
-            <svg viewBox="0 0 64 64" className="size-20" fill="none">
-              <path d="M10 13h44a6 6 0 0 1 6 6v11H4V19a6 6 0 0 1 6-6Z" fill="var(--color-sun)" />
-              <rect x="4" y="13" width="56" height="47" rx="7" stroke="currentColor" strokeWidth="3.5" />
-              <path d="M4 30h56M17 8v11M32 8v11M47 8v11" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
-              <g stroke="currentColor" strokeWidth="3">
-                <rect x="12" y="37" width="8" height="7" rx="1" />
-                <rect x="28" y="37" width="8" height="7" rx="1" />
-                <rect x="44" y="37" width="8" height="7" rx="1" />
-                <rect x="12" y="49" width="8" height="7" rx="1" />
-                <rect x="28" y="49" width="8" height="7" rx="1" />
-                <rect x="44" y="49" width="8" height="7" rx="1" />
+            {/* Adapted from Lucide's ISC-licensed Calendar Days icon. */}
+            <svg
+              viewBox="0 0 24 24"
+              className="size-[4.5rem]"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M3 9V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4Z" fill="var(--color-sun)" stroke="none" />
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M8 2v3M16 2v3M3 9h18" />
+              <g fill="currentColor" stroke="none">
+                <circle cx="8" cy="13" r="0.7" />
+                <circle cx="12" cy="13" r="0.7" />
+                <circle cx="16" cy="13" r="0.7" />
+                <circle cx="8" cy="17" r="0.7" />
+                <circle cx="12" cy="17" r="0.7" />
+                <circle cx="16" cy="17" r="0.7" />
               </g>
             </svg>
           </div>
