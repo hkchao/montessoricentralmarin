@@ -33,9 +33,9 @@ type Props = {
 
 /**
  * Site-wide banner frame.
- * - Height hugs the type lockup (padding-driven, no tall vw frames).
+ * - Interior pages: height hugs the type lockup; photo capped at 1600px with navy fill beyond.
+ * - Home: full-viewport hero with full-bleed photo; header floats over it in white.
  * - Left-justified type → gradient scrubs in from the left (bottom on mobile).
- * - Photo/map + gradient live on a centered media plane capped at 1600px; navy fills beyond it.
  */
 export function PageHero({
   kicker,
@@ -51,12 +51,18 @@ export function PageHero({
   const media = Boolean(image || mapSrc);
 
   return (
-    <section className="relative isolate overflow-hidden bg-navy-deep text-white">
+    <section
+      className={`relative isolate overflow-hidden bg-navy-deep text-white ${
+        home ? "flex min-h-[100dvh] flex-col" : ""
+      }`}
+    >
       {media && (
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 overflow-hidden ${
-            mapSrc ? "max-w-none" : "max-w-[1600px]"
+          className={`pointer-events-none absolute overflow-hidden ${
+            home || mapSrc
+              ? "inset-0"
+              : "inset-y-0 left-1/2 w-full max-w-[1600px] -translate-x-1/2"
           }`}
         >
           {image ? (
@@ -83,7 +89,7 @@ export function PageHero({
                 controls={false}
                 fill
                 priority
-                sizes="(min-width: 1600px) 1600px, 100vw"
+                sizes={home ? "100vw" : "(min-width: 1600px) 1600px, 100vw"}
                 className={`object-cover object-[var(--hero-focal)] ${
                   image.srcMobile || image.mobileKey ? "hidden md:block" : "object-[var(--hero-focal-m)] md:object-[var(--hero-focal)]"
                 }`}
@@ -115,15 +121,25 @@ export function PageHero({
               <div className="hero-scrim absolute inset-x-0 top-0 h-20 bg-[linear-gradient(to_bottom,var(--color-navy-deep),transparent)]" />
               <div className="hero-scrim absolute inset-x-0 bottom-0 h-16 bg-[linear-gradient(to_top,var(--color-navy-deep),transparent)]" />
             </>
+          ) : home ? (
+            <>
+              {/* Home fullscreen: soft overall wash so the photo stays visible edge-to-edge. */}
+              <div className="hero-scrim absolute inset-0 bg-navy-deep/30" />
+              {/* Mobile: type sits low — scrub up from the bottom. */}
+              <div className="hero-scrim absolute inset-0 bg-[linear-gradient(to_top,rgb(12_23_65/0.88)_0%,rgb(12_23_65/0.45)_42%,transparent_72%)] md:hidden" />
+              {/* Desktop: lighter left scrub under the lockup, photo still reads across. */}
+              <div className="hero-scrim absolute inset-0 hidden bg-[linear-gradient(to_right,rgb(12_23_65/0.72)_0%,rgb(12_23_65/0.4)_32%,rgb(12_23_65/0.12)_55%,transparent_72%)] md:block" />
+              {/* Top scrim for the floating white nav (hero photo is bright near the top). */}
+              <div className="hero-scrim absolute inset-x-0 top-0 h-40 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.72)_0%,rgb(12_23_65/0.35)_55%,transparent_100%)] md:h-48" />
+            </>
           ) : (
             <>
               {/* Mobile: type sits low, scrub rises from the bottom and clears the subject above. */}
               <div className="hero-scrim absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_38%,color-mix(in_srgb,var(--color-navy-deep)_55%,transparent)_52%,transparent_66%)] md:hidden" />
               {/* Desktop: strong under the left lockup column, fading out before the subject. */}
               <div className="hero-scrim absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
-              {/* Ultrawide: dissolve the plane's right edge into the navy fill. */}
+              {/* Dissolve the capped media plane into navy on ultrawide. */}
               <div className="absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
-              {/* Gentle top scrim keeps the header transition clean. */}
               <div className="hero-scrim absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.35),transparent)]" />
             </>
           )}
@@ -132,8 +148,12 @@ export function PageHero({
 
       <div
         className={`site-wrap relative ${
-          media ? (home ? "pt-[68vw] sm:pt-[46vw]" : "pt-[58vw] sm:pt-[34vw]") : home ? "pt-14" : "pt-12"
-        } ${home ? "pb-12 md:py-24 lg:py-28" : "pb-10 md:py-16 lg:py-20"}`}
+          home
+            ? "flex flex-1 flex-col justify-end pb-14 pt-28 sm:pb-16 md:justify-center md:pb-24 md:pt-28 lg:pb-28"
+            : media
+              ? "pt-[58vw] pb-10 sm:pt-[34vw] md:py-16 lg:py-20"
+              : "pt-12 pb-10 md:py-16 lg:py-20"
+        }`}
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
         <div className={`animate-rise ${home ? "max-w-xl xl:max-w-2xl" : "max-w-lg lg:max-w-xl xl:max-w-2xl"}`}>
@@ -150,7 +170,7 @@ export function PageHero({
           {lede && (
             <p
               className={`mt-5 max-w-md text-pretty text-white/80 lg:max-w-xl ${home ? "text-lg leading-relaxed" : "text-[1.0625rem] leading-relaxed"} ${
-                ledeOnMobile ? "block" : "hidden md:block"
+                ledeOnMobile || home ? "block" : "hidden md:block"
               }`}
             >
               {lede}
