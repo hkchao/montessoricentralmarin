@@ -171,7 +171,7 @@ export function PageHero({
             </p>
           )}
           {actions && <div className="mt-7 flex flex-wrap items-center gap-3">{actions}</div>}
-          {below && <div className="mt-16 md:mt-20 lg:mt-24">{below}</div>}
+          {below && <div className="mt-8 md:mt-9 lg:mt-10">{below}</div>}
         </div>
       </div>
 
