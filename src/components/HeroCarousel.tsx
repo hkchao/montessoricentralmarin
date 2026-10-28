@@ -4,7 +4,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { EditableImage } from "@/components/admin/EditableImage";
 import type { HeroImage } from "@/components/PageHero";
 
-const INTERVAL_MS = 5500;
+const INTERVAL_MS = 4500;
 
 type Props = {
   slides: HeroImage[];

@@ -372,12 +372,12 @@ export const defaultContent: SiteContent = {
       bytes: 21865,
     },
     "brand.ams.bright": {
-      src: "/brand/ams-mark-bright.png",
+      src: "/brand/ams-mark-alpha.png",
       alt: "American Montessori Society",
-      width: 512,
-      height: 512,
+      width: 447,
+      height: 447,
       type: "png",
-      bytes: 21865,
+      bytes: 35947,
     },
     "home.hero.desktop": {
       src: "/images/hero-children-wide.png",

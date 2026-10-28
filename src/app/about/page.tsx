@@ -96,7 +96,7 @@ export default function AboutPage() {
                 imageKey="brand.ams.bright"
                 width={512}
                 height={512}
-                className="size-32"
+                className="size-32 object-contain"
               />
             </a>
           </div>

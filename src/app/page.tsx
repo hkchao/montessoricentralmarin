@@ -61,7 +61,7 @@ export default function HomePage() {
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
                 height={600}
-                className="h-16 w-auto [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:h-14 lg:h-16"
+                className="h-14 w-auto [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:h-12 lg:h-14"
               />
               <p className="text-sm font-medium text-balance text-white/65">
                 <span className="sm:hidden"><T k="home.badge.best.short" /></span>
