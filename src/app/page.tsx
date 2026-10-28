@@ -95,9 +95,9 @@ export default function HomePage() {
       />
 
       <Section tone="white">
-        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="max-w-2xl lg:col-span-6">
-            <SectionHeading title={<T k="home.welcome.title" />} />
+            <SectionHeading title={<T k="home.welcome.title" />} className="[&>h2]:mt-0" />
             <div className="prose-school mt-6 text-[1.0625rem] text-ink/85">
               <p>
                 <T k="home.welcome.body" />
