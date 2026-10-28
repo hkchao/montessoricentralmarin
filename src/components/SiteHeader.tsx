@@ -13,9 +13,8 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const isHome = pathname === "/";
-  // Home: transparent white nav floats over the full-screen hero until the user scrolls.
-  const overHero = isHome && !scrolled && !open;
+  // Public pages: white nav floats over the dark hero until the user scrolls. Admin stays solid.
+  const overHero = !pathname.startsWith("/admin") && !scrolled && !open;
 
   const close = () => setOpen(false);
 
@@ -36,14 +35,12 @@ export function SiteHeader() {
   return (
     <>
     <header
-      className={`${isHome ? "fixed inset-x-0 top-0" : "sticky top-0"} z-40 border-b transition-[background-color,border-color,box-shadow,color] duration-300 ${
+      className={`fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,box-shadow,color] duration-300 ${
         overHero
           ? "border-transparent bg-transparent text-white [text-shadow:0_1px_2px_rgb(12_23_65/0.45)]"
           : open
             ? "border-line bg-cream"
-            : scrolled || !isHome
-              ? "border-line bg-cream/90 shadow-[0_1px_0_rgb(20_36_94/0.04)] backdrop-blur-md"
-              : "border-transparent bg-cream"
+            : "border-line bg-cream/90 shadow-[0_1px_0_rgb(20_36_94/0.04)] backdrop-blur-md"
       }`}
     >
       <div className="site-wrap flex h-[4.5rem] items-center justify-between gap-6 md:h-20">

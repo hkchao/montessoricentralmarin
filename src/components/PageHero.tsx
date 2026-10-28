@@ -36,7 +36,7 @@ type Props = {
  * - Height hugs the type lockup (padding-driven, no tall vw frames).
  * - Left-justified type → gradient scrubs in from the left (bottom on mobile).
  * - Photo/map + gradient live on a centered media plane capped at 1600px; navy fills beyond it.
- * - On home, the header floats over the banner, so the top scrim is a bit stronger for white nav.
+ * - The site header floats over the banner in white, so the top scrim keeps nav readable.
  */
 export function PageHero({
   kicker,
@@ -113,7 +113,7 @@ export function PageHero({
               <div className="hero-scrim absolute inset-0 bg-navy-deep/45" />
               <div className="hero-scrim absolute inset-y-0 left-0 w-[55%] bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_92%,transparent)_42%,color-mix(in_srgb,var(--color-navy-deep)_45%,transparent)_72%,transparent_100%)]" />
               <div className="hero-scrim absolute inset-y-0 right-0 w-[28%] bg-[linear-gradient(to_left,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_70%,transparent)_55%,transparent_100%)]" />
-              <div className="hero-scrim absolute inset-x-0 top-0 h-20 bg-[linear-gradient(to_bottom,var(--color-navy-deep),transparent)]" />
+              <div className="hero-scrim absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,var(--color-navy-deep),transparent)] md:h-36" />
               <div className="hero-scrim absolute inset-x-0 bottom-0 h-16 bg-[linear-gradient(to_top,var(--color-navy-deep),transparent)]" />
             </>
           ) : (
@@ -124,12 +124,8 @@ export function PageHero({
               <div className="hero-scrim absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
               {/* Ultrawide: dissolve the plane's right edge into the navy fill. */}
               <div className="absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
-              {/* Top scrim: stronger on home so the floating white nav stays readable. */}
-              <div
-                className={`hero-scrim absolute inset-x-0 top-0 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] ${
-                  home ? "h-32 md:h-36" : "h-24"
-                }`}
-              />
+              {/* Top scrim so the floating white nav stays readable. */}
+              <div className="hero-scrim absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36" />
             </>
           )}
         </div>
@@ -138,7 +134,10 @@ export function PageHero({
       <div
         className={`site-wrap relative ${
           media ? (home ? "pt-[68vw] sm:pt-[46vw]" : "pt-[58vw] sm:pt-[34vw]") : home ? "pt-14" : "pt-12"
-        } ${home ? "pb-12 md:py-24 lg:py-28" : "pb-10 md:py-16 lg:py-20"}`}
+        } ${
+          // Extra top padding clears the fixed floating header that overlays the banner.
+          home ? "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24" : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
+        }`}
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
         <div className={`animate-rise ${home ? "max-w-xl xl:max-w-2xl" : "max-w-lg lg:max-w-xl xl:max-w-2xl"}`}>
