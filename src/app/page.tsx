@@ -161,7 +161,6 @@ export default function HomePage() {
           </div>
           <div className="lg:col-span-6">
             <SectionHeading
-              kicker={<T k="home.curriculum.kicker" />}
               title={<T k="home.curriculum.title" />}
               lede={<T k="home.curriculum.lede" />}
             />
