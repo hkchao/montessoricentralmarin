@@ -44,12 +44,12 @@ export default function HomePage() {
             focalMobile: "50% 42%",
           },
           {
-            key: "home.hero.slide.classroom",
-            src: "/images/hero-carousel-classroom-ext.jpg",
+            key: "home.hero.slide.classroom.seamless",
+            src: "/images/hero-carousel-classroom-seamless.jpg",
             alt: "A preschooler looks toward the camera while classmates work at wooden tables",
-            // Focal: curly-haired girl's eyes; left side AI-extended so she clears the lockup.
-            focal: "72% 42%",
-            focalMobile: "68% 38%",
+            // Focal: curly-haired girl's eyes; seamless quiet classroom space fills the left.
+            focal: "74% 42%",
+            focalMobile: "72% 38%",
           },
         ]}
         below={

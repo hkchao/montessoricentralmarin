@@ -463,6 +463,17 @@ export const defaultContent: SiteContent = {
       focal: "72% 42%",
       focalMobile: "68% 38%",
     },
+    "home.hero.slide.classroom.seamless": {
+      src: "/images/hero-carousel-classroom-seamless.jpg",
+      alt: "A preschooler looks toward the camera while classmates work at wooden tables",
+      width: 2400,
+      height: 1350,
+      type: "jpg",
+      bytes: 236257,
+      // Focal: curly-haired girl's eyes; seamless quiet classroom space fills the left.
+      focal: "74% 42%",
+      focalMobile: "72% 38%",
+    },
     "programs.hero": {
       src: "/images/hero-circle-time-wide.jpg",
       alt: "Smiling preschoolers sit in a row on the classroom rug while a teacher plays guitar",
