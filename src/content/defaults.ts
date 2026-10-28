@@ -403,7 +403,7 @@ export const defaultContent: SiteContent = {
       height: 768,
       type: "jpg",
       bytes: 221302,
-      focal: "50% 45%",
+      focal: "50% 78%",
       focalMobile: "85% 50%",
     },
     "about.hero": {
