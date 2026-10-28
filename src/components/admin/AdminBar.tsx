@@ -69,7 +69,7 @@ export function AdminBar() {
   const pathname = usePathname();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
-  const [dialog, setDialog] = useState<"revert" | "exit" | null>(null);
+  const [dialog, setDialog] = useState<"revert" | "exit" | "help" | null>(null);
   const bar = useRef<HTMLDivElement>(null);
   const drag = useRef<{ dx: number; dy: number; pos: Pos; moved: boolean } | null>(null);
   const [dragPos, setDragPos] = useState<Pos | null>(null);
@@ -185,6 +185,19 @@ export function AdminBar() {
         </span>
         <button
           type="button"
+          onClick={() => setDialog("help")}
+          aria-label="How to use admin mode"
+          title="How to use admin mode"
+          className="-my-1 ml-auto flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60"
+        >
+          <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 16v-4" />
+            <path d="M12 8h.01" />
+          </svg>
+        </button>
+        <button
+          type="button"
           onClick={() => {
             if (changeCount) {
               setDialog("exit");
@@ -197,7 +210,7 @@ export function AdminBar() {
           }}
           aria-label="Exit admin"
           title="Exit admin"
-          className="-my-1 -mr-1 ml-auto flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60"
+          className="-my-1 -mr-1 flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted hover:bg-navy-tint hover:text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/60"
         >
           <svg aria-hidden viewBox="0 0 24 24" className={iconCls}>
             <path d="M18 6 6 18" />
@@ -320,12 +333,83 @@ export function AdminBar() {
           </button>
         </ConfirmDialog>
       )}
+      {dialog === "help" && <HelpDialog onClose={() => setDialog(null)} />}
     </div>
   );
 }
 
 const dangerBtnCls =
   "rounded-full bg-sun-deep px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#a84f0f] disabled:opacity-60";
+
+function HelpDialog({ onClose }: { onClose: () => void }) {
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="admin-help-title"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") onClose();
+      }}
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-navy-deep/65 p-4"
+    >
+      <div className="w-full max-w-lg rounded-3xl bg-cream p-6 text-ink shadow-lift">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="kicker text-sun-deep">Admin mode</p>
+            <h2 id="admin-help-title" className="font-display mt-2 text-2xl font-medium text-navy">
+              How to edit the site
+            </h2>
+          </div>
+          <button
+            type="button"
+            autoFocus
+            onClick={onClose}
+            className="rounded-full px-3 py-1 text-sm font-semibold text-navy hover:bg-navy-tint"
+          >
+            Close
+          </button>
+        </div>
+
+        <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted">
+          <p className="rounded-2xl bg-sun/20 px-4 py-3 font-medium text-navy">
+            Admin mode does not let you add or remove whole sections. You can only edit the text and photos that are already on the page.
+          </p>
+          <ul className="list-disc space-y-2.5 pl-5">
+            <li>
+              <span className="font-semibold text-navy">Text:</span> click any highlighted wording on the page and type. Changes save to a draft as you go.
+            </li>
+            <li>
+              <span className="font-semibold text-navy">Photos:</span> use the small image button on a photo to replace it. Keep a similar shape so the crop still fits.
+            </li>
+            <li>
+              <span className="font-semibold text-navy">PDFs:</span> use the pencil or replace control on a document button to upload a new file.
+            </li>
+            <li>
+              <span className="font-semibold text-navy">Page & Device:</span> jump between site pages, or preview phone, tablet, and desktop widths.
+            </li>
+            <li>
+              <span className="font-semibold text-navy">Publish:</span> pushes your draft to the live site for everyone. Revert discards unpublished changes. Exit leaves admin mode.
+            </li>
+          </ul>
+          <p>
+            Visitors never see admin mode or your draft. Only this signed-in browser can edit until you publish.
+          </p>
+        </div>
+
+        <div className="mt-6 flex justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full bg-sun px-5 py-2.5 text-sm font-semibold text-navy-deep hover:brightness-95"
+          >
+            Got it
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
 
 function ConfirmDialog({
   title,

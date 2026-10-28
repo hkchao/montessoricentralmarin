@@ -29,6 +29,8 @@ type Props = {
   size?: "home" | "page";
   /** Render lede on small screens (default: hidden to keep mobile lean). */
   ledeOnMobile?: boolean;
+  /** Optional content band under the lockup, still inside the banner (e.g. home awards). */
+  below?: ReactNode;
 };
 
 /**
@@ -36,6 +38,7 @@ type Props = {
  * - Height hugs the type lockup (padding-driven, no tall vw frames).
  * - Left-justified type → gradient scrubs in from the left (bottom on mobile).
  * - Photo/map + gradient live on a centered media plane capped at 1600px; navy fills beyond it.
+ * - The site header floats over the banner in white, so the top scrim keeps nav readable.
  */
 export function PageHero({
   kicker,
@@ -46,6 +49,7 @@ export function PageHero({
   mapSrc,
   size = "page",
   ledeOnMobile = false,
+  below,
 }: Props) {
   const home = size === "home";
   const media = Boolean(image || mapSrc);
@@ -112,7 +116,7 @@ export function PageHero({
               <div className="hero-scrim absolute inset-0 bg-navy-deep/45" />
               <div className="hero-scrim absolute inset-y-0 left-0 w-[55%] bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_92%,transparent)_42%,color-mix(in_srgb,var(--color-navy-deep)_45%,transparent)_72%,transparent_100%)]" />
               <div className="hero-scrim absolute inset-y-0 right-0 w-[28%] bg-[linear-gradient(to_left,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_70%,transparent)_55%,transparent_100%)]" />
-              <div className="hero-scrim absolute inset-x-0 top-0 h-20 bg-[linear-gradient(to_bottom,var(--color-navy-deep),transparent)]" />
+              <div className="hero-scrim absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,var(--color-navy-deep),transparent)] md:h-36" />
               <div className="hero-scrim absolute inset-x-0 bottom-0 h-16 bg-[linear-gradient(to_top,var(--color-navy-deep),transparent)]" />
             </>
           ) : (
@@ -123,8 +127,11 @@ export function PageHero({
               <div className="hero-scrim absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
               {/* Ultrawide: dissolve the plane's right edge into the navy fill. */}
               <div className="absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
-              {/* Gentle top scrim keeps the header transition clean. */}
-              <div className="hero-scrim absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.35),transparent)]" />
+              {/* Top scrim so the floating white nav stays readable. */}
+              <div className="hero-scrim absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36" />
+              {below && (
+                <div className="hero-scrim absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(to_top,rgb(12_23_65/0.7),transparent)] md:h-48" />
+              )}
             </>
           )}
         </div>
@@ -133,7 +140,14 @@ export function PageHero({
       <div
         className={`site-wrap relative ${
           media ? (home ? "pt-[68vw] sm:pt-[46vw]" : "pt-[58vw] sm:pt-[34vw]") : home ? "pt-14" : "pt-12"
-        } ${home ? "pb-12 md:py-24 lg:py-28" : "pb-10 md:py-16 lg:py-20"}`}
+        } ${
+          // Extra top padding clears the fixed floating header that overlays the banner.
+          home
+            ? below
+              ? "pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12"
+              : "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
+            : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
+        }`}
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
         <div className={`animate-rise ${home ? "max-w-xl xl:max-w-2xl" : "max-w-lg lg:max-w-xl xl:max-w-2xl"}`}>
@@ -159,6 +173,8 @@ export function PageHero({
           {actions && <div className="mt-7 flex flex-wrap items-center gap-3">{actions}</div>}
         </div>
       </div>
+
+      {below && <div className="site-wrap relative pb-12 md:pb-14 lg:pb-16">{below}</div>}
 
       {/* The media plane sits behind the text layer, so its replace buttons live up here, clear of the lockup. */}
       {image &&

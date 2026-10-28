@@ -135,7 +135,6 @@ export default function ProgramsPage() {
         <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7">
             <SectionHeading
-              kicker={<T k="programs.enrichment.kicker" />}
               title={<T k="programs.enrichment.title" />}
               lede={<T k="programs.enrichment.lede" />}
             />
@@ -179,7 +178,7 @@ export default function ProgramsPage() {
             />
           </div>
           <div className="lg:col-span-7">
-            <SectionHeading kicker={<T k="programs.funLunch.kicker" />} title={<T k="programs.funLunch.title" />} />
+            <SectionHeading title={<T k="programs.funLunch.title" />} />
             <div className="prose-school mt-5 max-w-xl text-[1.0625rem] text-ink/85">
               <p>
                 <T k="programs.funLunch.body" />

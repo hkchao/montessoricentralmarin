@@ -45,7 +45,6 @@ export const defaultContent: SiteContent = {
     "nav.contact": "Contact",
     "cta.primary": "Schedule a Tour",
 
-    "home.hero.kicker": "San Rafael, CA",
     "home.hero.title": "Montessori School of Central Marin",
     "home.hero.lede":
       "Bilingual English and Spanish for ages 2-6.\nSchool day, full day, and summer. AMS affiliate since 1974.",
@@ -66,8 +65,7 @@ export const defaultContent: SiteContent = {
       "School day, full day, partial week, or summer. Same curriculum in every schedule.",
     "home.programs.cta": "All programs",
     "home.programs.detail": "Details",
-    "home.curriculum.kicker": "Curriculum",
-    "home.curriculum.title": "What children learn",
+    "home.curriculum.title": "Curriculum",
     "home.curriculum.lede": "Six areas of work, in English and Spanish.",
     "home.curriculum.cta": "See programs",
     "home.calendar.title": "2026-27 school calendar",
@@ -79,11 +77,9 @@ export const defaultContent: SiteContent = {
     "programs.day.title": "Schedule",
     "programs.curriculum.title": "Curriculum",
     "programs.curriculum.lede": "Six areas of work, in English and Spanish.",
-    "programs.enrichment.kicker": "Enrichment",
     "programs.enrichment.title": "Music, yoga, cooking, and more",
     "programs.enrichment.lede":
       "In addition to the curriculum there are several enrichment activities, some available to all children during the school day, others only available by sign-up.",
-    "programs.funLunch.kicker": "Fridays",
     "programs.funLunch.title": "Fun Lunch",
     "programs.funLunch.body":
       "During the school year, Friday \"Fun Lunch\" is a part of our cooking enrichment. Children assist in the preparation of food. Lunch alternates between vegetarian pizza and pesto pasta, with vegetables, fruit, and juice or milk for a complete and wholesome meal. $7 per meal. Weekly, monthly, or annual sign-up available.",
@@ -350,10 +346,18 @@ export const defaultContent: SiteContent = {
     "brand.bestOfMarin": {
       src: "/brand/best-of-marin-2026.png",
       alt: "Pacific Sun Best of Marin 2026",
-      width: 624,
-      height: 784,
+      width: 574,
+      height: 600,
       type: "png",
-      bytes: 118308,
+      bytes: 54079,
+    },
+    "brand.bestOfMarin.onDark": {
+      src: "/brand/best-of-marin-2026-on-dark.png",
+      alt: "Pacific Sun Best of Marin 2026",
+      width: 574,
+      height: 600,
+      type: "png",
+      bytes: 53638,
     },
     "brand.ams": {
       src: "/brand/ams-mark.png",

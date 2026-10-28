@@ -13,6 +13,9 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isHome = pathname === "/";
+  // Public pages: white nav floats over the dark hero until the user scrolls. Admin stays solid.
+  const overHero = !pathname.startsWith("/admin") && !scrolled && !open;
 
   const close = () => setOpen(false);
 
@@ -21,7 +24,7 @@ export function SiteHeader() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
@@ -33,16 +36,21 @@ export function SiteHeader() {
   return (
     <>
     <header
-      className={`sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
-        open
-          ? "border-line bg-cream"
-          : scrolled
-            ? "border-line bg-cream/90 shadow-[0_1px_0_rgb(20_36_94/0.04)] backdrop-blur-md"
-            : "border-transparent bg-cream"
+      className={`fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,box-shadow,color] duration-300 ${
+        overHero
+          ? "border-transparent bg-transparent text-white [text-shadow:0_1px_2px_rgb(12_23_65/0.45)]"
+          : open
+            ? "border-line bg-cream"
+            : "border-line bg-cream/90 shadow-[0_1px_0_rgb(20_36_94/0.04)] backdrop-blur-md"
       }`}
     >
-      <div className="site-wrap flex h-[4.5rem] items-center justify-between gap-6 md:h-20">
-        <Logo />
+      <div
+        className={`site-wrap flex h-[4.5rem] items-center gap-6 md:h-20 ${
+          isHome ? "justify-end lg:justify-center" : "justify-between"
+        }`}
+      >
+        {/* Home keeps a centered tab row only — logo and tour CTA live in the hero instead. */}
+        {!isHome && <Logo tone={overHero ? "light" : "dark"} />}
 
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-1">
@@ -53,8 +61,14 @@ export function SiteHeader() {
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`relative whitespace-nowrap rounded-full px-3 py-2 text-[0.95rem] font-medium transition-colors hover:text-navy xl:px-3.5 ${
-                      active ? "text-navy" : "text-ink/80"
+                    className={`relative whitespace-nowrap rounded-full px-3 py-2 text-[0.95rem] font-medium transition-colors xl:px-3.5 ${
+                      overHero
+                        ? active
+                          ? "text-white"
+                          : "text-white/80 hover:text-white"
+                        : active
+                          ? "text-navy"
+                          : "text-ink/80 hover:text-navy"
                     }`}
                   >
                     <T k={`nav.${item.href.slice(1)}`} fallback={item.label} />
@@ -71,12 +85,22 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <PhoneLink className="hidden whitespace-nowrap text-[0.95rem] font-semibold text-navy tabular-nums underline-offset-4 hover:underline xl:inline" />
-          <ButtonLink href={primaryCta.href} className="whitespace-nowrap">
-            <T k="cta.primary" fallback={primaryCta.label} />
-          </ButtonLink>
-        </div>
+        {!isHome && (
+          <div className="hidden items-center gap-3 lg:flex">
+            <PhoneLink
+              className={`hidden whitespace-nowrap text-[0.95rem] font-semibold tabular-nums underline-offset-4 hover:underline xl:inline ${
+                overHero ? "text-white" : "text-navy"
+              }`}
+            />
+            <ButtonLink
+              href={primaryCta.href}
+              variant={overHero ? "ghost-light" : "primary"}
+              className="whitespace-nowrap"
+            >
+              <T k="cta.primary" fallback={primaryCta.label} />
+            </ButtonLink>
+          </div>
+        )}
 
         <button
           type="button"
@@ -84,7 +108,9 @@ export function SiteHeader() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="inline-flex size-11 items-center justify-center rounded-full text-navy hover:bg-navy-tint lg:hidden"
+          className={`inline-flex size-11 items-center justify-center rounded-full lg:hidden ${
+            overHero ? "text-white hover:bg-white/10" : "text-navy hover:bg-navy-tint"
+          }`}
         >
           <span className="relative block h-3.5 w-5" aria-hidden="true">
             <span
