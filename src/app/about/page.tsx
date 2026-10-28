@@ -84,7 +84,7 @@ export default function AboutPage() {
               imageKey="brand.bestOfMarin"
               width={574}
               height={600}
-              className="h-40 w-auto"
+              className="h-32 w-auto"
             />
             <a
               href={site.social.ams}
@@ -96,7 +96,7 @@ export default function AboutPage() {
                 imageKey="brand.ams.bright"
                 width={512}
                 height={512}
-                className="size-16"
+                className="size-32"
               />
             </a>
           </div>
