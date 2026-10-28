@@ -44,7 +44,7 @@ export default function HomePage() {
 
       <Section tone="white">
         <ul className="grid gap-4 sm:grid-cols-3">
-          <li className="flex items-center gap-4 rounded-2xl border border-line bg-cream p-5">
+          <li className="flex items-center gap-4">
             <EditableImage
               imageKey="brand.bestOfMarin"
               width={624}
@@ -56,7 +56,7 @@ export default function HomePage() {
               <p className="mt-1 text-sm text-muted"><T k="home.badge.best.body" /></p>
             </div>
           </li>
-          <li className="flex items-center gap-4 rounded-2xl border border-line bg-cream p-5">
+          <li className="flex items-center gap-4">
             <EditableImage
               imageKey="brand.ams"
               width={512}
@@ -79,7 +79,7 @@ export default function HomePage() {
               </p>
             </div>
           </li>
-          <li className="flex items-center gap-4 rounded-2xl border border-line bg-cream p-5">
+          <li className="flex items-center gap-4">
             <p className="font-display shrink-0 text-[3.5rem] font-semibold leading-none text-navy sm:text-[3.25rem] lg:text-[3.5rem]">
               {new Date().getFullYear() - site.founded}
               <span className="text-sun">+</span>
