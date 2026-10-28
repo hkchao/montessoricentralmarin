@@ -93,7 +93,7 @@ export default function AboutPage() {
               aria-label="American Montessori Society (opens in new tab)"
             >
               <EditableImage
-                imageKey="brand.ams"
+                imageKey="brand.ams.bright"
                 width={512}
                 height={512}
                 className="size-16"

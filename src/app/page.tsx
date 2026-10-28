@@ -70,7 +70,7 @@ export default function HomePage() {
             </li>
             <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
               <EditableImage
-                imageKey="brand.ams"
+                imageKey="brand.ams.bright"
                 width={512}
                 height={512}
                 className="size-14 [filter:drop-shadow(0_2px_5px_rgb(2_10_38/0.3))] sm:size-12 lg:size-14"

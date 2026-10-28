@@ -368,7 +368,15 @@ export const defaultContent: SiteContent = {
       width: 512,
       height: 512,
       type: "png",
-      bytes: 21731,
+      bytes: 21865,
+    },
+    "brand.ams.bright": {
+      src: "/brand/ams-mark-bright.png",
+      alt: "American Montessori Society",
+      width: 512,
+      height: 512,
+      type: "png",
+      bytes: 21865,
     },
     "home.hero.desktop": {
       src: "/images/hero-children-wide.png",
