@@ -19,6 +19,16 @@ export default function HomePage() {
         images={[
           {
             key: "home.hero.slide1",
+            mobileKey: "home.hero.slide1.mobile",
+            src: "/images/hero-children-wide.png",
+            srcMobile: "/images/hero-children-mobile.png",
+            alt: "Three smiling preschoolers leaning on a wooden railing outdoors",
+            // Focal: trio of faces in the open right half.
+            focal: "72% 40%",
+            focalMobile: "50% 28%",
+          },
+          {
+            key: "home.hero.slide2",
             src: "/images/hero-carousel-paint.jpg",
             alt: "A preschooler in a star shirt paints at an outdoor easel",
             // Focal: painting girl's face.
@@ -26,7 +36,7 @@ export default function HomePage() {
             focalMobile: "35% 32%",
           },
           {
-            key: "home.hero.slide2",
+            key: "home.hero.slide3",
             src: "/images/hero-carousel-sandbox.jpg",
             alt: "A toddler plays with toy trucks in an outdoor sandbox",
             // Focal: boy's face above the red fire truck.
@@ -34,7 +44,7 @@ export default function HomePage() {
             focalMobile: "50% 42%",
           },
           {
-            key: "home.hero.slide3",
+            key: "home.hero.slide4",
             src: "/images/hero-carousel-classroom.jpg",
             alt: "A preschooler looks toward the camera while classmates work at wooden tables",
             // Focal: curly-haired girl's eyes.
