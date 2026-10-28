@@ -346,10 +346,18 @@ export const defaultContent: SiteContent = {
     "brand.bestOfMarin": {
       src: "/brand/best-of-marin-2026.png",
       alt: "Pacific Sun Best of Marin 2026",
-      width: 624,
-      height: 784,
+      width: 574,
+      height: 600,
       type: "png",
-      bytes: 118308,
+      bytes: 54079,
+    },
+    "brand.bestOfMarin.onDark": {
+      src: "/brand/best-of-marin-2026-on-dark.png",
+      alt: "Pacific Sun Best of Marin 2026",
+      width: 574,
+      height: 600,
+      type: "png",
+      bytes: 53638,
     },
     "brand.ams": {
       src: "/brand/ams-mark.png",

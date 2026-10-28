@@ -82,8 +82,8 @@ export default function AboutPage() {
           <div className="flex flex-wrap items-center gap-8 lg:col-span-7 lg:justify-end">
             <EditableImage
               imageKey="brand.bestOfMarin"
-              width={624}
-              height={784}
+              width={574}
+              height={600}
               className="h-40 w-auto"
             />
             <a

@@ -44,9 +44,9 @@ export default function HomePage() {
           <ul className="grid gap-6 sm:grid-cols-3 sm:gap-4">
             <li className="flex items-center gap-4">
               <EditableImage
-                imageKey="brand.bestOfMarin"
-                width={624}
-                height={784}
+                imageKey="brand.bestOfMarin.onDark"
+                width={574}
+                height={600}
                 className="h-16 w-auto shrink-0 sm:h-14 lg:h-16"
               />
               <div>
