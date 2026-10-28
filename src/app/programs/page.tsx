@@ -70,7 +70,7 @@ export default function ProgramsPage() {
         </div>
       </Section>
 
-      <Section tone="white" id="curriculum">
+      <Section id="curriculum">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
             <SectionHeading
@@ -98,7 +98,7 @@ export default function ProgramsPage() {
         </div>
       </Section>
 
-      <Section id="enrichment">
+      <Section tone="white" id="enrichment">
         <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7">
             <SectionHeading
@@ -165,7 +165,7 @@ export default function ProgramsPage() {
         </div>
       </Section>
 
-      <Section id="day">
+      <Section tone="white" id="day">
         <SectionHeading title={<T k="programs.day.title" />} />
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-14">
           {daySchedules.map((schedule) => (
