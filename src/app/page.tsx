@@ -18,10 +18,10 @@ export default function HomePage() {
         }
         images={[
           {
-            key: "home.hero.slide1",
-            mobileKey: "home.hero.slide1.mobile",
-            src: "/images/hero-children-wide.png",
-            srcMobile: "/images/hero-children-mobile.png",
+            key: "home.hero.slide1.vivid",
+            mobileKey: "home.hero.slide1.mobile.vivid",
+            src: "/images/hero-children-wide-vivid.jpg",
+            srcMobile: "/images/hero-children-mobile-vivid.jpg",
             alt: "Three smiling preschoolers leaning on a wooden railing outdoors",
             // Focal: trio of faces in the open right half.
             focal: "72% 40%",
