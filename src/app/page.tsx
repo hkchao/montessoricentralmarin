@@ -178,10 +178,20 @@ export default function HomePage() {
         <aside className="mx-auto grid max-w-4xl items-center justify-items-center gap-5 text-center sm:grid-cols-[auto_1fr_auto] sm:justify-items-start sm:gap-6 sm:text-left">
           <div
             aria-hidden="true"
-            className="flex size-20 shrink-0 flex-col overflow-hidden rounded-2xl bg-white text-navy shadow-soft ring-1 ring-navy/10"
+            className="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-sun text-navy shadow-soft"
           >
-            <div className="h-5 bg-sun" />
-            <div className="flex flex-1 items-center justify-center font-display text-3xl font-semibold leading-none">27</div>
+            <svg viewBox="0 0 48 48" className="size-12" fill="none">
+              <rect x="6" y="9" width="36" height="33" rx="5" fill="white" />
+              <path d="M6 19h36M15 6v8M33 6v8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+              <g fill="currentColor">
+                <rect x="12" y="25" width="5" height="5" rx="1" />
+                <rect x="21.5" y="25" width="5" height="5" rx="1" />
+                <rect x="31" y="25" width="5" height="5" rx="1" />
+                <rect x="12" y="33" width="5" height="5" rx="1" />
+                <rect x="21.5" y="33" width="5" height="5" rx="1" />
+                <rect x="31" y="33" width="5" height="5" rx="1" />
+              </g>
+            </svg>
           </div>
           <p className="text-[0.95rem] leading-relaxed text-muted">
             <span className="block font-display text-xl font-medium text-navy"><T k="home.calendar.title" /></span>
