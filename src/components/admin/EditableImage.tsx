@@ -18,6 +18,8 @@ export function EditableImage({ imageKey, alt, className = "", controls = true, 
   const image = content.images[imageKey];
   const showControls = editing && controls;
 
+  if (!image?.src) return null;
+
   const img = (
     <NextImage
       {...props}

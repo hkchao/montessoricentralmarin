@@ -80,6 +80,12 @@ export function ContentProvider({
     latest.current = state;
   }, [state]);
 
+  // Outside admin edits, pick up new default keys from the server (e.g. hero slides).
+  useEffect(() => {
+    if (editing) return;
+    setState(content);
+  }, [content, editing]);
+
   const patch = useMemo(() => diff(state, published), [state, published]);
   const changeCount = countPatch(patch);
 
