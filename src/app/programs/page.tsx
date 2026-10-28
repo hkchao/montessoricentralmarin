@@ -135,7 +135,6 @@ export default function ProgramsPage() {
         <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7">
             <SectionHeading
-              kicker={<T k="programs.enrichment.kicker" />}
               title={<T k="programs.enrichment.title" />}
               lede={<T k="programs.enrichment.lede" />}
             />

@@ -78,7 +78,6 @@ export const defaultContent: SiteContent = {
     "programs.day.title": "Schedule",
     "programs.curriculum.title": "Curriculum",
     "programs.curriculum.lede": "Six areas of work, in English and Spanish.",
-    "programs.enrichment.kicker": "Enrichment",
     "programs.enrichment.title": "Music, yoga, cooking, and more",
     "programs.enrichment.lede":
       "In addition to the curriculum there are several enrichment activities, some available to all children during the school day, others only available by sign-up.",
