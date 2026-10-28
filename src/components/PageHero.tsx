@@ -144,37 +144,47 @@ export function PageHero({
           // Extra top padding clears the fixed floating header that overlays the banner.
           home
             ? below
-              ? "pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
+              ? "pb-12 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
               : "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
             : "pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
         }`}
       >
-        {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
-        <div className={`animate-rise ${home ? "max-w-xl xl:max-w-2xl" : "max-w-lg lg:max-w-xl xl:max-w-2xl"}`}>
-          {kicker && <p className="kicker text-sun">{kicker}</p>}
-          <h1
-            className={`font-display mt-3 font-medium text-balance ${
-              home
-                ? "text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-[3.75rem]"
-                : "text-[2.125rem] leading-[1.05] sm:text-4xl lg:text-5xl"
-            }`}
-          >
-            {title}
-          </h1>
-          {lede && (
-            <p
-              className={`mt-5 max-w-md text-pretty text-white/80 lg:max-w-xl ${home ? "text-lg leading-relaxed" : "text-[1.0625rem] leading-relaxed"} ${
-                ledeOnMobile ? "block" : "hidden md:block"
+        {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x).
+            With awards below, hug the title's visual width (~26.5rem) so the marks share its center. */}
+        <div
+          className={`animate-rise ${
+            home && below
+              ? "flex w-full max-w-[26.5rem] flex-col items-center"
+              : home
+                ? "max-w-xl xl:max-w-2xl"
+                : "max-w-lg lg:max-w-xl xl:max-w-2xl"
+          }`}
+        >
+          <div className={home && below ? "w-full text-left" : undefined}>
+            {kicker && <p className="kicker text-sun">{kicker}</p>}
+            <h1
+              className={`font-display mt-3 font-medium text-balance ${
+                home
+                  ? "text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-[3.75rem]"
+                  : "text-[2.125rem] leading-[1.05] sm:text-4xl lg:text-5xl"
               }`}
             >
-              {lede}
-            </p>
-          )}
-          {actions && <div className="mt-7 flex flex-wrap items-center gap-3">{actions}</div>}
+              {title}
+            </h1>
+            {lede && (
+              <p
+                className={`mt-5 text-pretty text-white/80 ${home && below ? "" : "max-w-md lg:max-w-xl"} ${home ? "text-lg leading-relaxed" : "text-[1.0625rem] leading-relaxed"} ${
+                  ledeOnMobile ? "block" : "hidden md:block"
+                }`}
+              >
+                {lede}
+              </p>
+            )}
+            {actions && <div className="mt-7 flex flex-wrap items-center gap-3">{actions}</div>}
+          </div>
+          {below && <div className="mt-16 w-full md:mt-20 lg:mt-24">{below}</div>}
         </div>
       </div>
-
-      {below && <div className="site-wrap relative pb-12 pt-2 md:pb-14 md:pt-4 lg:pb-16 lg:pt-6">{below}</div>}
 
       {/* The media plane sits behind the text layer, so its replace buttons live up here, clear of the lockup. */}
       {image &&

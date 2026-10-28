@@ -29,8 +29,8 @@ export default function HomePage() {
           focalMobile: "50% 28%",
         }}
         below={
-          <ul className="flex w-full max-w-xl flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-center sm:gap-6 lg:max-w-2xl lg:gap-8">
-            <li className="flex w-36 flex-col items-center gap-2.5 text-center">
+          <ul className="flex w-full flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-center sm:gap-5">
+            <li className="flex w-28 flex-col items-center gap-2.5 text-center">
               <EditableImage
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
@@ -39,7 +39,7 @@ export default function HomePage() {
               />
               <p className="text-sm font-medium text-balance text-white/65"><T k="home.badge.best.title" /></p>
             </li>
-            <li className="flex w-36 flex-col items-center gap-2.5 text-center">
+            <li className="flex w-28 flex-col items-center gap-2.5 text-center">
               <EditableImage
                 imageKey="brand.ams"
                 width={512}
@@ -48,7 +48,7 @@ export default function HomePage() {
               />
               <p className="text-sm font-medium text-balance text-white/65"><T k="home.badge.ams.title" /></p>
             </li>
-            <li className="flex w-36 flex-col items-center gap-2.5 text-center">
+            <li className="flex w-28 flex-col items-center gap-2.5 text-center">
               <p className="font-display text-[3.5rem] font-semibold leading-none text-white sm:text-[3.25rem] lg:text-[3.5rem]">
                 {new Date().getFullYear() - site.founded}
                 <span className="text-sun">+</span>
