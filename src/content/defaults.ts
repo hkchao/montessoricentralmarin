@@ -70,7 +70,7 @@ export const defaultContent: SiteContent = {
     "home.programs.detail": "Details",
     "home.curriculum.title": "Curriculum",
     "home.curriculum.lede":
-      "Children practice counting, reading, and writing through practical life, sensorial, math, language, and cultural studies. The program also offers music, yoga, cooking, gardening, art, athletics, take-home reading, and field trips. Some happen during the school day, while others are available by sign-up.",
+      "Children practice counting, reading, writing, and practical life skills. The program also offers music, yoga, cooking, gardening, art, athletics, take-home reading, and field trips. Some happen during the school day, while others are available by sign-up.",
     "home.curriculum.cta": "See programs",
     "home.calendar.title": "2026-27 school calendar",
     "home.calendar.body": "holidays, closures, and key dates.",
