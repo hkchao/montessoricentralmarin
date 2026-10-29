@@ -11,8 +11,16 @@ export type HeroImage = {
   focal: string;
   /** Optional mobile override when a wide group needs a different crop than desktop. */
   focalMobile?: string;
+  /** Optional phone-only override below the sm breakpoint. */
+  focalPhone?: string;
   /** Optional portrait-friendlier crop used below the md breakpoint. */
   srcMobile?: string;
+  /** On mobile, align the image's bottom/right edges with the banner frame. */
+  mobileFlushEdges?: boolean;
+  /** Below sm only, end the image box at the banner bottom. */
+  phoneFlushBottom?: boolean;
+  /** Below sm only, shift the image box down 40px. */
+  phoneShiftDown?: boolean;
 };
 
 type Props = {
@@ -75,7 +83,17 @@ export function PageHero({
             <>
               {(primary!.srcMobile || primary!.mobileKey) && (
                 <div className="absolute inset-0 md:hidden">
-                  <div className="absolute inset-x-0 top-0 h-[calc(100%+100px)]">
+                  <div
+                    className={
+                      primary!.mobileFlushEdges
+                        ? "absolute inset-0"
+                        : primary!.phoneFlushBottom
+                          ? `absolute inset-0 sm:inset-x-0 sm:top-0 sm:bottom-auto sm:h-[calc(100%+100px)] ${
+                              primary!.phoneShiftDown ? "translate-y-10 sm:translate-y-0" : ""
+                            }`
+                        : "absolute inset-x-0 top-0 h-[calc(100%+100px)]"
+                    }
+                  >
                     <EditableImage
                       imageKey={primary!.mobileKey ?? primary!.key ?? ""}
                       alt={primary!.alt}
@@ -83,10 +101,11 @@ export function PageHero({
                       fill
                       priority
                       sizes="(min-width: 768px) 1px, 100vw"
-                      className="object-cover object-[var(--hero-focal-m)]"
+                      className="object-cover object-[var(--hero-focal-phone)] sm:object-[var(--hero-focal-m)]"
                       style={
                         {
                           "--hero-focal-m": primary!.focalMobile ?? "50% 40%",
+                          "--hero-focal-phone": primary!.focalPhone ?? primary!.focalMobile ?? "50% 40%",
                         } as CSSProperties
                       }
                     />
@@ -143,9 +162,10 @@ export function PageHero({
               ) : (
                 <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_98%,transparent)_34%,color-mix(in_srgb,var(--color-navy-deep)_82%,transparent)_50%,color-mix(in_srgb,var(--color-navy-deep)_42%,transparent)_64%,transparent_78%)] md:hidden" />
               )}
-              {/* Desktop: strong under the left lockup column, fading out before the subject. */}
-              <div className="hero-scrim pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
-              {/* Ultrawide: dissolve the plane's right edge into the navy fill. */}
+              {/* Desktop/ultrawide: left lockup scrub at half strength so the photo reads through. */}
+              <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] opacity-50 md:block" />
+              {/* Ultrawide: dissolve both edges of the media plane into the navy fill. */}
+              <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-40 bg-[linear-gradient(to_right,var(--color-navy-deep),transparent)] min-[1600px]:block" />
               <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
               {/* Top scrim so the floating white nav stays readable (desktop + interior pages). */}
               <div className={`hero-scrim pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36 ${home ? "max-md:hidden" : ""}`} />

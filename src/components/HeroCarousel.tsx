@@ -45,7 +45,7 @@ export function HeroCarousel({ slides }: Props) {
                   <div
                     className={
                       i === 1
-                        ? "absolute inset-x-0 top-0 h-[90%]"
+                        ? "absolute inset-0"
                         : i === 2
                           ? // 75px wider on both sides so the left focal shift can't reveal the navy frame.
                             "absolute -left-[75px] top-0 h-[calc(100%+100px)] w-[calc(100%+150px)]"
@@ -61,7 +61,9 @@ export function HeroCarousel({ slides }: Props) {
                       fill
                       priority={i === 0}
                       sizes="(min-width: 768px) 1px, 100vw"
-                      className="object-cover object-[var(--hero-focal-m)]"
+                      className={`object-cover object-[var(--hero-focal-m)] ${
+                        i === 0 ? "sm:max-md:object-[calc(50%_-_25px)_28%]" : ""
+                      }`}
                       style={
                         {
                           "--hero-focal-m": slide.focalMobile ?? "50% 40%",
@@ -80,6 +82,11 @@ export function HeroCarousel({ slides }: Props) {
                 sizes="(min-width: 1600px) 1600px, 100vw"
                 className={`object-cover object-[var(--hero-focal)] ${
                   hasMobile ? "hidden md:block" : "object-[var(--hero-focal-m)] md:object-[var(--hero-focal)]"
+                } ${
+                  // Sandbox boy: +50px on tablet. Desktop is shifted in the image asset itself.
+                  i === 2
+                    ? "md:max-lg:object-[calc(72%+50px)_48%]"
+                    : ""
                 }`}
                 style={
                   {
