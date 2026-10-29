@@ -31,11 +31,11 @@ export default function HomePage() {
             key: "home.hero.slide.paint",
             mobileKey: "home.hero.slide.paint.mobile",
             src: "/images/hero-carousel-paint-ext.jpg",
-            srcMobile: "/images/hero-carousel-paint-mobile-v4.jpg",
+            srcMobile: "/images/hero-carousel-paint-mobile-v6.jpg",
             alt: "A preschooler in a star shirt paints at an outdoor easel",
-            // Focal: painting girl's face; mobile portrait pins her head in the clear top band.
+            // Focal: painting girl's face. Mobile crop is wider so the frame is less tight.
             focal: "72% 42%",
-            focalMobile: "50% 0%",
+            focalMobile: "50% 36%",
           },
           {
             key: "home.hero.slide.sandbox.desktop.smile",
@@ -43,55 +43,55 @@ export default function HomePage() {
             src: "/images/hero-carousel-sandbox-desktop-smile.jpg",
             srcMobile: "/images/hero-carousel-sandbox-mobile-smile-v4.jpg",
             alt: "A smiling toddler plays with toy trucks in an outdoor sandbox",
-            // Desktop: boy in open right half; mobile portrait pins his head in the clear top band.
+            // Desktop: boy in open right half; mobile focal sits 75px to the left of center.
             focal: "67% 48%",
-            focalMobile: "50% 0%",
+            focalMobile: "calc(50% - 75px) 0%",
           },
           {
             key: "home.hero.slide.classroom.seamless",
             mobileKey: "home.hero.slide.classroom.mobile",
             src: "/images/hero-carousel-classroom-seamless.jpg",
-            srcMobile: "/images/hero-carousel-classroom-mobile-v3.jpg",
+            srcMobile: "/images/hero-carousel-classroom-mobile-v4.jpg",
             alt: "A preschooler looks toward the camera while classmates work at wooden tables",
-            // Focal: curly-haired girl's eyes; mobile portrait pins her head in the clear top band.
+            // Focal: curly-haired girl's eyes. Mobile crop places them about 200px lower than the tight crop.
             focal: "74% 42%",
-            focalMobile: "50% 12%",
+            focalMobile: "50% 48%",
           },
         ]}
         below={
-          <ul className="flex flex-row items-start gap-[41px] sm:gap-[57px] lg:gap-[75px]">
-            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
+          <ul className="flex flex-row items-start justify-center gap-[41px] md:justify-start md:gap-[57px] lg:gap-[75px]">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center md:items-start md:text-left">
               <EditableImage
                 imageKey="brand.bestOfMarin.onDark"
                 width={574}
                 height={600}
-                className="h-14 w-auto [filter:drop-shadow(0_2px_8px_rgb(2_10_38/1))] sm:h-12 lg:h-14"
+                className="h-14 w-auto [filter:drop-shadow(0_2px_8px_rgb(2_10_38/1))] md:h-12 lg:h-14"
               />
               <p className="text-sm font-medium text-balance text-white/65">
-                <span className="sm:hidden"><T k="home.badge.best.short" /></span>
-                <span className="hidden sm:inline"><T k="home.badge.best.title" /></span>
+                <span className="md:hidden"><T k="home.badge.best.short" /></span>
+                <span className="hidden md:inline"><T k="home.badge.best.title" /></span>
               </p>
             </li>
-            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center md:items-start md:text-left">
               <EditableImage
                 imageKey="brand.ams.bright"
                 width={512}
                 height={512}
-                className="size-14 [filter:drop-shadow(0_2px_8px_rgb(2_10_38/1))] sm:size-12 lg:size-14"
+                className="size-14 [filter:drop-shadow(0_2px_8px_rgb(2_10_38/1))] md:size-12 lg:size-14"
               />
               <p className="text-sm font-medium text-balance text-white/65">
-                <span className="sm:hidden"><T k="home.badge.ams.short" /></span>
-                <span className="hidden sm:inline"><T k="home.badge.ams.title" /></span>
+                <span className="md:hidden"><T k="home.badge.ams.short" /></span>
+                <span className="hidden md:inline"><T k="home.badge.ams.title" /></span>
               </p>
             </li>
-            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center sm:items-start sm:text-left">
-              <p className="font-display text-[3.5rem] font-semibold leading-none text-white [text-shadow:0_2px_10px_rgb(2_10_38/0.55)] sm:text-[3.25rem] lg:text-[3.5rem]">
+            <li className="flex max-w-[7.5rem] flex-col items-center gap-2.5 text-center md:items-start md:text-left">
+              <p className="font-display text-[3.5rem] font-semibold leading-none text-white [text-shadow:0_2px_10px_rgb(2_10_38/0.55)] md:text-[3.25rem] lg:text-[3.5rem]">
                 {new Date().getFullYear() - site.founded}
                 <span className="text-sun">+</span>
               </p>
               <p className="text-sm font-medium text-balance text-white/65">
-                <span className="sm:hidden"><T k="home.badge.years.short" /></span>
-                <span className="hidden sm:inline"><T k="home.badge.years.title" /></span>
+                <span className="md:hidden"><T k="home.badge.years.short" /></span>
+                <span className="hidden md:inline"><T k="home.badge.years.title" /></span>
               </p>
             </li>
           </ul>
@@ -107,7 +107,7 @@ export default function HomePage() {
                 <T k="home.welcome.body" />
               </p>
             </div>
-            <ButtonLink href="/about" variant="link" className="mt-6 font-semibold">
+            <ButtonLink href="/about" variant="ghost" className="mt-8">
               <T k="home.welcome.cta" /> <ArrowIcon />
             </ButtonLink>
           </div>
@@ -124,12 +124,12 @@ export default function HomePage() {
       </Section>
 
       <Section id="programs">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-2xl">
           <SectionHeading
             title={<T k="home.programs.title" />}
             lede={<T k="home.programs.lede" />}
           />
-          <ButtonLink href="/programs" variant="ghost" className="shrink-0">
+          <ButtonLink href="/programs" variant="ghost" className="mt-8">
             <T k="home.programs.cta" /> <ArrowIcon />
           </ButtonLink>
         </div>

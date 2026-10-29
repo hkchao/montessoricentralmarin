@@ -11,7 +11,7 @@ type Props = {
 };
 
 /**
- * Crossfading home-banner slides with bottom-right dots (above the banner scrims).
+ * Crossfading home-banner slides with bottom-right dots (desktop only).
  */
 export function HeroCarousel({ slides }: Props) {
   const [index, setIndex] = useState(0);
@@ -41,22 +41,35 @@ export function HeroCarousel({ slides }: Props) {
               }`}
             >
               {hasMobile && (
-                <EditableImage
-                  imageKey={slide.mobileKey ?? slide.key ?? ""}
-                  alt={slide.alt}
-                  controls={false}
-                  fill
-                  priority={i === 0}
-                  sizes="(min-width: 768px) 1px, 100vw"
-                  className={`object-cover object-[var(--hero-focal-m)] md:hidden ${
-                    i === 3 ? "scale-[1.1] origin-[50%_12%]" : ""
-                  }`}
-                  style={
-                    {
-                      "--hero-focal-m": slide.focalMobile ?? "50% 40%",
-                    } as CSSProperties
-                  }
-                />
+                <div className="absolute inset-0 overflow-hidden md:hidden">
+                  <div
+                    className={
+                      i === 1
+                        ? "absolute inset-x-0 top-0 h-[90%]"
+                        : i === 2
+                          ? // 75px wider on both sides so the left focal shift can't reveal the navy frame.
+                            "absolute -left-[75px] top-0 h-[calc(100%+100px)] w-[calc(100%+150px)]"
+                          : i === 3
+                            ? "absolute inset-0"
+                            : "absolute inset-x-0 top-0 h-[calc(100%+100px)]"
+                    }
+                  >
+                    <EditableImage
+                      imageKey={slide.mobileKey ?? slide.key ?? ""}
+                      alt={slide.alt}
+                      controls={false}
+                      fill
+                      priority={i === 0}
+                      sizes="(min-width: 768px) 1px, 100vw"
+                      className="object-cover object-[var(--hero-focal-m)]"
+                      style={
+                        {
+                          "--hero-focal-m": slide.focalMobile ?? "50% 40%",
+                        } as CSSProperties
+                      }
+                    />
+                  </div>
+                </div>
               )}
               <EditableImage
                 imageKey={slide.key ?? slide.mobileKey ?? ""}
@@ -82,7 +95,7 @@ export function HeroCarousel({ slides }: Props) {
 
       {slides.length > 1 && (
         <div
-          className="absolute bottom-5 right-4 z-20 flex items-center gap-2 md:bottom-6 md:right-6"
+          className="absolute bottom-6 right-6 z-20 hidden items-center gap-2 md:flex"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocusCapture={() => setPaused(true)}
