@@ -31,29 +31,29 @@ export default function HomePage() {
             key: "home.hero.slide.paint",
             mobileKey: "home.hero.slide.paint.mobile",
             src: "/images/hero-carousel-paint-ext.jpg",
-            srcMobile: "/images/hero-carousel-paint-mobile-v6.jpg",
+            srcMobile: "/images/hero-carousel-paint-mobile-v7.jpg",
             alt: "A preschooler in a star shirt paints at an outdoor easel",
-            // Focal: painting girl's face. Mobile crop is wider so the frame is less tight.
+            // Focal: painting girl's face. Mobile image is AI-extended below for the tall banner.
             focal: "72% 42%",
-            focalMobile: "50% 36%",
+            focalMobile: "50% 50%",
           },
           {
             key: "home.hero.slide.sandbox.desktop.smile",
             mobileKey: "home.hero.slide.sandbox.mobile.smile",
-            src: "/images/hero-carousel-sandbox-desktop-smile.jpg",
+            src: "/images/hero-carousel-sandbox-desktop-smile-extended-v4.jpg",
             srcMobile: "/images/hero-carousel-sandbox-mobile-smile-v4.jpg",
             alt: "A smiling toddler plays with toy trucks in an outdoor sandbox",
-            // Desktop: boy in open right half; mobile focal sits 75px to the left of center.
-            focal: "67% 48%",
+            // Desktop: scene shifted left 100px, with the exposed right edge AI-filled.
+            focal: "72% 48%",
             focalMobile: "calc(50% - 75px) 0%",
           },
           {
             key: "home.hero.slide.classroom.seamless",
             mobileKey: "home.hero.slide.classroom.mobile",
             src: "/images/hero-carousel-classroom-seamless.jpg",
-            srcMobile: "/images/hero-carousel-classroom-mobile-v4.jpg",
+            srcMobile: "/images/hero-carousel-classroom-mobile-v6.jpg",
             alt: "A preschooler looks toward the camera while classmates work at wooden tables",
-            // Focal: curly-haired girl's eyes. Mobile crop places them about 200px lower than the tight crop.
+            // Focal: curly-haired girl's eyes. Mobile crop is shifted up 100px with original image below.
             focal: "74% 42%",
             focalMobile: "50% 48%",
           },
@@ -89,7 +89,7 @@ export default function HomePage() {
                 {new Date().getFullYear() - site.founded}
                 <span className="text-sun">+</span>
               </p>
-              <p className="text-sm font-medium text-balance text-white/65">
+              <p className="text-sm font-medium text-balance text-white/65 lg:whitespace-nowrap">
                 <span className="md:hidden"><T k="home.badge.years.short" /></span>
                 <span className="hidden md:inline"><T k="home.badge.years.title" /></span>
               </p>

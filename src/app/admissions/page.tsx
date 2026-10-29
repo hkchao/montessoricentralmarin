@@ -51,6 +51,9 @@ export default function AdmissionsPage() {
           // Focal: from the sign down to the front steps and forecourt.
           focal: "50% 67%",
           focalMobile: "85% 50%",
+          focalPhone: "35% 100%",
+          phoneFlushBottom: true,
+          phoneShiftDown: true,
         }}
       />
 

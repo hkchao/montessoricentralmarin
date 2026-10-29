@@ -26,7 +26,8 @@ export default function ProgramsPage() {
           alt: "Preschoolers smile gently during classroom circle time while a teacher plays guitar",
           // Focal: the row of children's faces.
           focal: "50% 50%",
-          focalMobile: "45% 50%",
+          focalMobile: "100% 100%",
+          mobileFlushEdges: true,
         }}
       />
 

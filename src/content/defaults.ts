@@ -460,14 +460,14 @@ export const defaultContent: SiteContent = {
       focalMobile: "50% 12%",
     },
     "home.hero.slide.paint.mobile": {
-      src: "/images/hero-carousel-paint-mobile-v6.jpg",
+      src: "/images/hero-carousel-paint-mobile-v7.jpg",
       alt: "A preschooler in a star shirt paints at an outdoor easel",
-      width: 1400,
-      height: 1600,
+      width: 720,
+      height: 1280,
       type: "jpg",
-      bytes: 387817,
-      // Wider full-height crop of the original so the mobile frame is less tight.
-      focal: "50% 36%",
+      bytes: 336660,
+      // AI-extended below the original frame so the tall banner has real image behind the awards.
+      focal: "50% 50%",
     },
     "home.hero.slide3": {
       src: "/images/hero-carousel-sandbox.jpg",
@@ -501,13 +501,14 @@ export const defaultContent: SiteContent = {
       focal: "50% 42%",
     },
     "home.hero.slide.sandbox.desktop.smile": {
-      src: "/images/hero-carousel-sandbox-desktop-smile.jpg",
+      src: "/images/hero-carousel-sandbox-desktop-smile-extended-v4.jpg",
       alt: "A smiling toddler plays with toy trucks in an outdoor sandbox",
-      width: 2400,
-      height: 1350,
+      width: 1280,
+      height: 720,
       type: "jpg",
-      bytes: 413182,
-      focal: "67% 48%",
+      bytes: 268620,
+      // Scene shifted left 100px, with the exposed right edge AI-filled.
+      focal: "72% 48%",
       focalMobile: "50% 12%",
     },
     "home.hero.slide.sandbox.mobile.smile": {
@@ -552,13 +553,13 @@ export const defaultContent: SiteContent = {
       focalMobile: "50% 12%",
     },
     "home.hero.slide.classroom.mobile": {
-      src: "/images/hero-carousel-classroom-mobile-v4.jpg",
+      src: "/images/hero-carousel-classroom-mobile-v6.jpg",
       alt: "A preschooler looks toward the camera while classmates work at wooden tables",
       width: 808,
       height: 1212,
       type: "jpg",
-      bytes: 157169,
-      // Recropped from the original so her eyes sit about 200px lower on a phone.
+      bytes: 188001,
+      // Recropped from the original to move the image up 100px without exposing empty space.
       focal: "50% 48%",
     },
     "programs.hero": {
