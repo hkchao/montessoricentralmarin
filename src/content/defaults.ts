@@ -460,13 +460,14 @@ export const defaultContent: SiteContent = {
       focalMobile: "50% 12%",
     },
     "home.hero.slide.paint.mobile": {
-      src: "/images/hero-carousel-paint-mobile-v4.jpg",
+      src: "/images/hero-carousel-paint-mobile-v6.jpg",
       alt: "A preschooler in a star shirt paints at an outdoor easel",
-      width: 1080,
-      height: 1620,
+      width: 1400,
+      height: 1600,
       type: "jpg",
-      bytes: 253292,
-      focal: "50% 0%",
+      bytes: 387817,
+      // Wider full-height crop of the original so the mobile frame is less tight.
+      focal: "50% 36%",
     },
     "home.hero.slide3": {
       src: "/images/hero-carousel-sandbox.jpg",
@@ -551,13 +552,14 @@ export const defaultContent: SiteContent = {
       focalMobile: "50% 12%",
     },
     "home.hero.slide.classroom.mobile": {
-      src: "/images/hero-carousel-classroom-mobile-v3.jpg",
+      src: "/images/hero-carousel-classroom-mobile-v4.jpg",
       alt: "A preschooler looks toward the camera while classmates work at wooden tables",
-      width: 1080,
-      height: 1620,
+      width: 808,
+      height: 1212,
       type: "jpg",
-      bytes: 217467,
-      focal: "50% 12%",
+      bytes: 157169,
+      // Recropped from the original so her eyes sit about 200px lower on a phone.
+      focal: "50% 48%",
     },
     "programs.hero": {
       src: "/images/hero-circle-time-wide.jpg",

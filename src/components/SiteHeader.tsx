@@ -16,7 +16,6 @@ export function SiteHeader() {
   const isHome = pathname === "/";
   // Public pages: white nav floats over the dark hero until the user scrolls. Admin stays solid.
   const overHero = !pathname.startsWith("/admin") && !scrolled && !open;
-
   const close = () => setOpen(false);
 
   useEffect(() => {
@@ -36,19 +35,21 @@ export function SiteHeader() {
   return (
     <>
     <header
-      className={`fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,box-shadow,color] duration-300 ${
+      className={`fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,box-shadow,color] duration-300 ${
         overHero
-          ? "border-transparent bg-transparent text-white [text-shadow:0_1px_2px_rgb(12_23_65/0.45)]"
-          : open
-            ? "border-line bg-cream"
-            : "border-line bg-cream/90 shadow-[0_1px_0_rgb(20_36_94/0.04)] backdrop-blur-md"
+          ? "border-b border-transparent bg-transparent text-white [text-shadow:0_1px_2px_rgb(12_23_65/0.45)]"
+          : "border-b border-transparent bg-transparent lg:border-line lg:bg-cream/90 lg:shadow-[0_1px_0_rgb(20_36_94/0.04)] lg:backdrop-blur-md"
       }`}
     >
       {/* Equal side columns keep the tab row centered on every page so links don't jump. */}
       <div className="site-wrap grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center md:h-20">
         <div className="col-start-1 justify-self-start">
-          {/* Home keeps tabs only — logo lives out of the floating bar. */}
-          {!isHome && <Logo tone={overHero ? "light" : "dark"} />}
+          {/* Wordmark lives on the desktop bar only — keep phone/tablet heroes clear. */}
+          {(!isHome || !overHero) && (
+            <div className="hidden lg:block">
+              <Logo tone={overHero ? "light" : "dark"} />
+            </div>
+          )}
         </div>
 
         <nav aria-label="Primary" className="col-start-2 hidden justify-self-center lg:block">
@@ -99,8 +100,10 @@ export function SiteHeader() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className={`inline-flex size-11 items-center justify-center rounded-full lg:hidden ${
-              overHero ? "text-white hover:bg-white/10" : "text-navy hover:bg-navy-tint"
+            className={`inline-flex size-11 items-center justify-center rounded-full transition-[background-color,box-shadow,color] duration-300 lg:hidden ${
+              overHero
+                ? "text-white hover:bg-white/10"
+                : "bg-sun text-navy-deep shadow-lift border border-navy/15 hover:bg-sun-deep"
             }`}
           >
             <span className="relative block h-3.5 w-5" aria-hidden="true">
@@ -128,9 +131,9 @@ export function SiteHeader() {
       {/* Sibling of <header>: a fixed panel inside a blurred header would be clipped to the header's box. */}
       <div
         id="mobile-menu"
-        className={`lg:hidden ${open ? "block" : "hidden"} fixed inset-x-0 top-[4.5rem] bottom-0 z-30 overflow-y-auto bg-cream`}
+        className={`lg:hidden ${open ? "block" : "hidden"} fixed inset-0 z-30 overflow-y-auto bg-cream`}
       >
-        <nav aria-label="Mobile" className="site-wrap flex min-h-full flex-col pt-6 pb-24">
+        <nav aria-label="Mobile" className="site-wrap flex min-h-full flex-col pt-24 pb-24">
           <ul className="divide-y divide-line">
             <li>
               <Link href="/" onClick={close} className="block py-4 font-display text-2xl text-navy">

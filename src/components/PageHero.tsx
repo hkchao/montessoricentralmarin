@@ -74,20 +74,24 @@ export function PageHero({
           ) : slides.length === 1 ? (
             <>
               {(primary!.srcMobile || primary!.mobileKey) && (
-                <EditableImage
-                  imageKey={primary!.mobileKey ?? primary!.key ?? ""}
-                  alt={primary!.alt}
-                  controls={false}
-                  fill
-                  priority
-                  sizes="(min-width: 768px) 1px, 100vw"
-                  className="object-cover object-[var(--hero-focal-m)] md:hidden"
-                  style={
-                    {
-                      "--hero-focal-m": primary!.focalMobile ?? "50% 40%",
-                    } as CSSProperties
-                  }
-                />
+                <div className="absolute inset-0 md:hidden">
+                  <div className="absolute inset-x-0 top-0 h-[calc(100%+100px)]">
+                    <EditableImage
+                      imageKey={primary!.mobileKey ?? primary!.key ?? ""}
+                      alt={primary!.alt}
+                      controls={false}
+                      fill
+                      priority
+                      sizes="(min-width: 768px) 1px, 100vw"
+                      className="object-cover object-[var(--hero-focal-m)]"
+                      style={
+                        {
+                          "--hero-focal-m": primary!.focalMobile ?? "50% 40%",
+                        } as CSSProperties
+                      }
+                    />
+                  </div>
+                </div>
               )}
               <EditableImage
                 imageKey={primary!.key ?? primary!.mobileKey ?? ""}
@@ -129,16 +133,24 @@ export function PageHero({
             </>
           ) : (
             <>
-              {/* Mobile: type sits low, scrub rises from the bottom and clears the subject above. */}
-              <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_98%,transparent)_34%,color-mix(in_srgb,var(--color-navy-deep)_82%,transparent)_50%,color-mix(in_srgb,var(--color-navy-deep)_42%,transparent)_64%,transparent_78%)] md:hidden" />
+              {/* Mobile home: title sits high by the burger; scrub from the top + awards band at the bottom. */}
+              {home ? (
+                <>
+                  {/* Soft darken over the photo under the title / awards — no navy fill. */}
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-52 bg-[linear-gradient(to_bottom,rgb(0_0_0/0.55)_0%,rgb(0_0_0/0.28)_55%,transparent_100%)] md:hidden" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(to_top,rgb(0_0_0/0.55)_0%,rgb(0_0_0/0.25)_55%,transparent_100%)] md:hidden" />
+                </>
+              ) : (
+                <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_98%,transparent)_34%,color-mix(in_srgb,var(--color-navy-deep)_82%,transparent)_50%,color-mix(in_srgb,var(--color-navy-deep)_42%,transparent)_64%,transparent_78%)] md:hidden" />
+              )}
               {/* Desktop: strong under the left lockup column, fading out before the subject. */}
               <div className="hero-scrim pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
               {/* Ultrawide: dissolve the plane's right edge into the navy fill. */}
               <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-40 bg-[linear-gradient(to_left,var(--color-navy-deep),transparent)] min-[1600px]:block" />
-              {/* Top scrim so the floating white nav stays readable. */}
-              <div className="hero-scrim pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36" />
+              {/* Top scrim so the floating white nav stays readable (desktop + interior pages). */}
+              <div className={`hero-scrim pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36 ${home ? "max-md:hidden" : ""}`} />
               {below && (
-                <div className="hero-scrim pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-[linear-gradient(to_top,rgb(12_23_65/0.88),transparent)] md:h-48 md:bg-[linear-gradient(to_top,rgb(12_23_65/0.7),transparent)]" />
+                <div className="hero-scrim pointer-events-none absolute inset-x-0 bottom-0 hidden h-48 bg-[linear-gradient(to_top,rgb(12_23_65/0.7),transparent)] md:block" />
               )}
             </>
           )}
@@ -147,24 +159,24 @@ export function PageHero({
 
       <div
         className={`site-wrap relative ${
-          media ? (home ? "pt-[68vw] sm:pt-[46vw]" : "pt-[58vw] sm:pt-[34vw]") : home ? "pt-14" : "pt-12"
-        } ${
-          // Extra top padding clears the fixed floating header that overlays the banner.
-          home
-            ? below
-              ? "pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
-              : "pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
-            : "pb-14 md:pt-28 md:pb-18 lg:pt-32 lg:pb-20"
+          media
+            ? home
+              ? // Mobile home: ends at the MobileCtaBar — title by the burger, awards pinned low.
+                "flex min-h-[calc(100svh-4.25rem)] flex-col justify-between pt-[1.15rem] pb-8 md:block md:min-h-0 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
+              : "pt-[58vw] pb-14 sm:pt-[34vw] md:pt-28 md:pb-18 lg:pt-32 lg:pb-20"
+            : home
+              ? "pt-14 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
+              : "pt-12 pb-14 md:pt-28 md:pb-18 lg:pt-32 lg:pb-20"
         }`}
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
-        <div className={`animate-rise ${home ? "max-w-xl xl:max-w-2xl" : "max-w-lg lg:max-w-xl xl:max-w-2xl"}`}>
+        <div className={`animate-rise ${home ? "max-w-xl pr-14 md:pr-0 xl:max-w-2xl" : "max-w-lg lg:max-w-xl xl:max-w-2xl"}`}>
           {kicker && <p className="kicker text-sun [text-shadow:0_2px_10px_rgb(2_10_38/0.55)]">{kicker}</p>}
           <h1
-            className={`font-display mt-3 font-medium text-balance [text-shadow:0_2px_12px_rgb(2_10_38/0.6)] ${
+            className={`font-display font-medium text-balance [text-shadow:0_2px_12px_rgb(2_10_38/0.6)] ${
               home
-                ? "text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-[3.75rem]"
-                : "text-[2.125rem] leading-[1.05] sm:text-4xl lg:text-5xl"
+                ? "mt-0 text-[2.15rem] leading-[1.02] md:mt-3 md:text-5xl lg:text-[3.75rem]"
+                : "mt-3 text-[2.125rem] leading-[1.05] sm:text-4xl lg:text-5xl"
             }`}
           >
             {title}
@@ -179,8 +191,11 @@ export function PageHero({
             </p>
           )}
           {actions && <div className="mt-7 flex flex-wrap items-center gap-3">{actions}</div>}
-          {below && <div className="mt-8 md:mt-9 lg:mt-10">{below}</div>}
+          {below && <div className="mt-8 hidden md:mt-9 md:block lg:mt-10">{below}</div>}
         </div>
+        {below && home && (
+          <div className="relative z-10 flex w-full justify-center pb-6 md:hidden">{below}</div>
+        )}
       </div>
 
       {/* The media plane sits behind the text layer, so its replace buttons live up here, clear of the lockup. */}
