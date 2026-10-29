@@ -457,7 +457,16 @@ export const defaultContent: SiteContent = {
       bytes: 384679,
       // Focal: painting girl's face; left side AI-extended so easel clears the lockup.
       focal: "72% 42%",
-      focalMobile: "68% 38%",
+      focalMobile: "50% 12%",
+    },
+    "home.hero.slide.paint.mobile": {
+      src: "/images/hero-carousel-paint-mobile-v4.jpg",
+      alt: "A preschooler in a star shirt paints at an outdoor easel",
+      width: 1080,
+      height: 1620,
+      type: "jpg",
+      bytes: 253292,
+      focal: "50% 0%",
     },
     "home.hero.slide3": {
       src: "/images/hero-carousel-sandbox.jpg",
@@ -498,16 +507,16 @@ export const defaultContent: SiteContent = {
       type: "jpg",
       bytes: 413182,
       focal: "67% 48%",
-      focalMobile: "50% 42%",
+      focalMobile: "50% 12%",
     },
     "home.hero.slide.sandbox.mobile.smile": {
-      src: "/images/hero-carousel-sandbox-mobile-smile.jpg",
+      src: "/images/hero-carousel-sandbox-mobile-smile-v4.jpg",
       alt: "A smiling toddler plays with toy trucks in an outdoor sandbox",
-      width: 1600,
-      height: 1200,
+      width: 1080,
+      height: 1620,
       type: "jpg",
-      bytes: 298434,
-      focal: "50% 42%",
+      bytes: 303062,
+      focal: "50% 0%",
     },
     "home.hero.slide4": {
       src: "/images/hero-carousel-classroom-ext.jpg",
@@ -539,7 +548,16 @@ export const defaultContent: SiteContent = {
       bytes: 236257,
       // Focal: curly-haired girl's eyes; seamless quiet classroom space fills the left.
       focal: "74% 42%",
-      focalMobile: "72% 38%",
+      focalMobile: "50% 12%",
+    },
+    "home.hero.slide.classroom.mobile": {
+      src: "/images/hero-carousel-classroom-mobile-v3.jpg",
+      alt: "A preschooler looks toward the camera while classmates work at wooden tables",
+      width: 1080,
+      height: 1620,
+      type: "jpg",
+      bytes: 217467,
+      focal: "50% 12%",
     },
     "programs.hero": {
       src: "/images/hero-circle-time-wide.jpg",

@@ -48,7 +48,9 @@ export function HeroCarousel({ slides }: Props) {
                   fill
                   priority={i === 0}
                   sizes="(min-width: 768px) 1px, 100vw"
-                  className="object-cover object-[var(--hero-focal-m)] md:hidden"
+                  className={`object-cover object-[var(--hero-focal-m)] md:hidden ${
+                    i === 3 ? "scale-[1.1] origin-[50%_12%]" : ""
+                  }`}
                   style={
                     {
                       "--hero-focal-m": slide.focalMobile ?? "50% 40%",

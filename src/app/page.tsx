@@ -29,29 +29,33 @@ export default function HomePage() {
           },
           {
             key: "home.hero.slide.paint",
+            mobileKey: "home.hero.slide.paint.mobile",
             src: "/images/hero-carousel-paint-ext.jpg",
+            srcMobile: "/images/hero-carousel-paint-mobile-v4.jpg",
             alt: "A preschooler in a star shirt paints at an outdoor easel",
-            // Focal: painting girl's face; left side AI-extended so easel clears the lockup.
+            // Focal: painting girl's face; mobile portrait pins her head in the clear top band.
             focal: "72% 42%",
-            focalMobile: "68% 38%",
+            focalMobile: "50% 0%",
           },
           {
             key: "home.hero.slide.sandbox.desktop.smile",
             mobileKey: "home.hero.slide.sandbox.mobile.smile",
             src: "/images/hero-carousel-sandbox-desktop-smile.jpg",
-            srcMobile: "/images/hero-carousel-sandbox-mobile-smile.jpg",
+            srcMobile: "/images/hero-carousel-sandbox-mobile-smile-v4.jpg",
             alt: "A smiling toddler plays with toy trucks in an outdoor sandbox",
-            // Desktop focal: boy and trucks in the open right half; mobile keeps the tighter crop.
+            // Desktop: boy in open right half; mobile portrait pins his head in the clear top band.
             focal: "67% 48%",
-            focalMobile: "50% 42%",
+            focalMobile: "50% 0%",
           },
           {
             key: "home.hero.slide.classroom.seamless",
+            mobileKey: "home.hero.slide.classroom.mobile",
             src: "/images/hero-carousel-classroom-seamless.jpg",
+            srcMobile: "/images/hero-carousel-classroom-mobile-v3.jpg",
             alt: "A preschooler looks toward the camera while classmates work at wooden tables",
-            // Focal: curly-haired girl's eyes; seamless quiet classroom space fills the left.
+            // Focal: curly-haired girl's eyes; mobile portrait pins her head in the clear top band.
             focal: "74% 42%",
-            focalMobile: "72% 38%",
+            focalMobile: "50% 12%",
           },
         ]}
         below={
