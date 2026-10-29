@@ -130,7 +130,7 @@ export function PageHero({
           ) : (
             <>
               {/* Mobile: type sits low, scrub rises from the bottom and clears the subject above. */}
-              <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_38%,color-mix(in_srgb,var(--color-navy-deep)_55%,transparent)_52%,transparent_66%)] md:hidden" />
+              <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_98%,transparent)_34%,color-mix(in_srgb,var(--color-navy-deep)_82%,transparent)_50%,color-mix(in_srgb,var(--color-navy-deep)_42%,transparent)_64%,transparent_78%)] md:hidden" />
               {/* Desktop: strong under the left lockup column, fading out before the subject. */}
               <div className="hero-scrim pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_right,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_94%,transparent)_26%,color-mix(in_srgb,var(--color-navy-deep)_62%,transparent)_46%,color-mix(in_srgb,var(--color-navy-deep)_12%,transparent)_64%,transparent_78%)] md:block" />
               {/* Ultrawide: dissolve the plane's right edge into the navy fill. */}
@@ -138,7 +138,7 @@ export function PageHero({
               {/* Top scrim so the floating white nav stays readable. */}
               <div className="hero-scrim pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,rgb(12_23_65/0.55),transparent)] md:h-36" />
               {below && (
-                <div className="hero-scrim pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(to_top,rgb(12_23_65/0.7),transparent)] md:h-48" />
+                <div className="hero-scrim pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-[linear-gradient(to_top,rgb(12_23_65/0.88),transparent)] md:h-48 md:bg-[linear-gradient(to_top,rgb(12_23_65/0.7),transparent)]" />
               )}
             </>
           )}
@@ -159,9 +159,9 @@ export function PageHero({
       >
         {/* Lockup width tracks the viewport so the type stops short of the subject (focal ≈ 66–72% x). */}
         <div className={`animate-rise ${home ? "max-w-xl xl:max-w-2xl" : "max-w-lg lg:max-w-xl xl:max-w-2xl"}`}>
-          {kicker && <p className="kicker text-sun [text-shadow:0_2px_7px_rgb(2_10_38/0.3)]">{kicker}</p>}
+          {kicker && <p className="kicker text-sun [text-shadow:0_2px_10px_rgb(2_10_38/0.55)]">{kicker}</p>}
           <h1
-            className={`font-display mt-3 font-medium text-balance [text-shadow:0_2px_8px_rgb(2_10_38/0.32)] ${
+            className={`font-display mt-3 font-medium text-balance [text-shadow:0_2px_12px_rgb(2_10_38/0.6)] ${
               home
                 ? "text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-[3.75rem]"
                 : "text-[2.125rem] leading-[1.05] sm:text-4xl lg:text-5xl"
@@ -171,7 +171,7 @@ export function PageHero({
           </h1>
           {lede && (
             <p
-              className={`mt-5 max-w-md text-pretty text-white/80 [text-shadow:0_2px_7px_rgb(2_10_38/0.28)] lg:max-w-xl ${home ? "text-lg leading-relaxed" : "text-[1.0625rem] leading-relaxed"} ${
+              className={`mt-5 max-w-md text-pretty text-white/80 [text-shadow:0_2px_10px_rgb(2_10_38/0.5)] lg:max-w-xl ${home ? "text-lg leading-relaxed" : "text-[1.0625rem] leading-relaxed"} ${
                 ledeOnMobile ? "block" : "hidden md:block"
               }`}
             >
