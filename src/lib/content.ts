@@ -72,7 +72,11 @@ async function readPublishedPatch(): Promise<ContentPatch> {
 }
 
 // Errors are thrown inside the cache so a failed read is never cached as the live site.
-const getPublishedPatch = unstable_cache(readPublishedPatch, ["site-content"], { tags: ["content"] });
+// Local dev servers never see the invalidation from a publish on Vercel, so they read fresh every time.
+const getPublishedPatch =
+  process.env.NODE_ENV === "development"
+    ? readPublishedPatch
+    : unstable_cache(readPublishedPatch, ["site-content"], { tags: ["content"] });
 
 export async function getDraftPatch(): Promise<ContentPatch> {
   if (!hasBlobToken()) return {};
