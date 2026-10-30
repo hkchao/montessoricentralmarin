@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { ArrowIcon, ButtonLink } from "@/components/Button";
-import { DocButton } from "@/components/admin/DocButton";
+import { DocButton, DocLabel } from "@/components/admin/DocButton";
 import { EditableImage } from "@/components/admin/EditableImage";
 import { T } from "@/components/T";
 import { programs, site } from "@/lib/site";
@@ -211,8 +211,8 @@ export default function HomePage() {
             <span className="block font-display text-xl font-medium text-navy"><T k="home.calendar.title" /></span>
             <span className="mt-1 block"><T k="home.calendar.body" /></span>
           </p>
-          <DocButton docKey="calendar" variant="primary" size="lg" className="shrink-0 whitespace-nowrap">
-            <T k="home.calendar.cta" />
+          <DocButton docKey="calendar" variant="primary" size="lg" className="max-w-full shrink-0 text-center sm:max-w-sm">
+            <T k="home.calendar.cta" /> <DocLabel docKey="calendar" />
           </DocButton>
         </aside>
       </Section>

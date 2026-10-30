@@ -74,7 +74,7 @@ export const defaultContent: SiteContent = {
     "home.curriculum.cta": "All curriculum",
     "home.calendar.title": "2026-27 school calendar",
     "home.calendar.body": "holidays, closures, and key dates.",
-    "home.calendar.cta": "Download 2026-27 calendar (PDF)",
+    "home.calendar.cta": "Download",
 
     "programs.hero.title": "Our Programs",
     "programs.hero.lede": "Ages 2-6. Same curriculum in every schedule.",
@@ -230,7 +230,7 @@ export const defaultContent: SiteContent = {
       "Acceptance is first come, first served. We will let you know when we have received your application and when to expect a response regarding acceptance. After acceptance, please submit the full enrollment packet which will be emailed to you or you can download below.",
     "admissions.tuition.kicker": "Tuition",
     "admissions.tuition.title": "Tuition and sibling discount",
-    "admissions.tuition.cta": "Download 2026-27 tuition (PDF)",
+    "admissions.tuition.cta": "Download",
     "admissions.tuition.payment.title": "Payment schedule",
     "admissions.tuition.payment.body":
       "Nine monthly payments, September 1 through May 1. The $500 enrollment deposit is applied to your child's final school-year month of enrollment before graduation or withdrawal.",

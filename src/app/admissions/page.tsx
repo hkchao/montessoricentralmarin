@@ -116,8 +116,8 @@ export default function AdmissionsPage() {
             <SectionHeading kicker={<T k="admissions.tuition.kicker" />} title={<T k="admissions.tuition.title" />} />
           </div>
           <div className="lg:col-span-5 lg:justify-self-end">
-            <DocButton docKey="tuition" variant="navy" size="lg">
-              <T k="admissions.tuition.cta" />
+            <DocButton docKey="tuition" variant="navy" size="lg" className="text-center">
+              <T k="admissions.tuition.cta" /> <DocLabel docKey="tuition" />
             </DocButton>
           </div>
         </div>
