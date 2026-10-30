@@ -5,6 +5,7 @@ import { draftMode } from "next/headers";
 import { unstable_cache } from "next/cache";
 import { defaultContent, type SiteContent } from "@/content/defaults";
 import { hasAdminSession } from "@/lib/admin-session";
+import { commitPublished } from "@/lib/git-sync";
 
 export type ContentPatch = Partial<{
   text: Record<string, string>;
@@ -125,7 +126,9 @@ export async function publishPatch(patch: ContentPatch) {
   await writeVersion(PUBLISHED_PREFIX, next, PUBLISHED_HISTORY);
   await clearDraft();
   await del([LEGACY_PUBLISHED_PATH, LEGACY_DRAFT_PATH]).catch(() => {});
+  const git = await commitPublished(next, patch);
   await cleanupUnreferencedUploads(next);
+  return git;
 }
 
 export async function clearDraft() {

@@ -34,6 +34,12 @@ npm run start
 
 The settings panel includes a test-email button. Environment variables still work as a fallback/bootstrap path (see `.env.example`): `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL`. Without a saved/admin or environment API key, the form shows a friendly "please call or email" message instead of pretending to send.
 
+## Admin publish and git
+
+Publishing in admin updates the live site from Vercel Blob immediately. When `GITHUB_SYNC_TOKEN` is set, each publish also commits a copy to GitHub: `src/content/published.json` (every admin override, with uploads pointed at their git copies) and the uploaded PDFs and images under `public/uploads/`. `vercel.json` skips the Vercel build for commits that only touch those paths, since the site already reads them from Blob. If the commit fails, the publish still goes live and admin shows a warning.
+
+Run `git pull` before editing locally so admin commits don't conflict with your work.
+
 ## Updating content
 
 - **New school year PDFs**: drop files in `public/docs/` and update `docs` in `src/lib/site.ts`.
