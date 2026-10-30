@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/Section";
 import { ArrowIcon, ButtonLink } from "@/components/Button";
-import { DocButton, DocDownloadLink } from "@/components/admin/DocButton";
+import { DocButton, DocDownloadLink, DocLabel } from "@/components/admin/DocButton";
 import { EditableImage } from "@/components/admin/EditableImage";
 import { PhoneLink, EmailLink } from "@/components/ContactBits";
 import { T } from "@/components/T";
-import { admissionSteps, docs, primaryCta, site } from "@/lib/site";
+import { admissionSteps, primaryCta, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Admissions",
@@ -34,7 +34,7 @@ function DocIcon() {
 }
 
 export default function AdmissionsPage() {
-  const downloads = [docs.application, docs.enrollment, docs.reEnrollment, docs.tuition, docs.calendar];
+  const downloads = ["application", "enrollment", "reEnrollment", "tuition", "calendar"] as const;
 
   return (
     <>
@@ -156,14 +156,14 @@ export default function AdmissionsPage() {
             </p>
           </div>
           <ul className="grid gap-3 self-start lg:col-span-7">
-            {downloads.map((d) => (
-              <li key={d.href}>
+            {downloads.map((docKey) => (
+              <li key={docKey}>
                 <DocDownloadLink
-                  docKey={Object.entries(docs).find(([, doc]) => doc.href === d.href)?.[0] ?? "calendar"}
+                  docKey={docKey}
                   className="group flex items-center gap-4 rounded-2xl border border-line bg-cream px-5 py-4 transition-[transform,box-shadow,border-color] hover:-translate-y-0.5 hover:border-navy/30 hover:shadow-soft"
                 >
                   <DocIcon />
-                  <span className="flex-1 font-semibold text-navy">{d.label}</span>
+                  <span className="flex-1 font-semibold text-navy"><DocLabel docKey={docKey} /></span>
                   <span className="text-xs font-semibold uppercase tracking-wider text-muted">
                     <T k="admissions.downloads.type" />
                   </span>
