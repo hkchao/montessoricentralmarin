@@ -112,7 +112,10 @@ export function ContentProvider({
     setStatus("saving");
     setError(undefined);
     try {
-      await publishAction(diff(latest.current, published));
+      const result = await publishAction(diff(latest.current, published));
+      if (result.git.status === "failed") {
+        window.alert(`Published to the site, but saving a copy to git failed:\n${result.git.error}`);
+      }
       return true;
     } catch (err) {
       setStatus("error");

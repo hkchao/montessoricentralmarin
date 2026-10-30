@@ -133,9 +133,9 @@ export async function saveDraftAction(patch: ContentPatch) {
 
 export async function publishAction(patch: ContentPatch) {
   await requireAdmin();
-  await publishPatch(patch);
+  const git = await publishPatch(patch);
   updateTag("content");
-  return { ok: true };
+  return { ok: true, git };
 }
 
 export async function revertAction() {
