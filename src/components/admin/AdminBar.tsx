@@ -6,7 +6,6 @@ import { useEffect, useMemo, useRef, useState, useSyncExternalStore, useTransiti
 import {
   getTourMailStatusAction,
   logoutAction,
-  publishAction,
   revertAction,
   saveTourMailSettingsAction,
   sendTourMailTestAction,
@@ -73,7 +72,7 @@ function clampPos(pos: Pos, el: HTMLElement): Pos {
 }
 
 export function AdminBar() {
-  const { editing, status, changeCount, error, flush } = useContent();
+  const { editing, status, changeCount, error, flush, publish } = useContent();
   const pathname = usePathname();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -275,9 +274,7 @@ export function AdminBar() {
             if (!changeCount || pending) return;
             if (window.confirm(`Publish ${changes}?`)) {
               startTransition(async () => {
-                await flush();
-                await publishAction();
-                window.location.reload();
+                if (await publish()) window.location.reload();
               });
             }
           }}
@@ -342,9 +339,8 @@ export function AdminBar() {
             disabled={pending}
             onClick={() => {
               startTransition(async () => {
-                await flush();
-                await publishAction();
-                await logoutAction();
+                if (await publish()) await logoutAction();
+                else setDialog(null);
               });
             }}
             className="rounded-full bg-sun px-5 py-2.5 text-sm font-semibold text-navy-deep hover:bg-[#e5a92f] disabled:opacity-60"

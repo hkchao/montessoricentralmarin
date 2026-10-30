@@ -1,6 +1,6 @@
 import "server-only";
 
-import { del, list, put } from "@vercel/blob";
+import { del, get, list, put } from "@vercel/blob";
 import { draftMode } from "next/headers";
 import { unstable_cache } from "next/cache";
 import { defaultContent, type SiteContent } from "@/content/defaults";
@@ -12,8 +12,13 @@ export type ContentPatch = Partial<{
   images: SiteContent["images"];
 }>;
 
-const PUBLISHED_PATH = "content/published.json";
-const DRAFT_PATH = "content/draft.json";
+// Blob reads lag behind overwrites of the same pathname, even uncached, so every save writes a new
+// timestamped file and readers take the newest one in the folder.
+const PUBLISHED_PREFIX = "content/published/";
+const DRAFT_PREFIX = "content/draft/";
+const LEGACY_PUBLISHED_PATH = "content/published.json";
+const LEGACY_DRAFT_PATH = "content/draft.json";
+const PUBLISHED_HISTORY = 5;
 
 function hasBlobToken() {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
@@ -30,33 +35,66 @@ function mergeContent(...parts: (SiteContent | ContentPatch | null | undefined)[
   );
 }
 
-async function readBlobJson<T>(pathname: string): Promise<T | null> {
-  if (!hasBlobToken()) return null;
+async function listVersions(prefix: string) {
+  const result = await list({ prefix, limit: 1000 });
+  return result.blobs.sort((a, b) => a.pathname.localeCompare(b.pathname));
+}
+
+async function readLatest(prefix: string): Promise<ContentPatch | null> {
+  const newest = (await listVersions(prefix)).at(-1);
+  if (!newest) return null;
+  const res = await fetch(newest.url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Unable to read ${newest.pathname} (${res.status})`);
+  return (await res.json()) as ContentPatch;
+}
+
+async function readLegacy(pathname: string): Promise<ContentPatch | null> {
+  const result = await get(pathname, { access: "public", useCache: false });
+  if (!result || result.statusCode !== 200) return null;
+  return (await new Response(result.stream).json()) as ContentPatch;
+}
+
+async function writeVersion(prefix: string, patch: ContentPatch, keep: number) {
+  const pathname = `${prefix}${String(Date.now()).padStart(15, "0")}.json`;
+  await put(pathname, JSON.stringify(patch, null, 2), {
+    access: "public",
+    addRandomSuffix: false,
+    contentType: "application/json",
+  });
+  const older = (await listVersions(prefix)).filter((blob) => blob.pathname < pathname);
+  const stale = older.slice(0, Math.max(0, older.length - (keep - 1)));
+  if (stale.length) await del(stale.map((blob) => blob.url));
+}
+
+async function readPublishedPatch(): Promise<ContentPatch> {
+  if (!hasBlobToken()) return {};
+  return (await readLatest(PUBLISHED_PREFIX)) ?? (await readLegacy(LEGACY_PUBLISHED_PATH)) ?? {};
+}
+
+// Errors are thrown inside the cache so a failed read is never cached as the live site.
+// Local dev servers never see the invalidation from a publish on Vercel, so they read fresh every time.
+const getPublishedPatch =
+  process.env.NODE_ENV === "development"
+    ? readPublishedPatch
+    : unstable_cache(readPublishedPatch, ["site-content"], { tags: ["content"] });
+
+export async function getDraftPatch(): Promise<ContentPatch> {
+  if (!hasBlobToken()) return {};
   try {
-    const result = await list({ prefix: pathname, limit: 1 });
-    const blob = result.blobs.find((item) => item.pathname === pathname);
-    if (!blob) return null;
-    const res = await fetch(`${blob.url}?v=${blob.uploadedAt.getTime()}`, { cache: "no-store" });
-    if (!res.ok) return null;
-    return (await res.json()) as T;
+    return (await readLatest(DRAFT_PREFIX)) ?? {};
   } catch (err) {
-    console.warn(`[content] unable to read ${pathname}`, err);
-    return null;
+    console.warn("[content] unable to read draft", err);
+    return {};
   }
 }
 
-const getPublishedPatch = unstable_cache(
-  async () => (await readBlobJson<ContentPatch>(PUBLISHED_PATH)) ?? {},
-  ["site-content"],
-  { tags: ["content"] },
-);
-
-export async function getDraftPatch() {
-  return (await readBlobJson<ContentPatch>(DRAFT_PATH)) ?? {};
-}
-
 export async function getPublishedContent() {
-  return mergeContent(defaultContent, await getPublishedPatch());
+  try {
+    return mergeContent(defaultContent, await getPublishedPatch());
+  } catch (err) {
+    console.warn("[content] unable to read published content", err);
+    return defaultContent;
+  }
 }
 
 export async function getContent() {
@@ -76,46 +114,23 @@ export async function writeDraft(patch: ContentPatch) {
   if (!hasBlobToken()) {
     throw new Error("BLOB_READ_WRITE_TOKEN is not configured.");
   }
-  const empty =
-    !Object.keys(patch.text ?? {}).length &&
-    !Object.keys(patch.docs ?? {}).length &&
-    !Object.keys(patch.images ?? {}).length;
-  if (empty) {
-    await deleteDraft();
-    return;
-  }
-  await put(DRAFT_PATH, JSON.stringify(patch, null, 2), {
-    access: "public",
-    allowOverwrite: true,
-    contentType: "application/json",
-    cacheControlMaxAge: 0,
-  });
+  await writeVersion(DRAFT_PREFIX, patch, 1);
 }
 
-export async function publishDraft() {
+export async function publishPatch(patch: ContentPatch) {
   if (!hasBlobToken()) {
     throw new Error("BLOB_READ_WRITE_TOKEN is not configured.");
   }
-  const publishedPatch = await getPublishedPatch();
-  const draftPatch = await getDraftPatch();
-  const next = mergeContent(publishedPatch as ContentPatch, draftPatch);
-  await put(PUBLISHED_PATH, JSON.stringify(next, null, 2), {
-    access: "public",
-    allowOverwrite: true,
-    contentType: "application/json",
-    cacheControlMaxAge: 0,
-  });
-  await deleteDraft();
+  const next = mergeContent(await readPublishedPatch(), patch);
+  await writeVersion(PUBLISHED_PREFIX, next, PUBLISHED_HISTORY);
+  await clearDraft();
+  await del([LEGACY_PUBLISHED_PATH, LEGACY_DRAFT_PATH]).catch(() => {});
   await cleanupUnreferencedUploads(next);
 }
 
-export async function deleteDraft() {
+export async function clearDraft() {
   if (!hasBlobToken()) return;
-  try {
-    await del(DRAFT_PATH);
-  } catch {
-    // Missing drafts are fine.
-  }
+  await writeVersion(DRAFT_PREFIX, {}, 1);
 }
 
 async function cleanupUnreferencedUploads(content: SiteContent) {
