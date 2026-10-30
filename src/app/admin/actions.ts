@@ -5,10 +5,10 @@ import { draftMode, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { updateTag } from "next/cache";
 import {
-  deleteDraft,
+  clearDraft,
   getDraftPatch,
   getPublishedContent,
-  publishDraft,
+  publishPatch,
   writeDraft,
   type ContentPatch,
 } from "@/lib/content";
@@ -131,16 +131,16 @@ export async function saveDraftAction(patch: ContentPatch) {
   return { ok: true };
 }
 
-export async function publishAction() {
+export async function publishAction(patch: ContentPatch) {
   await requireAdmin();
-  await publishDraft();
+  await publishPatch(patch);
   updateTag("content");
   return { ok: true };
 }
 
 export async function revertAction() {
   await requireAdmin();
-  await deleteDraft();
+  await clearDraft();
   return { ok: true };
 }
 

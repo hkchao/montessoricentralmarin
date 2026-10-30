@@ -12,7 +12,7 @@ import {
   useTransition,
   type ReactNode,
 } from "react";
-import { saveDraftAction } from "@/app/admin/actions";
+import { publishAction, saveDraftAction } from "@/app/admin/actions";
 import type { ContentPatch } from "@/lib/content";
 import type { DocContent, ImageContent, SiteContent } from "@/content/defaults";
 
@@ -30,6 +30,7 @@ type ContentContextValue = {
   updateImage: (key: string, image: ImageContent) => void;
   undo: (kind: keyof ContentPatch, key: string) => void;
   flush: () => Promise<void>;
+  publish: () => Promise<boolean>;
 };
 
 const ContentContext = createContext<ContentContextValue | null>(null);
@@ -91,6 +92,7 @@ export function ContentProvider({
 
   const flush = useCallback(async () => {
     if (!editing) return;
+    if (timer.current) clearTimeout(timer.current);
     const next = diff(latest.current, published);
     setStatus("saving");
     setError(undefined);
@@ -100,6 +102,22 @@ export function ContentProvider({
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Unable to save.");
+    }
+  }, [editing, published]);
+
+  // Publishes the editor's own changes rather than the saved draft, which may not be readable yet.
+  const publish = useCallback(async () => {
+    if (!editing) return false;
+    if (timer.current) clearTimeout(timer.current);
+    setStatus("saving");
+    setError(undefined);
+    try {
+      await publishAction(diff(latest.current, published));
+      return true;
+    } catch (err) {
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Unable to publish.");
+      return false;
     }
   }, [editing, published]);
 
@@ -182,6 +200,7 @@ export function ContentProvider({
     updateImage,
     undo,
     flush,
+    publish,
   };
 
   return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;
