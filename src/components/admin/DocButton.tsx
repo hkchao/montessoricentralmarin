@@ -18,6 +18,15 @@ function uploadPath(file: File) {
   return `docs/${Date.now()}-${clean}`;
 }
 
+function labelFromFileName(name: string) {
+  return name.replace(/\.pdf$/i, "").replace(/_+/g, " ").replace(/\s+/g, " ").trim() || name;
+}
+
+export function DocLabel({ docKey }: { docKey: string }) {
+  const { content } = useContent();
+  return <>{content.docs[docKey]?.label}</>;
+}
+
 export function DocButton({ docKey, children, variant, size, className }: ButtonProps) {
   const { content, editing, updateDoc } = useContent();
   const input = useRef<HTMLInputElement>(null);
@@ -66,7 +75,7 @@ export function DocButton({ docKey, children, variant, size, className }: Button
               clientPayload: JSON.stringify({ kind: "doc", docKey }),
               contentType: "application/pdf",
             });
-            updateDoc(docKey, { ...doc, href: blob.url, fileName: file.name });
+            updateDoc(docKey, { ...doc, href: blob.url, fileName: file.name, label: labelFromFileName(file.name) });
             setMessage("Replaced, unpublished.");
           } catch (err) {
             setMessage(err instanceof Error ? err.message : "Upload failed.");
@@ -123,7 +132,7 @@ export function DocDownloadLink({
               clientPayload: JSON.stringify({ kind: "doc", docKey }),
               contentType: "application/pdf",
             });
-            updateDoc(docKey, { ...doc, href: blob.url, fileName: file.name });
+            updateDoc(docKey, { ...doc, href: blob.url, fileName: file.name, label: labelFromFileName(file.name) });
             setMessage("Replaced");
           } catch {
             setMessage("Upload failed");
