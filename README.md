@@ -26,13 +26,7 @@ npm run start
 
 ## Tour request form
 
-`src/app/contact/actions.ts` is a server action that emails tour requests via [Resend](https://resend.com) (no SDK — plain `fetch`). In admin mode, open the gear icon in **Admin Controls** and use **Request a Tour email** settings to set:
-
-- Destination email — defaults to the site contact email.
-- From address — use a verified Resend sender for production.
-- Resend API key — encrypted server-side and never shown again after saving.
-
-The settings panel includes a test-email button. Environment variables still work as a fallback/bootstrap path (see `.env.example`): `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL`. Without a saved/admin or environment API key, the form shows a friendly "please call or email" message instead of pretending to send.
+`src/app/contact/actions.ts` is a server action that emails tour requests via [Resend](https://resend.com) (no SDK — plain `fetch`). The destination (`MSCMOfficeAssistant@gmail.com`) and sender (`MSCM Website <tours@montessoricentralmarin.org>`) are set in `src/lib/tour-mail.ts`; the sender's domain must stay verified in Resend. The API key comes from the `RESEND_API_KEY` environment variable on Vercel. Without it, the form shows a friendly "please call or email" message instead of pretending to send.
 
 ## Admin publish and git
 

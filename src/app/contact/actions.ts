@@ -1,7 +1,7 @@
 "use server";
 
 import { getPublishedContent, textOf } from "@/lib/content";
-import { defaultTourFromEmail, getTourMailSettings } from "@/lib/tour-mail";
+import { TOUR_MAIL_FROM, TOUR_MAIL_TO } from "@/lib/tour-mail";
 
 export type TourFormState = {
   status: "idle" | "success" | "error";
@@ -44,10 +44,7 @@ export async function submitTourRequest(_prev: TourFormState, formData: FormData
     return { status: "error", message: textOf(content, "form.error.generic"), errors };
   }
 
-  const tourMail = await getTourMailSettings();
-  const apiKey = tourMail.apiKey || process.env.RESEND_API_KEY;
-  const to = tourMail.toEmail || process.env.CONTACT_TO_EMAIL || email;
-  const from = tourMail.fromEmail || process.env.CONTACT_FROM_EMAIL || defaultTourFromEmail();
+  const apiKey = process.env.RESEND_API_KEY;
 
   if (!apiKey) {
     console.warn("[contact] RESEND_API_KEY not set — tour request not delivered:", data);
@@ -76,8 +73,8 @@ export async function submitTourRequest(_prev: TourFormState, formData: FormData
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from,
-        to: [to],
+        from: TOUR_MAIL_FROM,
+        to: [TOUR_MAIL_TO],
         reply_to: data.email,
         subject: `Tour request — ${data.parentName} (child age ${data.childAge})`,
         text,
